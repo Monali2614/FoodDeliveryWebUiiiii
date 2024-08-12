@@ -1,0 +1,297 @@
+.menu-container {
+  padding: 20px;
+  background: linear-gradient(135deg, #faf9f9, #ffffff); /* Soft gradient background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  max-width: 1300px; /* Set a max width to keep it from stretching too far */
+  margin: 0 auto; /* Center the container */
+  border: 1px solid #ddd; /* Light border for definition */
+  overflow: hidden; /* Contain any floating elements */
+}
+
+.menu-container h1 {
+  font-family: 'Roboto', sans-serif; /* Modern font */
+  font-size: 2.5rem; /* Large title size */
+  color: #0b0c0f; /* Dark text color */
+  text-align: center; /* Center the title */
+  margin-bottom: 20px; /* Space below the title */
+  font-weight: bold;
+}
+
+.toggle-switch-container {
+  display: flex;
+  justify-content: center; /* Center the buttons */
+  align-items: center; /* Vertically center the buttons */
+  gap: 10px; /* Space between buttons */
+  margin: 20px 0; /* Space above and below the buttons */
+}
+
+.filter-btn {
+  background-color: #e0e0e0; /* Default background color */
+  color: #000; /* Default text color */
+  border: none;
+  border-radius: 25px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 5px;
+}
+
+
+.filter-btn:hover {
+  background-color: #0dac2a; /* Lighten on hover */
+}
+
+.active.veg-btn {
+  background-color: #28a745; /* Active color for Veg */
+  color: rgb(233, 238, 232);
+}
+
+.active.non-veg-btn {
+  background-color: #dc3545; /* Active color for Non-Veg */
+  color: rgb(249, 241, 241);
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  gap: 20px; /* Space between cards */
+  justify-content: center; /* Center the cards */
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: calc(33.333% - 20px); /* Responsive card width */
+  max-width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-10px); /* Slight lift on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.card-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  flex-grow: 1;
+}
+
+.card-content h2 {
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.card-content p {
+  font-size: 1rem;
+  color: #777;
+  margin: 5px 0;
+}
+
+.add-to-cart-btn {
+  background-color: #007bff; /* Button color */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 50%;
+  padding: 10px 15px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto; /* Center the button within the card */
+}
+
+.add-to-cart-btn:hover {
+  background-color: #0056b3; /* Darker color on hover */
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-right: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.veg .slider {
+  background-color: green;
+}
+
+.non-veg .slider {
+  background-color: red;
+}
+
+.veg input:checked + .slider {
+  background-color: green;
+}
+
+.non-veg input:checked + .slider {
+  background-color: red;
+}
+
+.card-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+
+
+
+.filter-btn {
+  color: #fff; /* Default text color */
+  border: none;
+  border-radius: 25px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 5px;
+}
+
+/* Veg Button */
+.veg-btn {
+  background-color: #28a745; /* Green background for Veg */
+}
+
+.veg-btn:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* Non-Veg Button */
+.non-veg-btn {
+  background-color: #dc3545; /* Red background for Non-Veg */
+}
+
+.non-veg-btn:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+/* Active States */
+.active.veg-btn {
+  background-color: #218838; /* Darker green when active */
+}
+
+.active.non-veg-btn {
+  background-color: #c82333; /* Darker red when active */
+}
+
+
+
+
+.filter-btn {
+  color: #fff; /* Text color */
+  border: 2px solid transparent;
+  border-radius: 30px;
+  padding: 12px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.4s ease;
+  margin: 5px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Box shadow */
+}
+
+/* Veg Button */
+.veg-btn {
+  background: linear-gradient(45deg, #4caf50, #2e7d32); /* Gradient background */
+  border: 2px solid #4caf50; /* Border matching the gradient */
+}
+
+.veg-btn:hover {
+  background: linear-gradient(45deg, #45a049, #2e7d32); /* Slightly lighter gradient on hover */
+  border-color: #45a049; /* Border color on hover */
+  transform: scale(1.05); /* Slight scale effect on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+/* Non-Veg Button */
+.non-veg-btn {
+  background: linear-gradient(45deg, #e53935, #b71c1c); /* Gradient background */
+  border: 2px solid #e53935; /* Border matching the gradient */
+}
+
+.non-veg-btn:hover {
+  background: linear-gradient(45deg, #d32f2f, #b71c1c); /* Slightly lighter gradient on hover */
+  border-color: #d32f2f; /* Border color on hover */
+  transform: scale(1.05); /* Slight scale effect on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+/* Active State */
+.active {
+  filter: brightness(1.2); /* Brighten the button when active */
+}
+
+/* Ripple Effect */
+.filter-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transition: all 0.6s ease;
+  transform: translate(-50%, -50%) scale(0);
+  z-index: 0;
+}
+
+.filter-btn:active::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+
+
+.gradient-btn {
+  background: linear-gradient(45deg, #0eba28, #e70909);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.gradient-btn:hover {
+  background: linear-gradient(45deg, #d4a5a5, #ff6f61);
+}
+
+.menu-image {
+  width: 100%;
+  height: auto;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}

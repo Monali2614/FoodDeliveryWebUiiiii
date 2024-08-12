@@ -1,0 +1,99 @@
+.loginmain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: url('/assets/editprofile.jpeg') no-repeat center center;
+  background-size: cover;
+}
+
+.logincontainer {
+  width: 100%;
+  max-width: 400px;
+}
+
+.logwraper {
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+.formwraper {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.formwraper input {
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: border-color 0.3s ease-in-out;
+  outline: none;
+}
+.formwraper select {
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: border-color 0.3s ease-in-out;
+  outline: none;
+}
+
+.formwraper input:focus {
+  border-color: #ff4500;
+}
+.formwraper input::placeholder {
+ color: #2e2e2e;
+}
+
+.formwraper button {
+  background-color: rgb(255, 36, 36);
+  color: #fff;
+  font-weight: 300;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.formwraper button:hover {
+  background-color: rgb(54, 54, 54);
+}
+
+.formwraper p{
+font-size: 15px;
+}
+
+.close-btn {
+  background-color: transparent; /* No background */
+  border: none; /* No border */
+  color: #000; /* Text color */
+  font-size: 1.9rem; /* Icon size */
+  cursor: pointer; /* Pointer cursor on hover */
+  padding: 0.5rem; /* Padding for better click area */
+  outline: none; /* No outline */
+  position: absolute; /* Absolute positioning */
+  top: 10px; /* Position from the top */
+  left: 780px; /* Position from the left */
+  display: flex; /* Flexbox for alignment */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+}
+
+.close-btn:hover {
+  color: #ff0000; /* Change color on hover */
+}
+
+.close-btn span {
+  display: inline-block; /* Inline block for span */
+}

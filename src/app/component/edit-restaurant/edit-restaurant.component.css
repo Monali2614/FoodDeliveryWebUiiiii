@@ -1,0 +1,44 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+.container {
+  padding: 0; /* Remove padding from the container */
+  margin: 0; /* Remove margin from the container */
+}
+
+.card {
+  margin-top: 20px; /* Adjust as needed, but ensure it's consistent */
+  padding: 0; /* Remove padding if not needed */
+}
+
+.card-header, .card-body {
+  padding: 1rem; /* Adjust padding inside card components if needed */
+}
+
+.form-group {
+  margin-bottom: 1rem; /* Adjust spacing between form groups */
+}
+
+.input-group {
+  margin-top: 1rem; /* Adjust spacing for input groups */
+}
+
+.text-right {
+  text-align: right; /* Ensure alignment for action buttons */
+}
+
+.btn-group {
+  margin-left: 0.5rem; /* Adjust spacing between buttons if needed */
+}
+
+.list-group-item {
+  padding: 0.75rem 1.25rem; /* Adjust padding inside list group items */
+}
+
+.float-right {
+  float: right; /* Ensure that buttons float to the right */
+}

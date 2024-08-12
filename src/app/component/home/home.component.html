@@ -1,0 +1,41 @@
+<app-header></app-header>
+
+<div class="center-content">
+  <h3 class="brand-title">Food Brand</h3>
+  <h5>Discover The Food and Drink</h5>
+  <app-searchrestaurantbyitem></app-searchrestaurantbyitem>
+</div>
+
+<div class="slider">
+  <div class="slides" [style.transform]="'translateX(' + (-activeSlideIndex * 100) + '%)'">
+    <div class="slide" *ngFor="let image of images">
+      <img [src]="image" alt="Image">
+    </div>
+  </div>
+  <button class="prev" (click)="prevSlide()">&#10094;</button>
+  <button class="next" (click)="nextSlide()">&#10095;</button>
+</div>
+
+<h2 class="section-title">Cuisines</h2>
+<div class="boxes-container">
+  <div class="box" *ngFor="let box of boxes" (click)="onBoxClick(box)">
+    <img [src]="box.image" alt="{{ box.title }}">
+    <h3>{{ box.title }}</h3>
+  </div>
+</div>
+
+<div class="container">
+ 
+  <div class="menu-grid">
+    <!-- <div class="menu-item" *ngFor="let menu of popularMenus" (click)="onMenuClick(menu)">
+      <i class="heart-icon" 
+         [ngClass]="{'in-wishlist': isInWishlist(menu)}" 
+         (click)="toggleWishlist(menu); $event.stopPropagation()">&#9829;</i>
+      <h3>{{ menu.itemName }}</h3>
+      <p>{{ menu.description }}</p>
+      <p>{{ menu.price | currency:'INR' }}</p>
+    </div> -->
+  </div>
+</div>
+
+<app-footer></app-footer>

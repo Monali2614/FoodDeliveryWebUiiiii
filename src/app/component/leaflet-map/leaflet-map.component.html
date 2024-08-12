@@ -1,0 +1,8 @@
+<button (click)="getCurrentLocation()"> 
+    <i class="location-icon">📍</i> Get Location
+  </button>
+  <div id="map" style="height: 500px; width: 100%;"></div>
+  <div *ngIf="latitude !== undefined && longitude !== undefined">
+    <p>Latitude: {{ latitude }}</p>
+    <p>Longitude: {{ longitude }}</p>
+  </div>

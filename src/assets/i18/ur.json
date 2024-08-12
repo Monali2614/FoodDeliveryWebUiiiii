@@ -1,0 +1,31 @@
+{
+    "HEADER": {
+      "LOGIN": "لاگ ان",
+      "WISHLIST": "خواہش کی فہرست",
+      "CHATBOX": "چیٹ باکس",
+      "PROFILE": "پروفائل",
+      "REGISTER": "رجسٹر",
+      "LANGUAGE": "زبان"
+    },
+    "FOOTER": {
+      "GET_CONNECTED": "ہم سے سوشل نیٹ ورکس پر جڑیں:",
+      "ABOUT_US": "ہم کون ہیں",
+      "BLOG": "بلاگ",
+      "WORK_WITH_US": "ہمارے ساتھ کام کریں",
+      "REPORT_FRAUD": "فراڈ کی رپورٹ",
+      "CONTACT_US": "ہم سے رابطہ کریں",
+      "FOOD": "کھانا",
+      "BLINKIT": "بلنکٹ",
+      "FEEDING_INDIA": "فیدنگ انڈیا",
+      "PARTNER_WITH_US": "ہمارے ساتھ شراکت داری کریں",
+      "PRIVACY": "رازداری",
+      "SECURITY": "سیکورٹی",
+      "TERMS": "شرائط",
+      "SITEMAP": "سائٹ میپ"
+    },
+    "HOME": {
+      "BRAND_TITLE": "فوڈ برانڈ",
+      "DISCOVER": "کھانا اور مشروبات دریافت کریں"
+    }
+  }
+  

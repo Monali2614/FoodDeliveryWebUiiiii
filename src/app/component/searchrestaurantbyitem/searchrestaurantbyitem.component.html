@@ -1,0 +1,28 @@
+<!-- <div class="search-container"> -->
+    
+  <div class="input-container">
+    <input [(ngModel)]="itemName" placeholder="Enter menu item name" />
+    <button (click)="search()">Search</button>
+  </div>
+
+  <div *ngIf="restaurants.length > 0" class="results-container">
+    <!-- <h3>Restaurants with "{{ itemName }}"</h3> -->
+    <ul>
+
+      <li *ngFor="let restaurant of restaurants">
+        
+
+        {{ restaurant.restaurantName }} - {{ restaurant.restaurantAddress }} -  <button class= "btn"(click)="viewMenu(restaurant.restaurantName)"><i class="fa fa-bars">view menu</i></button>
+
+        <!-- <button (click)="viewMenu(restaurant.restaurantName)">View Menu</button> -->
+
+
+      </li>
+    </ul>
+  </div>
+  
+  <div *ngIf="restaurants.length === 0 && itemName.trim() !== ''" class="no-results">
+    <!-- <p>No restaurants found with the menu item "{{ itemName }}".</p> -->
+  </div>
+<!-- </div>
+ -->

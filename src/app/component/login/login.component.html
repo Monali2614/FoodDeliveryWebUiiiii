@@ -1,0 +1,98 @@
+<div class="loginmain">
+  <div class="logincontainer">
+    <div class="logwraper">
+      <h2>Login Here</h2>
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+        <div class="formwraper">
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            required
+            [(ngModel)]="username"
+            name="username"
+            #usernameInput="ngModel"
+            placeholder="Enter your username"
+          />
+          <div
+            *ngIf="usernameInput.invalid && usernameInput.touched"
+            class="error-message"
+          >
+            Username is required.
+          </div>
+
+          <label for="password">Password:</label>
+          <div class="password-container">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              class="form-control"
+              required
+              [(ngModel)]="password"
+              name="password"
+              #passwordInput="ngModel"
+              placeholder="Enter your password"
+            />
+            <div
+              class="input-group-append"
+              id="toggle-password"
+              (click)="togglePassword()"
+            >
+              <img
+                src="assets/eyeopen.jpeg"
+                alt="Show password"
+                style="width: 15px; height: 15px"
+              />
+            </div>
+          </div>
+          <div
+            *ngIf="passwordInput.invalid && passwordInput.touched"
+            class="error-message"
+          >
+            Password is required.
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary mt-5"
+            [disabled]="loginForm.invalid"
+          >
+            Login
+          </button>
+
+          <div
+            *ngIf="errorMessage"
+            class="alert alert-danger mt-5 error-message"
+          >
+            {{ errorMessage }}
+          </div>
+
+          <!-- Spacer for gap between buttons -->
+          <div class="button-spacer"></div>
+
+          <button
+            type="button"
+            (click)="navigateToAdmin()"
+            class="btn btn-link mt-3"
+          >
+            Admin Login
+          </button>
+
+          <div style="display: flex; justify-content: center">
+            <p>
+              Create an account ?
+              <a routerLink="/register" style="color: blue">Sign Up</a>
+            </p>
+          </div>
+          <div style="display: flex; justify-content: center">
+            <p>
+              <a routerLink="/forgotpassword" style="color: blue">Forget Password</a>
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

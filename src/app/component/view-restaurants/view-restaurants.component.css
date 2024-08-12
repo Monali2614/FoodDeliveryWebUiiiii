@@ -1,0 +1,21 @@
+.table {
+    margin-top: 20px;
+  }
+  
+  .card {
+    margin-top: 20px;
+  }
+  
+  .card-header {
+    padding: 20px;
+    background: #0069d9;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .btn-sm {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+  }
+  

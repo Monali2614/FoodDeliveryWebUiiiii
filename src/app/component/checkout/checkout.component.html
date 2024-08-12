@@ -1,0 +1,65 @@
+<div class="checkout-container">
+  <h2>Checkout</h2>
+  
+  <div class="wishlist-container">
+    <div class="wishlist-item" *ngFor="let item of wishlist">
+      <div class="item-details">
+        <h3 class="item-name">{{ item.itemName }}</h3>
+        <p class="item-price">{{ item.price | currency:'INR' }}</p>
+        <span>Quantity: {{ item.quantity }}</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="total-price">
+    <button (click)="calculateTotal()"></button>
+    <h3>Total Price: {{ totalPrice | currency:'INR' }}</h3>
+  </div>
+  
+  <div class="address-section">
+    <div class="address-field">
+      <label for="existing-address">Existing Address:</label>
+      <select id="existing-address" [(ngModel)]="address">
+        <option *ngFor="let addr of existingAddresses" [value]="addr">{{ addr }}</option>
+      </select>
+    </div>
+    
+    <div class="address-field">
+      <label for="new-address">Or enter a new address:</label>
+      <input type="text" id="new-address" [(ngModel)]="address" placeholder="Enter new address" />
+    </div>
+  </div>
+  
+  <!-- <div class="payment-options">
+    <h3>Payment Options:</h3>
+    <div *ngFor="let method of paymentMethods">
+      <input type="radio" [id]="method" name="paymentMethod" [value]="method" [(ngModel)]="paymentMethod" />
+      <label [for]="method">{{ method }}</label>
+    </div>
+  </div>
+ -->
+  <!-- <div *ngIf="paymentMethod === 'Credit Card' || paymentMethod === 'Debit Card'" class="payment-details">
+    <div class="field">
+      <label for="cardNumber">Card Number:</label>
+      <input type="text" id="cardNumber" [(ngModel)]="cardNumber" placeholder="Enter card number" />
+    </div>
+    <div class="field">
+      <label for="cardExpiry">Card Expiry:</label>
+      <input type="text" id="cardExpiry" [(ngModel)]="cardExpiry" placeholder="MM/YY" />
+    </div>
+    <div class="field">
+      <label for="cardCVV">Card CVV:</label>
+      <input type="text" id="cardCVV" [(ngModel)]="cardCVV" placeholder="Enter CVV" />
+    </div>
+  </div>
+
+  <div *ngIf="paymentMethod === 'UPI'" class="payment-details">
+    <div class="field">
+      <label for="upiID">UPI ID:</label>
+      <input type="text" id="upiID" [(ngModel)]="upiID" placeholder="Enter UPI ID" />
+    </div>
+  </div> -->
+  
+  <button class="complete-order-btn" (click)="completeOrder()">Complete Order</button>
+
+</div>

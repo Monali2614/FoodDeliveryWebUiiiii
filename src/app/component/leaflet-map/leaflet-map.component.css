@@ -1,0 +1,21 @@
+#map {
+    height: 600px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label, input {
+    margin: 5px 0;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  
+  #map { 
+    height: 500px; 
+    width: 100%; 
+  }

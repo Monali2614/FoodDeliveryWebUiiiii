@@ -1,0 +1,137 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0; /* Ensure no default margin on body */
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #007bff;
+  color: white;
+  padding-top: 20px;
+}
+
+#sidebar .sidebar-header {
+  padding: 20px;
+  background: #0069d9;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+#sidebar ul.components {
+  padding: 0;
+  list-style: none;
+}
+
+#sidebar ul li a {
+  padding: 15px;
+  font-size: 1.1em;
+  display: block;
+  color: white;
+  text-decoration: none;
+}
+
+#sidebar ul li a:hover {
+  color: #007bff;
+  background: #fff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+#content {
+  width: calc(100% - 250px);
+  padding: 20px;
+  margin-left: 250px;
+  background: #ffffff;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    margin-left: -250px;
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+  #content {
+    margin-left: 0;
+  }
+  #content.active {
+    margin-left: 250px;
+  }
+}
+
+#sidebarCollapse {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #sidebarCollapse {
+    display: block;
+  }
+}
+
+.navbar {
+  padding: 0.5rem 1rem;
+  margin-bottom: 0; /* Remove bottom margin */
+}
+
+.navbar .form-inline {
+  width: 100%;
+}
+
+.navbar .form-inline .form-control {
+  height: 40px; /* Set the height of the search bar */
+}
+
+.navbar .form-inline .btn {
+  height: 40px; /* Match the height of the search bar */
+}
+
+.container {
+  max-width: 100%;
+  padding: 0;
+}
+
+.card {
+  margin-top: 20px;
+}
+
+.form-control {
+  margin-bottom: 15px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.d-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input-group .form-control {
+  height: 40px;
+}
+
+.input-group .btn {
+  height: 40px;
+}
+
+.navbar .form-inline {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dropdown-menu {
+  width: 100%; /* Set the width to 100% of the parent */
+  left: initial;
+  right: initial;
+  top: initial;
+}

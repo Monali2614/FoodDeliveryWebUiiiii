@@ -1,0 +1,26 @@
+<h2 class="card-heading">Cart</h2>
+<div *ngIf="!loading">
+  <div class="wishlist-container" *ngIf="wishlist.length > 0">
+    <div class="wishlist-item" *ngFor="let item of wishlist">
+      <img [src]="item.image" alt="{{ item.itemName }}" class="menu-image" />
+      <div class="item-details">
+        <h3 class="item-name">{{ item.itemName }}</h3>
+        <p class="item-price">{{ item.price | currency:'INR' }}</p>
+        <div class="quantity-controls">
+          <button (click)="decreaseQuantity(item)">-</button>
+          <span>{{ item.quantity }}</span>
+          <button (click)="increaseQuantity(item)">+</button>
+        </div>
+      </div>
+      <button class="remove-btn" (click)="removeFromWishlist(item)">&#x2715;</button>
+    </div>
+    <div class="total-price">
+      <h3>Total Price: {{ totalPrice | currency:'INR' }}</h3>
+    </div>
+    <button class="checkout-btn" (click)="checkout()">Checkout</button>
+  </div>
+
+  <div *ngIf="wishlist.length === 0">
+    <p>No items in cart</p>
+  </div>
+</div>

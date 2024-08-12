@@ -1,0 +1,117 @@
+<div class="container">
+    <h2>Review Management</h2>
+  
+    <!-- Add Review Form -->
+    <div class="form-container">
+      <h3>Add Review</h3>
+      <form (ngSubmit)="addMenuReview()">
+        <div class="form-group">
+          <label for="menuId">Menu ID:</label>
+          <input type="number" id="menuId" [(ngModel)]="menuId" name="menuId" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="reviewType">Review Type:</label>
+          <input type="text" id="reviewType" [(ngModel)]="review.reviewType" name="reviewType" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="rating">Rating:</label>
+          <input type="number" id="rating" [(ngModel)]="review.rating" name="rating" min="1" max="5" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="comment">Comment:</label>
+          <textarea id="comment" [(ngModel)]="review.comment" name="comment" required></textarea>
+        </div>
+  
+        <div class="form-group">
+          <label for="reviewDate">Review Date:</label>
+          <input type="date" id="reviewDate" [(ngModel)]="review.reviewDate" name="reviewDate" required>
+        </div>
+  
+        <button type="submit" class="btn btn-primary">Add Menu Review</button>
+      </form>
+  
+      <form (ngSubmit)="addRestaurantReview()">
+        <div class="form-group">
+          <label for="restaurantId">Restaurant ID:</label>
+          <input type="number" id="restaurantId" [(ngModel)]="restaurantId" name="restaurantId" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="reviewType">Review Type:</label>
+          <input type="text" id="reviewType" [(ngModel)]="review.reviewType" name="reviewType" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="rating">Rating:</label>
+          <input type="number" id="rating" [(ngModel)]="review.rating" name="rating" min="1" max="5" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="comment">Comment:</label>
+          <textarea id="comment" [(ngModel)]="review.comment" name="comment" required></textarea>
+        </div>
+  
+        <div class="form-group">
+          <label for="reviewDate">Review Date:</label>
+          <input type="date" id="reviewDate" [(ngModel)]="review.reviewDate" name="reviewDate" required>
+        </div>
+  
+        <button type="submit" class="btn btn-primary">Add Restaurant Review</button>
+      </form>
+    </div>
+  
+    <!-- Review Operations -->
+    <div class="operations-container">
+      <h3>Review Operations</h3>
+  
+      <!-- Get Review by ID -->
+      <div class="form-group">
+        <label for="reviewId">Review ID:</label>
+        <input type="number" id="reviewId" [(ngModel)]="reviewId" name="reviewId" required>
+        <button (click)="getReviewById()" class="btn btn-secondary">Get Review</button>
+      </div>
+  
+      <div *ngIf="review">
+        <h4>Review Details</h4>
+        <p><strong>ID:</strong> {{ review.id }}</p>
+        <p><strong>User:</strong> {{ review.user?.id }}</p>
+        <p><strong>Restaurant:</strong> {{ review.restaurant?.id }}</p>
+        <p><strong>Menu:</strong> {{ review.menu?.id }}</p>
+        <p><strong>Type:</strong> {{ review.reviewType }}</p>
+        <p><strong>Rating:</strong> {{ review.rating }}</p>
+        <p><strong>Comment:</strong> {{ review.comment }}</p>
+        <p><strong>Date:</strong> {{ review.reviewDate }}</p>
+      </div>
+  
+      <!-- Update Review -->
+      <div class="form-group">
+        <button (click)="updateReview()" class="btn btn-warning">Update Review</button>
+      </div>
+  
+      <!-- Delete Review -->
+      <div class="form-group">
+        <button (click)="deleteReview()" class="btn btn-danger">Delete Review</button>
+      </div>
+    </div>
+  
+    <!-- Display All Reviews -->
+    <div class="reviews-list">
+      <h3>All Reviews</h3>
+      <ul>
+        <li *ngFor="let rev of reviews">
+          <p><strong>ID:</strong> {{ rev.id }}</p>
+          <p><strong>User:</strong> {{ rev.user?.id }}</p>
+          <p><strong>Restaurant:</strong> {{ rev.restaurant?.id }}</p>
+          <p><strong>Menu:</strong> {{ rev.menu?.id }}</p>
+          <p><strong>Type:</strong> {{ rev.reviewType }}</p>
+          <p><strong>Rating:</strong> {{ rev.rating }}</p>
+          <p><strong>Comment:</strong> {{ rev.comment }}</p>
+          <p><strong>Date:</strong> {{ rev.reviewDate }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  

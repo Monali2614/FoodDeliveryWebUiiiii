@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Admin Login Page</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('./assets/image1.jpg') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Roboto', sans-serif;
+    }
+    .card {
+      border-radius: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .img-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1rem 0 0 1rem;
+      overflow: hidden;
+      background: #f8f9fa;
+    }
+    .img-container img {
+      max-width: 100%;
+      height: auto;
+    }
+    .form-label {
+      font-size: 1rem;
+    }
+    .form-control {
+      border-radius: 30px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .btn-custom {
+      background-color: #070d47;
+      color: white;
+      border-radius: 30px;
+      transition: background-color 0.3s;
+    }
+    .btn-custom:hover {
+      background-color: #13043b;
+    }
+    .form-outline {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .form-outline input {
+      padding-left: 45px;
+    }
+    .form-outline .fa {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+    }
+    .text-black {
+      color: #333;
+    }
+    .h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block img-container">
+              <img src="./assets/admin.jpeg" alt="login form" class="img-fluid" />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+                
+                <button type="button" class="close-btn" aria-label="Close" onclick="window.location.href = '/'">
+                  <span aria-hidden="true">&times;</span>
+              </button> 
+
+                <form (ngSubmit)="login()" style="width: 100%;">
+
+                  <h1 class="h1 text-center">ADMIN LOGIN</h1>
+
+                  <div class="form-outline mb-4">
+                    <i class="fa fa-user"></i>
+                    <input type="text" id="adminName" class="form-control form-control-lg" [(ngModel)]="username" name="username" placeholder="Admin Name" required />
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" id="adminPassword" class="form-control form-control-lg" [(ngModel)]="password" name="password" placeholder="Password" required />
+                  </div>
+
+                  <div class="pt-1 mb-4">
+                    <button class="btn btn-custom btn-lg btn-block" type="submit">Login</button>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

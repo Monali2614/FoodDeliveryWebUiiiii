@@ -1,0 +1,93 @@
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <form class="d-flex ml-auto" (submit)="searchRestaurant($event)" style="margin-left: auto; position: relative;">
+        <div class="input-group">
+          <input
+            class="form-control"
+            type="search"
+            placeholder="Search Restaurant"
+            aria-label="Search"
+            [(ngModel)]="searchQuery"
+            (input)="onSearchChange()"
+            name="searchQuery"
+          />
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </div>
+        <ul
+          class="dropdown-menu"
+          *ngIf="filteredRestaurants.length && searchQuery.length"
+          style="display: block; position: absolute; top: 100%; left: 0; width: 100%; z-index: 1000;"
+        >
+          <li
+            *ngFor="let restaurant of filteredRestaurants"
+            class="dropdown-item"
+            (click)="selectRestaurant(restaurant)"
+            style="cursor: pointer;"
+          >
+            {{ restaurant.restaurantName }}
+          </li>
+        </ul>
+      </form>
+    </div>
+  </nav>
+
+  <div class="d-flex">
+    <nav id="sidebar" class="bg-primary text-white">
+      <div class="sidebar-header">
+        <h3>Admin Panel</h3>
+        <button type="button" id="sidebarCollapse" class="btn btn-light d-md-none">
+          <i class="fas fa-align-left"></i>
+        </button>
+      </div>
+      <ul class="list-unstyled components">
+        <li>
+          <a href="javascript:void(0)" (click)="setActiveComponent('add-restaurant')">
+            <i class="fas fa-utensils"></i> Add Restaurant
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" (click)="setActiveComponent('add-menu')">
+            <i class="fas fa-utensils"></i> Add Menu
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" (click)="setActiveComponent('view-restaurants')">
+            <i class="fas fa-list"></i> Edit Restaurants
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" (click)="setActiveComponent('show-restaurants')">
+            <i class="fas fa-list"></i> Show Restaurants
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" (click)="setActiveComponent('add-images')">
+            <i class="fas fa-image"></i> Add Images
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div id="content" class="p-4 p-md-5">
+      <ng-container *ngIf="activeComponent === 'add-restaurant'">
+        <app-add-restaurant></app-add-restaurant>
+      </ng-container>
+      <ng-container *ngIf="activeComponent === 'add-menu'">
+        <app-add-menu></app-add-menu>
+      </ng-container>
+      <ng-container *ngIf="activeComponent === 'view-restaurants'">
+        <app-view-restaurants (edit)="onEditRestaurant($event)"></app-view-restaurants>
+      </ng-container>
+      <ng-container *ngIf="activeComponent === 'edit-restaurant'">
+        <app-edit-restaurant [restaurant]="selectedRestaurant"></app-edit-restaurant>
+      </ng-container>
+      <ng-container *ngIf="activeComponent === 'show-restaurants'">
+        <app-show-restaurant></app-show-restaurant>
+      </ng-container>
+      <ng-container *ngIf="activeComponent === 'add-images'">
+        <app-add-images></app-add-images>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<div class="loginmain">
+  <div class="logincontainer">
+    <div class="logwraper">
+      <h2>Edit Profile</h2>
+      <button type="button" class="close-btn" aria-label="Close" onclick="window.location.href = '/'">
+        <span aria-hidden="true">&times;</span>
+    </button>
+      <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
+        <div class="formwraper">
+
+          <input
+            id="name"
+            formControlName="name"
+            type="text"
+            placeholder="Name*"
+          />
+          <div
+            *ngIf="editProfileForm.get('name')?.invalid && (editProfileForm.get('name')?.dirty || editProfileForm.get('name')?.touched)"
+            class="text-danger"
+          >
+            <div *ngIf="editProfileForm.get('name')?.errors?.['required']">
+              Name is required.
+            </div>
+          </div>
+
+          <input
+            id="username"
+            formControlName="username"
+            type="text"
+            placeholder="User Name*"
+          />
+          <div
+            *ngIf="editProfileForm.get('username')?.invalid && (editProfileForm.get('username')?.dirty || editProfileForm.get('username')?.touched)"
+            class="text-danger"
+          >
+            <div
+              *ngIf="editProfileForm.get('username')?.errors?.['required']"
+            >
+              Username is required.
+            </div>
+          </div>
+
+          <input
+            id="email"
+            formControlName="email"
+            type="email"
+            placeholder="Email*"
+          />
+          <div
+            *ngIf="editProfileForm.get('email')?.invalid && (editProfileForm.get('email')?.dirty || editProfileForm.get('email')?.touched)"
+            class="text-danger"
+          >
+            <div *ngIf="editProfileForm.get('email')?.errors?.['required']">
+              Email is required.
+            </div>
+            <div *ngIf="editProfileForm.get('email')?.errors?.['email']">
+              Invalid email address.
+            </div>
+          </div>
+
+          <input
+            id="gender"
+            formControlName="gender"
+            type="text"
+            placeholder="Gender*"
+          />
+
+          <input
+            id="mobileNo"
+            formControlName="mobileNo"
+            type="text"
+            placeholder="Phone no*"
+          />
+          <div
+            *ngIf="editProfileForm.get('mobileNo')?.invalid && (editProfileForm.get('mobileNo')?.dirty || editProfileForm.get('mobileNo')?.touched)"
+            class="text-danger"
+          >
+            <div
+              *ngIf="editProfileForm.get('mobileNo')?.errors?.['required']"
+            >
+              mobileNo number is required.
+            </div>
+          </div>
+
+          <input
+            id="address"
+            formControlName="address"
+            type="text"
+            placeholder="Address*"
+          />
+
+          <input
+            id="password"
+            formControlName="password"
+            type="password"
+            placeholder="Password*"
+          />
+          <div
+            *ngIf="editProfileForm.get('password')?.invalid && (editProfileForm.get('password')?.dirty || editProfileForm.get('password')?.touched)"
+            class="text-danger"
+          >
+            <div
+              *ngIf="editProfileForm.get('password')?.errors?.['required']"
+            >
+              Password is required.
+            </div>
+          </div>
+
+          <input
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            type="password"
+            placeholder="Confirm Password*"
+          />
+          <div
+            *ngIf="editProfileForm.get('confirmPassword')?.invalid && (editProfileForm.get('confirmPassword')?.dirty || editProfileForm.get('confirmPassword')?.touched)"
+            class="text-danger"
+          >
+            <div
+              *ngIf="editProfileForm.get('confirmPassword')?.errors?.['required']"
+            >
+              Confirm Password is required.
+            </div>
+          </div>
+
+          <button type="submit" [disabled]="editProfileForm.invalid">
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

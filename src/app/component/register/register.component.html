@@ -1,0 +1,46 @@
+<div class="loginmain">
+  <div class="logincontainer">
+    <div class="logwraper">
+      <h2>Register Here</h2>
+      <form (ngSubmit)="registerUser()">
+        <div class="formwraper">
+          <input type="text" class="form-control" id="name" [(ngModel)]="user.name" name="name"
+            placeholder="Full Name"  required/>
+          <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" placeholder="Enter your Email" required />
+    <!-- Gender -->
+    <div class="form-group">
+      <label for="gender">Gender:</label>
+      <select id="gender" [(ngModel)]="user.gender" name="gender" required class="form-control">
+        <option value="" disabled>Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+          <input type="text" class="form-control" id="mobileNo" [(ngModel)]="user.mobileNo" name="mobileNo"  placeholder="Enter Mobile NO" />
+          <input type="text" class="form-control" id="address" [(ngModel)]="user.address" name="address"  placeholder="Enter Address" />
+          <input type="text" class="form-control" id="username" [(ngModel)]="user.username" name="username" placeholder="username" required />
+          <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" placeholder="password" />
+          <input type="password" class="form-control" id="confirmPassword" [(ngModel)]="user.confirmPassword" name="confirmPassword" placeholder="confirmPassword" required />
+
+          <button type="submit" class="btn btn-primary col-md-6">
+            Register
+          </button>
+          <div *ngIf="message" class="alert alert-success mt-3">{{ message }}</div>
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+
+          <small style="color: rgb(6, 5, 5); font-size: 11px">At least one uppercase, numeric digit, lowercase, special
+            character, length only 6 charecters</small>
+          <div style="display: flex; justify-content: center">
+            <p>
+              Already have an account?
+              <a  routerLink="/login" style="color: blue">Login</a>
+              <br>
+              <a  routerLink="/terms-conditions" style="color: blue">Terms and Conditions</a>
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

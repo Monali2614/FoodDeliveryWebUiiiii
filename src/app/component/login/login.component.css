@@ -1,0 +1,179 @@
+.loginmain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: url('https://images.unsplash.com/photo-1485962232502-f25e5874a8d1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center;
+  background-size: cover;
+}
+
+.logincontainer {
+  width: 100%;
+  max-width: 400px;
+}
+
+.logwraper {
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Increased shadow for a more prominent effect */
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.logwraper:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+.formwraper {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.formwraper input {
+  padding: 10px;
+  margin-bottom: 5px; /* Reduced margin-bottom */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  outline: none;
+}
+
+.formwraper input:focus {
+  border-color: #ff4500;
+  box-shadow: 0 0 8px rgba(255, 69, 0, 0.6); /* Glow effect on focus */
+}
+
+.formwraper input::placeholder {
+  color: #2e2e2e;
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-container input {
+  flex-grow: 1;
+  padding-right: 40px;
+}
+
+.input-group-append {
+  position: absolute;
+  right: 5%;
+  top: 49%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.input-group-append img {
+  width: 20px;
+  height: 20px;
+}
+
+.formwraper button {
+  background-color: rgb(255, 36, 36);
+  color: #fff;
+  font-weight: 300;
+  padding: 12px 24px; /* Increased padding for better appearance */
+  border: none;
+  border-radius: 20px; /* Increased border-radius for curvier edges */
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  position: relative;
+}
+
+.formwraper button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease-in-out;
+}
+
+.formwraper button:hover::before {
+  transform: scaleX(1);
+}
+
+.formwraper button:hover {
+  background-color: rgb(54, 54, 54);
+  transform: scale(1.1); /* Slightly increase size on hover */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.formwraper button:active {
+  transform: scale(1); /* Return to normal size on click */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+}
+
+.formwraper p {
+  font-size: 15px;
+}
+
+.button-spacer {
+  height: 2px; /* Adjust this value to increase or decrease the gap */
+}
+
+.btn-link {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  border-radius: 20px; /* Increased border-radius for curvier edges */
+  padding: 12px 24px; /* Added padding for better appearance */
+  position: relative;
+  background-color: rgba(0, 123, 255, 0.1); /* Light background color */
+}
+
+.btn-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: rgba(0, 123, 255, 0.2);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease-in-out;
+}
+
+.btn-link:hover::before {
+  transform: scaleX(1);
+}
+
+.btn-link:hover {
+  color: #0056b3;
+  background-color: rgba(0, 123, 255, 0.2); /* Slightly darker background on hover */
+  transform: scale(1.05); /* Slightly increase size on hover */
+}
+
+.btn-link:active {
+  transform: scale(1); /* Return to normal size on click */
+}
+
+/* CSS for error messages */
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 2px; /* Reduced margin-top */
+}

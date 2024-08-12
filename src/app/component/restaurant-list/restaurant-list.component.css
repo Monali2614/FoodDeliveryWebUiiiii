@@ -1,0 +1,94 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.restaurant-list-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #ffefba, #ffffff);
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Allow vertical scrolling if necessary */
+}
+
+.restaurant-list-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 2em;
+}
+
+ul {
+  display: grid; /* Use grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Four columns */
+  gap: 20px; /* Add gap between grid items */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+li {
+  background: linear-gradient(to right, #ffffff, #e6f7ff);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+li h3 {
+  margin: 0;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 1.5em;
+}
+
+li p {
+  margin: 10px 0;
+  color: #666;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1em;
+}
+
+li button {
+  background-color: #34075e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-end; /* Align the button to the right */
+}
+
+li button:hover {
+  background-color: #e64a19;
+}
+
+.no-restaurants {
+  text-align: center;
+  color: #999;
+  margin-top: 30px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.2em;
+}

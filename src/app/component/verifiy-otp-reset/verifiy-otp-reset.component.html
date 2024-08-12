@@ -1,0 +1,23 @@
+<div class="loginmain">
+    <div class="logincontainer">
+        <div class="logwraper">
+            <h2>Verify OTP</h2>
+            <form (ngSubmit)="verifyOtp()" #verifyOtpForm="ngForm">
+                <div class="formwraper">
+                    <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required />
+
+                    <input type="text" id="otp" [(ngModel)]="otp" name="otp" placeholder="Otp" required />
+
+                    <button type="submit" class="btn btn-primary">Verify OTP</button>
+
+                    <div *ngIf="message" class="alert alert-success mt-3">
+                        {{ message }}
+                    </div>
+                    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                        {{ errorMessage }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

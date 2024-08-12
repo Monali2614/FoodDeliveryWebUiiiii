@@ -1,0 +1,23 @@
+.close-btn {
+    background-color: transparent; /* No background */
+    border: none; /* No border */
+    color: #000; /* Text color */
+    font-size: 1.7rem; /* Icon size */
+    cursor: pointer; /* Pointer cursor on hover */
+    padding: 0.5rem; /* Padding for better click area */
+    outline: none; /* No outline */
+    position: absolute; /* Absolute positioning */
+    top: 10px; /* Position from the top */
+    left: 460px; /* Position from the left */
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+}
+
+.close-btn:hover {
+    color: #ff0000; /* Change color on hover */
+}
+
+.close-btn span {
+    display: inline-block; /* Inline block for span */
+}

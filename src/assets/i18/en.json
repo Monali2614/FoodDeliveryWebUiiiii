@@ -1,0 +1,15 @@
+{
+    "HEADER": {
+      "LOGO": "Delicious Food",
+      "LOGIN": "Login",
+      "WISHLIST": "Wishlist",
+      "CHATBOX": "ChatBox",
+      "PROFILE": "Profile",
+      "REGISTER": "Register",
+      "LANGUAGE": "Language",
+      "LANGUAGE_ENGLISH": "English",
+      "LANGUAGE_HINDI": "Hindi",
+      "LANGUAGE_MARATHI": "Marathi"
+    }
+  }
+  
