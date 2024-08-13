@@ -20,7 +20,7 @@
     <button class="checkout-btn" (click)="checkout()">Checkout</button>
   </div>
 
-  <div *ngIf="wishlist.length === 0">
+  <div *ngIf="wishlist.length === 0" class="no-items-message">
     <p>No items in cart</p>
   </div>
 </div>

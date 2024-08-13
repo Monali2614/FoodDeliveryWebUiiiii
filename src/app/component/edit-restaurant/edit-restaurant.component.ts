@@ -175,7 +175,7 @@ export class EditRestaurantComponent implements OnInit {
         },
         (error: any) => {
           console.error('Error deleting menu item', error);
-          alert(`Error deleting menu item: ${error}`);       }
+          alert(`Error deleting menu item: ${error}`);        }
       );
     } else {
       alert('No menu item found to delete.');

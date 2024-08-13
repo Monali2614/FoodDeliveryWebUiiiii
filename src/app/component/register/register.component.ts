@@ -4,6 +4,7 @@ import { UserService, PasswordResetRequest } from 'src/app/service/user.service'
 import { Router } from '@angular/router';
 import { SharedDataService } from 'src/app/service/shared-data.service';
 import { ActivatedRoute, } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -11,55 +12,59 @@ import { ActivatedRoute, } from '@angular/router';
 })
 export class RegisterComponent {
  
-  userEmail: string = '';
-  username: string = '';
-  password: string = '';
+ 
   errorMessage: string = '';
-  showPassword: boolean = false;
-  email: string = '';
   message: string = '';
+  userForm: FormGroup;
 
-  otp: string = '';
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private router: Router,
+    private sharedDataService: SharedDataService
+  ) {
+    this.userForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      gender: ['', Validators.required],
+      mobileNo: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), this.mobileNumberValidator]],
+      address: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]],
+      termsAndConditions: [false, Validators.requiredTrue]
+    }, { validator: this.passwordMatchValidator });
+  }
 
-  confirmPassword: string = '';
-  user?: any = {};
-  otpEmail: any;
-  otpMessage: any;
-  otpErrorMessage: any;
-  isOtpRequired: boolean | undefined;
-  otpVerificationNeeded: any;
-  otpValid: boolean = false;
-termsAndConditionsChecked: any;
-userform: any;
-
-  constructor(private userService: UserService, private router: Router, private sharedDataService: SharedDataService, private route: ActivatedRoute,) { }
-
-   // Method to register a temporary user
-   registerUser() {
-    if(this.otpVerificationNeeded){
-
-      this.router.navigate(['/verifiyotpregister']);
+  mobileNumberValidator(control: any) {
+    if (control.value && (control.value.length !== 10 || isNaN(control.value))) {
+      return { invalidMobileNumber: true };
     }
-    if (this.user.password !== this.user.confirmPassword) {
-      this.errorMessage = 'Passwords do not match.';
+    return null;
+  }
+
+  passwordMatchValidator(group: FormGroup) {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  }
+
+  registerUser() {
+    if (this.userForm.invalid) {
+      this.userForm.markAllAsTouched();
       return;
     }
-   
-    this.isOtpRequired = true;
-    this.otpVerificationNeeded = true; // Show OTP verification form
-    this.message = 'Registration details submitted. Please verify OTP.';
-    this.userService.tempRegisterUser(this.user).subscribe(
+
+    this.userService.tempRegisterUser(this.userForm.value).subscribe(
       response => {
         console.log('User registered successfully:', response);
         this.message = 'Registration successful. Please verify your OTP.';
         this.router.navigate(['verifyotpregister']);
-        // Handle successful registration, e.g., show a success message or redirect
       },
       error => {
         console.error('Error registering user:', error);
-        // Handle error, e.g., show an error message to the user
+        this.errorMessage = 'Error registering user. Please try again.';
       }
     );
   }
-
 }

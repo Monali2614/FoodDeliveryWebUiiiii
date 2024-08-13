@@ -37,7 +37,7 @@ export class EditProfileComponent implements OnInit {
     const userData = this.sharedDataService.getUserData();
     if (userData) {
       this.editProfileForm.patchValue({
-        id: userData.id, // Make sure to patch the id value
+        id: userData.id,
         name: userData.name,
         username: userData.username,
         email: userData.email,
@@ -46,23 +46,26 @@ export class EditProfileComponent implements OnInit {
         address: userData.address,
         password: userData.password,
         confirmPassword: userData.confirmPassword
-
       });
     }
   }
 
   onSubmit(): void {
     if (this.editProfileForm.valid) {
-      this.userService.updateUserDetails(this.editProfileForm.value).subscribe(
-        (response) => {
+      const userId = this.editProfileForm.value.id; // Get user ID from the form
+      const user: User = this.editProfileForm.value; // Create user object
+
+      this.userService.updateUserDetails(userId, user).subscribe(
+        (response: User) => { // Explicitly type the response
           console.log('User data saved:', response);
           this.sharedDataService.setUserData(response);
-          
           alert('Data saved successfully!');
         },
-      )
-      // Handle form submission, for example, update user data
-      console.log('Form Submitted', this.editProfileForm.value);
+        error => {
+          console.error('Error saving user data:', error);
+          alert('Error saving data. Please try again.');
+        }
+      );
     }
   }
 }

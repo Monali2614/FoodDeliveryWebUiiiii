@@ -31,6 +31,8 @@ import { ResetPasswordComponent } from './component/reset-password/reset-passwor
 import { VerifiyOtpResetComponent } from './component/verifiy-otp-reset/verifiy-otp-reset.component';
 import { VerifiyOtpRegisterComponent } from './component/verifiy-otp-register/verifiy-otp-register.component';
 import { ReviewComponent } from './component/review/review.component';
+import { AuthGuard } from './auth.guard';
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'header', component: HeaderComponent },
@@ -44,7 +46,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'userregister', component: UserregisterComponent },
   { path: 'restaurant-list', component: RestaurantListComponent },
-  { path: 'wishlist', component: WishlistComponent },
+  { path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard] },
   { path: 'edit-profile', component: EditProfileComponent },
   { path: 'menu/:restaurantName', component: MenuComponent },
   { path: 'cart', component: CartComponent },
@@ -52,22 +54,21 @@ const routes: Routes = [
   { path: 'add-menu', component: AddMenuComponent },
   { path: 'view-restaurants', component: ViewRestaurantsComponent },
   { path: 'edit-restaurant/:id', component: EditRestaurantComponent },
-  // { path: '**', redirectTo: '/login' }
   { path: 'profile', component: ProfileComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'leaflet-map', component: LeafletMapComponent },
-  { path: 'terms-conditions', component: TermsConditionsComponent},
-  { path: 'menu', component: MenuComponent},
-  { path: 'add-images', component: AddImagesComponent},
-  { path: 'show-restaurant', component: ShowRestaurantComponent},
-  { path: 'resetpassword', component: ResetPasswordComponent},
-  { path: 'forgotpassword', component: ForgotPasswordComponent},
-  { path: 'register', component: RegisterComponent},
-  { path: 'verifyotpreset', component: VerifiyOtpResetComponent},
-  { path: 'verifyotpregister', component: VerifiyOtpRegisterComponent},
-  { path: 'review', component: ReviewComponent},
-
-
+  { path: 'terms-conditions', component: TermsConditionsComponent },
+  { path: 'menu', component: MenuComponent },
+  { path: 'add-images', component: AddImagesComponent },
+  { path: 'show-restaurant', component: ShowRestaurantComponent },
+  { path: 'resetpassword', component: ResetPasswordComponent },
+  { path: 'forgotpassword', component: ForgotPasswordComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'verifyotpreset', component: VerifiyOtpResetComponent },
+  { path: 'verifyotpregister', component: VerifiyOtpRegisterComponent },
+  { path: 'review', component: ReviewComponent },
+  // Add a wildcard route for any undefined paths
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({

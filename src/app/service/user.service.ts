@@ -12,22 +12,19 @@ const NAV_URL = environment.apiURL;
 })
 export class UserService {
 
-  user = new User();
   private currentUserSubject: BehaviorSubject<User | null>;
-  constructor(private http: HttpClient) { this.currentUserSubject = new BehaviorSubject<User | null>(null); }
+
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<User | null>(null);
+  }
 
   // Register User
   public registerUser(user: User): Observable<any> {
     return this.http.post<any>(`${NAV_URL}/api/users/user/register`, user);
   }
 
-  updateUserDetails(user: User): Observable<User> {
-    return this.http.put<User>(`${NAV_URL}/api/users/user/update/${user.id}`, user);
-  }
-
-
-   // Login User
-   login(username: string, password: string): Observable<any> {
+  // Login User
+  login(username: string, password: string): Observable<any> {
     return this.http.post<any>(`${NAV_URL}/api/users/user/login/${username}/${password}`, { username, password });
   }
 
@@ -47,8 +44,8 @@ export class UserService {
     return this.http.post(`${NAV_URL}/api/users/user/verifyOtp`, { email, otp });
   }
 
-   // Reset Password after OTP verification
-   resetPassword(userEmail: string, passwordResetRequest: PasswordResetRequest): Observable<string> {
+  // Reset Password after OTP verification
+  resetPassword(userEmail: string, passwordResetRequest: PasswordResetRequest): Observable<string> {
     const url = `${NAV_URL}/api/users/user/resetPassword/${userEmail}`;
     return this.http.post<string>(url, passwordResetRequest, { responseType: 'text' as 'json' });
   }
@@ -64,15 +61,14 @@ export class UserService {
   }
 
   // Temporary Register User
-  
-   tempRegisterUser(user: TemporaryUser): Observable<string> {
-    return this.http.post<string>(`${NAV_URL}/api/users/user/tempRegister`, user, this.getHttpOptions());
+  tempRegisterUser(user: TemporaryUser): Observable<string> {
+    return this.http.post<string>(`${NAV_URL}/api/users/user/tempRegister`, user, { responseType: 'text' as 'json' });
   }
+
   // Verify User to Complete Registration
   verifyUser(email: string, otp: any): Observable<string> {
     const url = `${NAV_URL}/api/users/user/verifyToRegister?email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otp)}`;
     return this.http.post<string>(url, {}, this.getHttpOptions());
-  
   }
 
   // Verify OTP to Complete password reset
@@ -80,6 +76,27 @@ export class UserService {
     const url = `${NAV_URL}/api/users/user/verifyOtp`;
     const params = { otp, userEmail };
     return this.http.post<string>(url, null, { params, responseType: 'text' as 'json' });
+  }
+
+
+  updateUserDetails(userId: number, user: User): Observable<User> {
+    return this.http.put<User>(`${NAV_URL}/api/users/user/update/${userId}`, user);
+  }
+
+  uploadUserProfilePicture(formData: FormData, userId: number): Observable<any> {
+    return this.http.post(`${NAV_URL}/api/profile_pictures/uploadUserPicture/${userId}`, formData, {
+      responseType: 'text'  // Expecting a plain text response
+    });
+  }
+
+  getUserProfilePicture(userId: number): Observable<Blob> {
+    return this.http.get(`${NAV_URL}/api/profile_pictures/getUserPicture/${userId}`, { responseType: 'blob' });
+  }
+
+  updateUserProfilePicture(userId: number, formData: FormData): Observable<any> {
+    return this.http.put(`${NAV_URL}/api/profile_pictures/updateUserPicture/${userId}`, formData, {
+      responseType: 'text'
+    });
   }
 
   // Helper method to set HTTP headers
@@ -90,8 +107,6 @@ export class UserService {
       })
     };
   }
-
- 
 }
 
 // Define the interface for the password reset request body
@@ -113,14 +128,3 @@ export interface TemporaryUser {
   otp?: string; // OTP is optional
   otpExpiry?: string; // OTP expiry is optional
 }
-
-  
- 
-
-
-
-
-
-
-
-

@@ -10,42 +10,23 @@ import { ActivatedRoute, } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  userEmail: string = '';
-  username: string = '';
+  username: string = ''; 
   password: string = '';
   errorMessage: string = '';
   showPassword: boolean = false;
-  email: string = '';
-  message: string = '';
 
-  otp: string = '';
-
-  confirmPassword: string = '';
-  user?: any = {};
-  otpEmail: any;
-  otpMessage: any;
-  otpErrorMessage: any;
-  isOtpRequired: boolean | undefined;
-otpVerificationNeeded: any;
-isLoginVisible: boolean = true; // Initially, the login modal is visible
-
-
-
-  constructor(private userService: UserService, private router: Router, private sharedDataService: SharedDataService, private route: ActivatedRoute,) { }
+  constructor(private userService: UserService, private router: Router, private sharedDataService: SharedDataService) { }
 
   onLogin() {
-    this.email = this.route.snapshot.queryParams['email'];
     this.userService.login(this.username, this.password).subscribe(response => {
       console.log('User data saved:', response);
       this.sharedDataService.setUserData(response);
-      this.router.navigate(['/home']); // Navigate to the profile page after login
+       alert('Login successful!');
+      this.router.navigate(['/home']); // Navigate to the home page after login
     }, error => {
       console.error('Error saving user data:', error);
       this.errorMessage = 'Invalid username or password';
     });
-  }
-  navigateToForgotPassword() {
-    this.router.navigate(['forgotpassword']);
   }
 
   togglePassword() {
@@ -66,10 +47,5 @@ isLoginVisible: boolean = true; // Initially, the login modal is visible
 
   navigateToAdmin() {
     this.router.navigate(['/admin']);
-  }
-
-  closeLogin() {
-      this.isLoginVisible = false; // Hide the login modal
-    
   }
 }

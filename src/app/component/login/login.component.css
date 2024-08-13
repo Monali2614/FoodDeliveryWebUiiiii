@@ -12,6 +12,8 @@
   max-width: 400px;
 }
 
+
+
 .logwraper {
   width: 100%;
   background-color: #fff;
@@ -176,4 +178,45 @@ h2 {
   color: red;
   font-weight: bold;
   margin-top: 2px; /* Reduced margin-top */
+}
+
+
+
+.loginmain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: url('https://images.unsplash.com/photo-1485962232502-f25e5874a8d1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center;
+  background-size: cover;
+}
+
+.logincontainer {
+  width: 100%;
+  max-width: 400px;
+  position: relative; /* Ensure the container has a relative position */
+}
+
+
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  left: 400px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #e40b0b;
+}
+
+h2 {
+  text-align: center;
+  color: #e61313;
+}
+
+.formwraper {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
 }

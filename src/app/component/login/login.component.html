@@ -1,6 +1,9 @@
 <div class="loginmain">
   <div class="logincontainer">
     <div class="logwraper">
+      <button type="button" class="close-btn" aria-label="Close" onclick="window.location.href = '/'">
+        <span aria-hidden="true">&times;</span>
+    </button>
       <h2>Login Here</h2>
       <form (ngSubmit)="onLogin()" #loginForm="ngForm">
         <div class="formwraper">
@@ -13,7 +16,7 @@
             [(ngModel)]="username"
             name="username"
             #usernameInput="ngModel"
-            placeholder="Enter your username"
+           
           />
           <div
             *ngIf="usernameInput.invalid && usernameInput.touched"
@@ -32,7 +35,7 @@
               [(ngModel)]="password"
               name="password"
               #passwordInput="ngModel"
-              placeholder="Enter your password"
+            
             />
             <div
               class="input-group-append"
@@ -71,13 +74,13 @@
           <!-- Spacer for gap between buttons -->
           <div class="button-spacer"></div>
 
-          <button
+          <!-- <button
             type="button"
             (click)="navigateToAdmin()"
             class="btn btn-link mt-3"
           >
             Admin Login
-          </button>
+          </button> -->
 
           <div style="display: flex; justify-content: center">
             <p>
@@ -88,6 +91,9 @@
           <div style="display: flex; justify-content: center">
             <p>
               <a routerLink="/forgotpassword" style="color: blue">Forget Password</a>
+              <span style="margin: 0 10px;"></span> <!-- Slash with spacing -->
+              <a (click)="navigateToAdmin()" style="color: blue; cursor: pointer; text-decoration: underline;">Admin Login</a>
+
             </p>
           </div>
         </div>
@@ -95,4 +101,3 @@
     </div>
   </div>
 </div>
-

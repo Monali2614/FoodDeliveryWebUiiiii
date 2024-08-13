@@ -1,6 +1,39 @@
-<div *ngIf="userData">
-    <img [src]="userData.profilePictureUrl" alt="Profile Picture" class="profile-picture">
-    <h2>{{ userData.username }}</h2>
-    <!-- Display other user data here -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div *ngIf="userData" class="container mt-4">
+    <div class="card profile-card">
+      <!-- Profile picture and user info -->
+      <div class="card-header text-center bg-danger text-white">
+        <img *ngIf="profilePictureUrl" [src]="profilePictureUrl" alt="Profile Picture" class="profile-picture rounded-circle">
+        <h2 class="profile-username mt-2">{{ userData.username }}</h2>
+      </div>
+    
+      <!-- File input to select a new profile picture -->
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="profilePicture" class="form-label">Select Profile Picture:</label>
+          <input id="profilePicture" type="file" (change)="onFileSelected($event)" class="form-control">
+        </div>
+    
+        <!-- Buttons to upload or update picture -->
+        <div class="d-flex justify-content-between mb-3">
+          <button type="button" (click)="startUploading()" class="btn btn-success">Upload Picture</button>
+          <button type="button" (click)="startUpdating()" class="btn btn-warning">Update Picture</button>
+        </div>
+
+        <!-- Submit button to upload/update the selected profile picture -->
+        <button type="button" (click)="onSubmit()" class="btn btn-primary w-100">Save</button>
+      </div>
+    </div>
   </div>
-  
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

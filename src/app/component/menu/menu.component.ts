@@ -26,12 +26,12 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.restaurantName = params['restaurantName'];
-      this.menuService.getMenuByRestaurantName(this.restaurantName).subscribe(
-        menu => {
+      this.menuService.getMenusByRestaurantName(this.restaurantName).subscribe(
+        (menu: Menu[]) => {
           this.menuItems = menu;
           this.filteredMenuItems = menu; // Initialize with all menu items
         },
-        error => {
+        (error: any) => {
           console.error('Error fetching menu items', error);
         }
       );
@@ -39,23 +39,10 @@ export class MenuComponent implements OnInit {
     this.getMenus(); // Fetch all menus when the component initializes
   }
 
-  // getMenus(): void {
-  //   this.menuService.getAllMenus().subscribe(
-  //     (data: Menu[]) => {
-  //       this.menuItems = data;
-  //       console.log("get menus-get all menus",this.menuItems);
-  //       this.filteredMenuItems = data; // Initialize with all menu items
-  //     },
-  //     error => console.error('Error fetching menu data', error)
-  //   );
-  // }
-
-
   getMenus(): void {
     this.menuService.getAllMenus().subscribe(
       (data: Menu[]) => {
         this.menuItems = data;
-        console.log("get menus-get all menus", this.menuItems);
         this.filteredMenuItems = data; // Initialize with all menu items
   
         // Fetch images for each menu item
@@ -68,13 +55,13 @@ export class MenuComponent implements OnInit {
                 menu.image = reader.result as string; // Assign the base64 image string to menu image
               }
             },
-            error => console.error(`Error fetching image for menu ID ${menu.menuId}`, error)          );
+            (error: any) => console.error(`Error fetching image for menu ID ${menu.menuId}`, error)
+          );
         });
       },
-      error => console.error('Error fetching menu data', error)
+      (error: any) => console.error('Error fetching menu data', error)
     );
   }
-  
 
   onToggleChange(event: any): void {
     this.isVegSelected = event.target.checked;
