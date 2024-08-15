@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getMenus(): void {
-    this.menuService.getAllMenus().subscribe(
+    this.menuService.getAllMenus(1).subscribe(
       (data: Menu[]) => {
         this.menus = data;
         this.filterPopularMenus();

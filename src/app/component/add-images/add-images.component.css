@@ -1,46 +1,76 @@
-/* Resetting margins and paddings */
-:host {
-    display: block;
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
-  }
+body {
+  background: url('/assets/pannel.jpeg') no-repeat center center fixed;
+  background-size: cover;
   
-  .container {
-    padding: 0; /* Remove padding from the container */
-    margin: 0; /* Remove margin from the container */
-  }
-  
-  .card {
-    margin-top: 20px; /* Adjust as needed */
-    padding: 0; /* Remove padding if not needed */
-  }
-  
-  .card-header, .card-body {
-    padding: 1rem; /* Adjust padding inside card components */
-  }
-  
-  .form-group {
-    margin-bottom: 1rem; /* Adjust spacing between form groups */
-  }
-  
-  .input-group {
-    margin-top: 1rem; /* Adjust spacing for input groups */
-  }
-  
-  .text-right {
-    text-align: right; /* Ensure alignment for action buttons */
-  }
-  
-  .btn-group {
-    margin-left: 0.5rem; /* Adjust spacing between buttons */
-  }
-  
-  .list-group-item {
-    padding: 0.75rem 1.25rem; /* Adjust padding inside list group items */
-  }
-  
-  .float-right {
-    float: right; /* Ensure that buttons float to the right */
-  }
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card-body {
+  padding: 30px;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 2px solid #ddd;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #9f1014;
+  box-shadow: 0 0 10px rgba(235, 15, 15, 0.5);
+}
+
+.btn {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary {
+  background-color: #ce1540;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #4e5adb;
+  box-shadow: 0 5px 15px rgba(107, 115, 255, 0.5);
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.5);
+}

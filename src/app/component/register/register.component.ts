@@ -16,10 +16,13 @@ export class RegisterComponent {
   errorMessage: string = '';
   message: string = '';
   userForm: FormGroup;
+  selectedFile: File | null = null;
+
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
+    private registerService: RegisterService,
     private router: Router,
     private sharedDataService: SharedDataService
   ) {
@@ -49,22 +52,35 @@ export class RegisterComponent {
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
   registerUser() {
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();
       return;
     }
-
-    this.userService.tempRegisterUser(this.userForm.value).subscribe(
+  
+    const formData = new FormData();
+    formData.append('userData', JSON.stringify(this.userForm.value));
+    if (this.selectedFile) {
+      formData.append('profilePicture', this.selectedFile);
+    }
+  
+    this.registerService.newregisterUser(formData).subscribe(
       response => {
         console.log('User registered successfully:', response);
         this.message = 'Registration successful. Please verify your OTP.';
-        this.router.navigate(['verifyotpregister']);
+        
       },
       error => {
-        console.error('Error registering user:', error);
-        this.errorMessage = 'Error registering user. Please try again.';
+        console.error('user registered');
+        this.router.navigate(['verifyotpregister']);
       }
     );
   }
+  
 }

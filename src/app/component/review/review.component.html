@@ -1,117 +1,93 @@
-<div class="container">
-    <h2>Review Management</h2>
-  
-    <!-- Add Review Form -->
-    <div class="form-container">
-      <h3>Add Review</h3>
-      <form (ngSubmit)="addMenuReview()">
-        <div class="form-group">
-          <label for="menuId">Menu ID:</label>
-          <input type="number" id="menuId" [(ngModel)]="menuId" name="menuId" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="reviewType">Review Type:</label>
-          <input type="text" id="reviewType" [(ngModel)]="review.reviewType" name="reviewType" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="rating">Rating:</label>
-          <input type="number" id="rating" [(ngModel)]="review.rating" name="rating" min="1" max="5" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="comment">Comment:</label>
-          <textarea id="comment" [(ngModel)]="review.comment" name="comment" required></textarea>
-        </div>
-  
-        <div class="form-group">
-          <label for="reviewDate">Review Date:</label>
-          <input type="date" id="reviewDate" [(ngModel)]="review.reviewDate" name="reviewDate" required>
-        </div>
-  
-        <button type="submit" class="btn btn-primary">Add Menu Review</button>
-      </form>
-  
-      <form (ngSubmit)="addRestaurantReview()">
-        <div class="form-group">
-          <label for="restaurantId">Restaurant ID:</label>
-          <input type="number" id="restaurantId" [(ngModel)]="restaurantId" name="restaurantId" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="reviewType">Review Type:</label>
-          <input type="text" id="reviewType" [(ngModel)]="review.reviewType" name="reviewType" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="rating">Rating:</label>
-          <input type="number" id="rating" [(ngModel)]="review.rating" name="rating" min="1" max="5" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="comment">Comment:</label>
-          <textarea id="comment" [(ngModel)]="review.comment" name="comment" required></textarea>
-        </div>
-  
-        <div class="form-group">
-          <label for="reviewDate">Review Date:</label>
-          <input type="date" id="reviewDate" [(ngModel)]="review.reviewDate" name="reviewDate" required>
-        </div>
-  
-        <button type="submit" class="btn btn-primary">Add Restaurant Review</button>
-      </form>
+<div class="review-form">
+  <h2>{{ editMode ? 'Edit Review' : 'Post a Review' }}</h2>
+
+  <form (ngSubmit)="submitReview()">
+    <div class="form-group">
+      <label for="reviewType">Review Type</label>
+      <select id="reviewType" [(ngModel)]="reviewType" name="reviewType" class="form-control">
+        <option value="restaurant">Restaurant</option>
+        <option value="menu">Menu</option>
+      </select>
     </div>
-  
-    <!-- Review Operations -->
-    <div class="operations-container">
-      <h3>Review Operations</h3>
-  
-      <!-- Get Review by ID -->
-      <div class="form-group">
-        <label for="reviewId">Review ID:</label>
-        <input type="number" id="reviewId" [(ngModel)]="reviewId" name="reviewId" required>
-        <button (click)="getReviewById()" class="btn btn-secondary">Get Review</button>
-      </div>
-  
-      <div *ngIf="review">
-        <h4>Review Details</h4>
-        <p><strong>ID:</strong> {{ review.id }}</p>
-        <p><strong>User:</strong> {{ review.user?.id }}</p>
-        <p><strong>Restaurant:</strong> {{ review.restaurant?.id }}</p>
-        <p><strong>Menu:</strong> {{ review.menu?.id }}</p>
-        <p><strong>Type:</strong> {{ review.reviewType }}</p>
-        <p><strong>Rating:</strong> {{ review.rating }}</p>
-        <p><strong>Comment:</strong> {{ review.comment }}</p>
-        <p><strong>Date:</strong> {{ review.reviewDate }}</p>
-      </div>
-  
-      <!-- Update Review -->
-      <div class="form-group">
-        <button (click)="updateReview()" class="btn btn-warning">Update Review</button>
-      </div>
-  
-      <!-- Delete Review -->
-      <div class="form-group">
-        <button (click)="deleteReview()" class="btn btn-danger">Delete Review</button>
+
+    <div *ngIf="reviewType === 'restaurant'" class="form-group">
+      <label for="restaurant">Select Restaurant</label>
+      <select id="restaurant" [(ngModel)]="selectedRestaurantId" name="restaurant" class="form-control">
+        <option *ngFor="let restaurant of restaurants" [value]="restaurant.restaurantId">
+          {{ restaurant.restaurantName }}
+        </option>
+      </select>
+    </div>
+
+    <div *ngIf="reviewType === 'menu'" class="form-group">
+      <label for="menu">Select Menu Item</label>
+      <select id="menu" [(ngModel)]="selectedMenuId" name="menu" class="form-control">
+        <option *ngFor="let menu of menus" [value]="menu.menuId">
+          {{ menu.itemName }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="rating">Rating</label>
+      <input id="rating" type="number" min="1" max="5" [(ngModel)]="review.rating" name="rating" class="form-control"
+        required>
+    </div>
+
+    <div class="form-group">
+      <label>Rating Stars</label>
+      <div class="star-rating">
+        <i *ngFor="let star of stars; let i = index" class="fa" [class.fa-star]="i < review.rating"
+          [class.fa-star-o]="i >= review.rating" (click)="setRating(i + 1)">
+        </i>
       </div>
     </div>
-  
-    <!-- Display All Reviews -->
-    <div class="reviews-list">
-      <h3>All Reviews</h3>
-      <ul>
-        <li *ngFor="let rev of reviews">
-          <p><strong>ID:</strong> {{ rev.id }}</p>
-          <p><strong>User:</strong> {{ rev.user?.id }}</p>
-          <p><strong>Restaurant:</strong> {{ rev.restaurant?.id }}</p>
-          <p><strong>Menu:</strong> {{ rev.menu?.id }}</p>
-          <p><strong>Type:</strong> {{ rev.reviewType }}</p>
-          <p><strong>Rating:</strong> {{ rev.rating }}</p>
-          <p><strong>Comment:</strong> {{ rev.comment }}</p>
-          <p><strong>Date:</strong> {{ rev.reviewDate }}</p>
-        </li>
-      </ul>
+
+    <div class="form-group">
+      <label for="comment">Comment</label>
+      <textarea id="comment" [(ngModel)]="review.comment" name="comment" class="form-control" rows="4"
+        required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">{{ editMode ? 'Update Review' : 'Submit Review' }}</button>
+  </form>
+
+  <!-- <button *ngIf="editMode" (click)="resetForm()" class="btn btn-secondary">Cancel</button> -->
+</div>
+
+<!-- Reviews List Section -->
+<div class="reviews-section">
+  <h2>All Reviews</h2>
+  <div *ngIf="reviews && reviews.length; else noReviews">
+    <div class="review-item" *ngFor="let review of reviews">
+      <h3>
+      </h3>
+       <h1><strong>Review For </strong> {{ review.reviewType }}</h1>
+       <p><strong>Review Id:</strong> {{ review.id }}</p>
+       <p><strong>Restaurant Name:</strong> {{ review.restaurantName }}</p>
+       <p><strong>Menu Name:</strong> {{ review.menuName }}</p>
+       <p><strong> Menu Id :</strong> {{ review.menuId }}</p>
+      <p><strong>Rating:</strong> {{ review.rating }}/5</p>
+      <div class="form-group">
+        <label>Rating Stars</label>
+        <div class="star-rating">
+          <i *ngFor="let star of stars; let i = index" class="fa" [class.fa-star]="i < review.rating"
+            [class.fa-star-o]="i >= review.rating" (click)="setRating(i + 1)">
+          </i>
+        </div>
+      </div>
+      <p><strong>Comment:</strong> {{ review.comment }}</p>
+      <p><strong>Date:</strong> {{ review.reviewDate }}</p>
+      <!-- <button *ngIf="review.id !== null" (click)="editReview(review)" class="btn btn-warning">Edit</button> -->
+      <!-- <button *ngIf="review.id !== null" (click)="deleteReview(review.id)" class="btn btn-danger">Delete</button> -->
     </div>
   </div>
-  
+
+  <ng-template #noReviews>
+    <p>No reviews available.</p>
+  </ng-template>
+</div>
+
+<!-- <pre>{{ reviews | json }}</pre>
+ <pre>{{ restaurants| json }}</pre>
+<pre>{{ menus  | json }}</pre>  -->

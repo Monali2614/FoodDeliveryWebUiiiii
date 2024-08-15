@@ -19,10 +19,9 @@ export class CheckoutComponent {
   cardCVV: string = '';
   upiID: string = '';
 
-  existingAddresses: string[] = [
-    '12 Main St, Rajapeth, Amravati',
-    '45 Square Shop, Rajkamal, Amravati'
-  ];
+  existingAddresses: string = '';
+    
+  
 
   paymentMethods: string[] = ['Credit Card', 'Debit Card', 'UPI'];
 
@@ -35,7 +34,9 @@ export class CheckoutComponent {
     } else {
       this.wishlist = this.wishlistService.getWishlist();
     }
-    this.calculateTotal();
+     this.calculateTotal();
+     this. existingAddresses=this.sharedDataService.getUserData().address;
+     console.log( this. existingAddresses);
   }
 
   calculateTotal(): void {
@@ -43,15 +44,11 @@ export class CheckoutComponent {
   }
 
   completeOrder(): void {
-    if (!this.address) {
-      alert('Please provide an address.');
-      return;
-    }
-
     // Set the totalPrice in the shared service
     this.sharedDataService.setTotalPrice(this.totalPrice);
-
+  
     // Navigate to the payment page
     this.router.navigate(['/payment']);
   }
+  
 }

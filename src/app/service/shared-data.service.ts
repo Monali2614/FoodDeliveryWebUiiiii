@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SharedDataService {
   private userData: any = null;
+  private userId: string = '';
   private restaurantData = new BehaviorSubject<any>([]);
   private totalPriceSubject = new BehaviorSubject<number>(0); // Add BehaviorSubject for totalPrice
   currentRestaurantData = this.restaurantData.asObservable();
@@ -45,4 +46,14 @@ export class SharedDataService {
   clearUserData(): void {
     this.userData = null;
   }
+
+  setUserId(id: string): void {
+    this.userId = id;
+  }
+
+  getUserId(): string {
+    return this.userId;
+  }
+
+  
 }

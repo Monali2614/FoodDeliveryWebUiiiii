@@ -1,97 +1,150 @@
+/* Container for the login page background */
 .loginmain {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: url('https://images.unsplash.com/photo-1485962232502-f25e5874a8d1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center;
-    background-size: cover;
-  }
-  
-  .logincontainer {
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  .logwraper {
-    width: 100%;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  h2 {
-    text-align: center;
-    color: #333;
-  }
-  
-  .formwraper {
-    display: flex;
-    flex-direction: column;
-    margin: 1rem;
-  }
-  
-  .formwraper input {
-    padding: 10px;
-    margin-bottom: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    transition: border-color 0.3s ease-in-out;
-    outline: none;
-  }
-  .formwraper select {
-    padding: 10px;
-    margin-bottom: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    transition: border-color 0.3s ease-in-out;
-    outline: none;
-  }
-  
-  .formwraper input:focus {
-    border-color: #ff4500;
-  }
-  .formwraper input::placeholder {
-   color: #2e2e2e;
-  }
-  
-  .formwraper button {
-    background-color: rgb(255, 36, 36);
-    color: #fff;
-    font-weight: 300;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  .formwraper button:hover {
-    background-color: rgb(54, 54, 54);
-  }
-  
-  .formwraper p{
-  font-size: 15px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: url('https://images.unsplash.com/photo-1485962232502-f25e5874a8d1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center;
+  background-size: cover;
+  animation: fadeIn 1s ease-in-out;
+}
 
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 400px;
-    background: none;
-    border: none;
-    font-size: 30px;
-    cursor: pointer;
-    color: #e40b0b;
+/* Container box for the form */
+.logincontainer {
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+
+/* Wrapper for the login form with shadow and rounded corners */
+.logwraper {
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.5s ease-out;
+}
+
+/* Back Button */
+#back-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: none;
+  border: none;
+  color: #4CAF50; /* Oranges color for visibility */
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#back-button:hover {
+  color: #388E3C; /* Slightly darker orange on hover */
+  transform: scale(1.2);
+}
+
+/* Heading styling */
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Form fields styling */
+.formwraper {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input and select styling */
+.formwraper input,
+.formwraper select {
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  outline: none;
+}
+
+/* Focus state for inputs and selects */
+.formwraper input:focus,
+.formwraper select:focus {
+  border-color: #ff4500;
+  box-shadow: 0 0 8px rgba(255, 69, 0, 0.2);
+}
+
+/* Placeholder text color */
+.formwraper input::placeholder {
+  color: #2e2e2e;
+}
+
+/* Button styling with hover effect */
+.btn-register {
+  background-color: #4CAF50; /* Green color */
+  color: #fff;
+  font-weight: 300;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Hover effect for the button */
+.btn-register:hover {
+  background-color: #388E3C; /* Darker green on hover */
+  transform: scale(1.05);
+}
+
+/* Small text styling */
+.password-info {
+  color: #6c757d;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+/* Styling for the terms and conditions checkbox */
+.form-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+/* Link styling */
+.link-primary {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.link-primary:hover {
+  text-decoration: underline;
+}
+
+/* Styling for the login link section */
+.login-link {
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* Keyframes for animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  h2 {
-    text-align: center;
-    color: #e61313;
+  to {
+    opacity: 1;
   }
-  
-  .formwraper {
-    display: flex;
-    flex-direction: column;
-    margin: 1rem;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
   }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

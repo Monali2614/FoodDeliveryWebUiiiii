@@ -16,79 +16,79 @@ export class MenuService {
 
   constructor(private http: HttpClient) {}
 
-  // Add a new menu item
-  addMenu(restaurantId: number, menuItem: Menu): Observable<Menu> {
+  // Method to add a new menu item with FormData
+  addMenu(restaurantId: number, formData: FormData): Observable<Menu> {
     const url = `${NAV_URL}/api/menus/menu/save/${restaurantId}`;
-    console.log('Sending menu item:', menuItem);
-    return this.http.post<Menu>(url, menuItem, { headers: this.headers })
+    return this.http.post<Menu>(url, formData)
       .pipe(catchError(this.handleError));
   }
 
-  // Get all menu items
-  getAllMenus(): Observable<Menu[]> {
+  // Method to get all menus
+  getAllMenus(menuId:number): Observable<Menu[]> {
     const url = `${NAV_URL}/api/menus/menu/getAllMenus`;
     return this.http.get<Menu[]>(url)
       .pipe(catchError(this.handleError));
   }
 
-  // Get restaurants by menu item
+  // Method to get restaurants by menu item name
   getRestaurantsByMenu(itemName: string): Observable<Restaurant[]> {
     const url = `${NAV_URL}/api/menus/menu/by-menu/${encodeURIComponent(itemName)}`;
     return this.http.get<Restaurant[]>(url)
       .pipe(catchError(this.handleError));
   }
 
-  // Get menu items by restaurant name
+  // Method to get menus by restaurant name
   getMenusByRestaurantName(restaurantName: string): Observable<Menu[]> {
     const url = `${NAV_URL}/api/menus/menu/items-by-restaurant/${encodeURIComponent(restaurantName)}`;
     return this.http.get<Menu[]>(url)
       .pipe(catchError(this.handleError));
   }
 
-  // Get menu items by restaurant ID
+  // Method to get menus by restaurant ID
   getMenusByRestaurant(restaurantId: number): Observable<Menu[]> {
     const url = `${NAV_URL}/api/menus/menu/by-restaurant/${restaurantId}`;
     return this.http.get<Menu[]>(url)
       .pipe(catchError(this.handleError));
   }
 
-  // Update a menu item for a specific restaurant
-  updateMenuForRestaurant(restaurantId: number, itemName: string, menuItem: Menu): Observable<Menu> {
+  // Method to update an existing menu item with FormData
+  updateMenuForRestaurant(restaurantId: number, itemName: string, formData: FormData): Observable<Menu> {
     const url = `${NAV_URL}/api/menus/menu/update/${restaurantId}/${encodeURIComponent(itemName)}`;
-    console.log('Updating menu for restaurant. URL:', url, 'Menu item:', menuItem);
-    return this.http.put<Menu>(url, menuItem, { headers: this.headers })
+    console.log('Updating menu:', restaurantId, itemName, formData); // Log to inspect what is being sent
+    return this.http.put<Menu>(url, formData)
       .pipe(catchError(this.handleError));
   }
+  
 
-  // Delete a menu item by its ID
+  // Method to delete a menu item
   deleteMenu(menuId: number): Observable<void> {
     const url = `${NAV_URL}/api/menus/menu/delete/${menuId}`;
-    console.log('Deleting menu item with ID:', menuId);
     return this.http.delete<void>(url)
       .pipe(catchError(this.handleError));
   }
 
-  // Search for restaurants by menu item name
-  searchMenuItem(itemName: string): Observable<Restaurant[]> {
-    const url = `${NAV_URL}/api/menus/menu/by-menu/${encodeURIComponent(itemName)}`;
-    return this.http.get<Restaurant[]>(url)
-      .pipe(catchError(this.handleError));
-  }
-
-  // Fetch menu image URL by menu ID
+  // Method to get a menu image by ID (URL string)
   getMenuImageById(menuId: number): Observable<string> {
     const url = `${NAV_URL}/api/profile_pictures/getMenuPicture/${menuId}`;
     return this.http.get(url, { responseType: 'text' })
       .pipe(catchError(this.handleError));
   }
 
-  // Fetch menu image as a Blob (useful for displaying images)
+  // Method to get a menu image as a Blob
   getMenuPicture(menuId: number): Observable<Blob> {
     const url = `${NAV_URL}/api/profile_pictures/getMenuPicture/${menuId}`;
-    return this.http.get(url, { responseType: 'blob' });
+    return this.http.get(url, { responseType: 'blob' })
+      .pipe(catchError(this.handleError));
   }
 
-  // Centralized error handling
+  // Method to search for menu items by name
+  searchMenuItem(itemName: string): Observable<Restaurant[]> {
+    const url = `${NAV_URL}/api/menus/menu/by-menu/${encodeURIComponent(itemName)}`;
+    return this.http.get<Restaurant[]>(url)
+      .pipe(catchError(this.handleError));
+  }
+
+  // Private method to handle errors
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Something bad happened; please try again later.';
     if (error.error instanceof ErrorEvent) {
@@ -101,3 +101,4 @@ export class MenuService {
     return throwError(errorMessage);
   }
 }
+

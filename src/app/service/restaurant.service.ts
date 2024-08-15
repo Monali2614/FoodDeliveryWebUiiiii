@@ -16,41 +16,56 @@ export class RestaurantService {
 
   constructor(private http: HttpClient) {}
 
-  // Add a new restaurant
-  addRestaurant(newRestaurant: Restaurant): Observable<Restaurant> {
-    return this.http.post<Restaurant>(`${NAV_URL}/api/restaurants/restaurant/save`, newRestaurant, { headers: this.headers })      .pipe(catchError(this.handleError));
+  // Add a restaurant using FormData
+  addRestaurant(formData: FormData): Observable<Restaurant> {
+    return this.http.post<Restaurant>(`${NAV_URL}/api/restaurants/restaurant/save`, formData, {
+      headers: new HttpHeaders({
+        // 'Content-Type': 'multipart/form-data' // Not necessary as FormData sets the content type
+      })
+    }).pipe(catchError(this.handleError));
   }
 
   // Get all restaurants
   getAllRestaurants(): Observable<Restaurant[]> {
-    return this.http.get<Restaurant[]>(`${NAV_URL}/api/restaurants/restaurant/findAll`)      .pipe(catchError(this.handleError));
+    return this.http.get<Restaurant[]>(`${NAV_URL}/api/restaurants/restaurant/findAll`)
+      .pipe(catchError(this.handleError));
   }
 
-  // Search for restaurants based on a query
+  // Search for restaurants by query
   searchRestaurants(query: string): Observable<Restaurant[]> {
-    return this.http.get<Restaurant[]>(`${NAV_URL}/api/restaurants/restaurant/find/${query}`)      .pipe(catchError(this.handleError));
+    return this.http.get<Restaurant[]>(`${NAV_URL}/api/restaurants/restaurant/find/${query}`)
+      .pipe(catchError(this.handleError));
   }
 
-  // Get a restaurant by its ID
+  // Get a restaurant by ID
   getRestaurantById(id: number): Observable<Restaurant> {
-    return this.http.get<Restaurant>(`${NAV_URL}/api/restaurants/restaurant/find/${id}`)      .pipe(catchError(this.handleError));
+    return this.http.get<Restaurant>(`${NAV_URL}/api/restaurants/restaurant/find/${id}`)
+      .pipe(catchError(this.handleError));
   }
 
-  // Update an existing restaurant
-  updateRestaurant(restaurant: Restaurant): Observable<Restaurant> {
-    return this.http.put<Restaurant>(`${NAV_URL}/api/restaurants/restaurant/update/${restaurant.restaurantId}`, restaurant, { headers: this.headers })      .pipe(catchError(this.handleError));
-  }
+  // Update a restaurant using FormData
+updateRestaurant(restaurantId: number, formData: FormData): Observable<Restaurant> {
+  const url = `${NAV_URL}/api/restaurants/restaurant/update/${restaurantId}`;
+  return this.http.put<Restaurant>(url, formData)
+    .pipe(catchError(this.handleError));
+}
 
-  // Delete a restaurant by its ID
+
+
+  // Delete a restaurant by ID
   deleteRestaurant(id: number): Observable<void> {
-    return this.http.delete<void>(`${NAV_URL}/api/restaurants/restaurant/delete/${id}`)      .pipe(catchError(this.handleError));
+    return this.http.delete<void>(`${NAV_URL}/api/restaurants/restaurant/delete/${id}`)
+      .pipe(catchError(this.handleError));
   }
 
+  // Handle errors
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
     } else {
-      console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);    }
-    return throwError('Something bad happened; please try again later.');
+      console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+    }
+    return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 }
+

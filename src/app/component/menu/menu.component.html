@@ -94,23 +94,8 @@
       </label>
     
       <button class="btn btn-primary gradient-btn ms-3" (click)="showAll()">Show All</button>
-
     </div>
-    <!-- <div class="card-container">
-      <div *ngFor="let item of filteredMenuItems" class="card">
-        <div class="card-content">
-          <img *ngIf="item.image" [src]="item.image" alt="{{ item.itemName }}" class="menu-image">
-          <h2>{{ item.itemName }}</h2>
-          <p>{{ item.description || 'No description available' }}</p>
-          <p>Price: {{ item.price | currency:'INR' }}</p>
-          <button (click)="addToCart(item)" class="add-to-cart-btn">
-            <span class="material-icons">shopping_cart</span>
-          </button>
-        </div>
-      </div>
-    </div> -->
-
-
+    
     <div class="card-container">
       <div *ngFor="let item of filteredMenuItems" class="card">
         <div class="card-content">
@@ -124,9 +109,8 @@
         </div>
       </div>
     </div>
-    
-    
   </div>
+  
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

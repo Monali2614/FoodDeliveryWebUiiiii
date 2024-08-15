@@ -79,4 +79,43 @@ export class AdminPanelComponent implements OnInit {
       }
     });
   }
-}
+
+  logout(): void {
+    // Implement your logout logic here
+    this.router.navigate(['/admin-login']).then(success => {
+      if (success) {
+        console.log('Logged out and redirected to login page');
+      } else {
+        console.error('Logout failed or navigation to login page failed');
+      }
+    });
+  }
+
+  updateRestaurant(restaurant: Restaurant): void {
+    const formData = new FormData();
+    formData.append('restaurantName', restaurant.restaurantName);
+    formData.append('restaurantAddress', restaurant.restaurantAddress);
+    formData.append('rating', restaurant.rating.toString());
+    formData.append('cuisines', JSON.stringify(restaurant.cuisines));
+    formData.append('menus', JSON.stringify(restaurant.menus));
+    formData.append('restaurantContactInfo', restaurant.restaurantContactInfo);
+    formData.append('category', JSON.stringify(restaurant.category));
+  
+    if (restaurant.restaurantId) {
+      this.restaurantService.updateRestaurant(restaurant.restaurantId, formData).subscribe(
+        (updatedRestaurant: Restaurant) => {
+          console.log('Restaurant updated successfully:', updatedRestaurant);
+          // Handle successful update, e.g., refresh the list or show a message
+          this.fetchRestaurants(); // Refresh the restaurant list after update
+          this.setActiveComponent('view-restaurants'); // Switch back to the view-restaurants component
+        },
+        (error: any) => {
+          console.error('Error updating restaurant:', error);
+          // Handle error, e.g., show an error message
+        }
+      );
+    } else {
+      console.error('Restaurant ID is missing.');
+    }
+  }
+}  

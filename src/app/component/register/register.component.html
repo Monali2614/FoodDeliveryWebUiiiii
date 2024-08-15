@@ -65,6 +65,11 @@
             Passwords must match.
           </div>
 
+          <div>
+            <label for="profilePicture">Profile Picture:</label>
+            <input id="profilePicture" type="file" (change)="onFileSelected($event)" />
+          </div>
+
           <!-- Terms and Conditions Checkbox -->
           <div class="form-group">
             <input type="checkbox" formControlName="termsAndConditions" /> 

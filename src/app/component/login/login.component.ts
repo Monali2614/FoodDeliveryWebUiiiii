@@ -21,6 +21,8 @@ export class LoginComponent {
     this.userService.login(this.username, this.password).subscribe(response => {
       console.log('User data saved:', response);
       this.sharedDataService.setUserData(response);
+     
+      this.sharedDataService.setUserId(response.id)
        alert('Login successful!');
       this.router.navigate(['/home']); // Navigate to the home page after login
     }, error => {

@@ -14,7 +14,7 @@
 
     <!-- Form -->
     <div class="container mt-4">
-        <form (ngSubmit)="addMenuItem()">
+        <form (ngSubmit)="addMenuItem()" #menuForm="ngForm">
             <div class="form-group">
                 <label for="restaurantId">Restaurant ID</label>
                 <input type="number" class="form-control" id="restaurantId" [(ngModel)]="restaurantId" name="restaurantId" required>
@@ -34,8 +34,8 @@
             <div class="form-group">
                 <label for="category">Category</label>
                 <select class="form-control" id="category" [(ngModel)]="newCategory" name="category" required>
-                    <option value="veg">Veg</option>
-                    <option value="non-veg">Non-Veg</option>
+                    <option value="VEG">Veg</option>
+                    <option value="NON_VEG">Non-Veg</option>
                 </select>
             </div>
             <div class="form-group">
@@ -44,6 +44,16 @@
             </div>
             <button type="submit" class="btn btn-primary">Add Menu Item</button>
         </form>
+        
+        <!-- Success message -->
+        <div *ngIf="successMessage" class="alert alert-success mt-3">
+            {{ successMessage }}
+        </div>
+        
+        <!-- Error message -->
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+            {{ errorMessage }}
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

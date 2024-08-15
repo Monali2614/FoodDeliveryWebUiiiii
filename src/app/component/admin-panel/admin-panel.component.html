@@ -29,6 +29,16 @@
           </li>
         </ul>
       </form>
+
+      <!-- Logout Button -->
+      <button
+        type="button"
+        class="btn btn-danger ml-2"
+        (click)="logout()"
+        style="margin-left: 10px;"
+      >
+        Logout
+      </button>
     </div>
   </nav>
 
@@ -61,11 +71,7 @@
             <i class="fas fa-list"></i> Show Restaurants
           </a>
         </li>
-        <li>
-          <a href="javascript:void(0)" (click)="setActiveComponent('add-images')">
-            <i class="fas fa-image"></i> Add Images
-          </a>
-        </li>
+       
       </ul>
     </nav>
 
@@ -85,9 +91,9 @@
       <ng-container *ngIf="activeComponent === 'show-restaurants'">
         <app-show-restaurant></app-show-restaurant>
       </ng-container>
-      <ng-container *ngIf="activeComponent === 'add-images'">
+      <!-- <ng-container *ngIf="activeComponent === 'add-images'">
         <app-add-images></app-add-images>
-      </ng-container>
+      </ng-container> -->
     </div>
   </div>
 </div>

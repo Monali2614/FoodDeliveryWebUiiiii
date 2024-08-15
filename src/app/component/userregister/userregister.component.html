@@ -39,6 +39,16 @@
         .close-btn span {
             display: inline-block;
         }
+        .form-control.is-invalid {
+            border-color: #dc3545;
+        }
+        .form-control.is-invalid:focus {
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+        .invalid-feedback {
+            display: block;
+            color: #dc3545; /* Red text color */
+        }
     </style>
 </head>
 <body>
@@ -67,40 +77,73 @@
               <div class="row gy-3 gy-md-4 overflow-hidden">
                 <div class="col-12">
                   <label for="firstName" class="form-label">Name <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="name" [(ngModel)]="user.name" id="firstName" placeholder="First Name" required>
+                  <input type="text" class="form-control" name="name" [(ngModel)]="user.name" id="firstName" placeholder="First Name" required [ngClass]="{'is-invalid': !user.name && userform.submitted}">
+                  <div class="invalid-feedback">
+                    Name is required.
+                  </div>
                 </div>
                 <div class="col-12">
                   <label for="username" class="form-label">User Name <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="username" [(ngModel)]="user.username" id="username" placeholder="User Name" required>
+                  <input type="text" class="form-control" name="username" [(ngModel)]="user.username" id="username" placeholder="User Name" required [ngClass]="{'is-invalid': !user.username && userform.submitted}">
+                  <div class="invalid-feedback">
+                    User Name is required.
+                  </div>
                 </div>
                 <div class="col-12">
                   <label for="usergender" class="form-label">Gender <span class="text-danger">*</span></label>
-                  <select class="form-control" name="gender" [(ngModel)]="user.gender" id="usergender" required>
+                  <select class="form-control" name="gender" [(ngModel)]="user.gender" id="usergender" required [ngClass]="{'is-invalid': !user.gender && userform.submitted}">
                     <option value="" disabled selected>Select Gender *</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
                   </select>
+                  <div class="invalid-feedback">
+                    Gender is required.
+                  </div>
                 </div>
+                <!-- <div class="col-12">
+                  <label for="useremail" class="form-label">Email Address <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" name="email" [(ngModel)]="user.email" id="useremail" placeholder="name@example.com" required [ngClass]="{'is-invalid': !user.email && userform.submitted}">
+                  <div class="invalid-feedback">
+                    A valid email address is required.
+                  </div>
+                </div> -->
+
                 <div class="col-12">
                   <label for="useremail" class="form-label">Email Address <span class="text-danger">*</span></label>
-                  <input type="email" class="form-control" name="email" [(ngModel)]="user.email" id="useremail" placeholder="name@example.com" required>
+                  <input type="email" class="form-control" name="email" [(ngModel)]="user.email" id="useremail" placeholder="name@example.com" required [ngClass]="{'is-invalid': !user.email && userform.submitted}">
+                  <div class="invalid-feedback">
+                    A valid email address is required.
+                  </div>
                 </div>
+                
                 <div class="col-12">
                   <label for="useraddress" class="form-label">Address <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="address" [(ngModel)]="user.address" id="useraddress" placeholder="Address" required>
+                  <input type="text" class="form-control" name="address" [(ngModel)]="user.address" id="useraddress" placeholder="Address" required [ngClass]="{'is-invalid': !user.address && userform.submitted}">
+                  <div class="invalid-feedback">
+                    Address is required.
+                  </div>
                 </div>
                 <div class="col-12">
                   <label for="mobileNo" class="form-label">Mobile Number <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="mobileNo" [(ngModel)]="user.mobileNo" id="mobileNo" placeholder="Mobile Number" required maxlength="10" pattern="^[0-9]{10}$">
+                  <input type="text" class="form-control" name="mobileNo" [(ngModel)]="user.mobileNo" id="mobileNo" placeholder="Mobile Number" required maxlength="10" pattern="^[0-9]{10}$" [ngClass]="{'is-invalid': !user.mobileNo && userform.submitted}">
+                  <div class="invalid-feedback">
+                    Mobile Number is required and must be 10 digits.
+                  </div>
                 </div>
                 <div class="col-12">
                   <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                  <input type="password" class="form-control" name="password" [(ngModel)]="user.password" id="password" placeholder="Password" required>
+                  <input type="password" class="form-control" name="password" [(ngModel)]="user.password" id="password" placeholder="Password" required [ngClass]="{'is-invalid': !user.password && userform.submitted}">
+                  <div class="invalid-feedback">
+                    Password is required.
+                  </div>
                 </div>
                 <div class="col-12">
                   <label for="confirmPassword" class="form-label">Confirm Password <span class="text-danger">*</span></label>
-                  <input type="password" class="form-control" name="confirmPassword" [(ngModel)]="user.confirmPassword" id="confirmPassword" placeholder="Confirm Password" required>
+                  <input type="password" class="form-control" name="confirmPassword" [(ngModel)]="user.confirmPassword" id="confirmPassword" placeholder="Confirm Password" required [ngClass]="{'is-invalid': !user.confirmPassword && userform.submitted}">
+                  <div class="invalid-feedback">
+                    Confirm Password is required.
+                  </div>
                 </div>
                 <small style="color: rgb(6, 5, 5); font-size: 10px;">At least one uppercase, numeric digit, lowercase, special character, length of 6-20</small>
                 <div class="col-12">

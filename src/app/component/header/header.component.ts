@@ -25,6 +25,7 @@ export class HeaderComponent {
 
   ngOnInit(): void {
     this.userData = this.sharedDataService.getUserData();
+    console.log("This is user data",this.userData)
     if (this.userData) {
       this.loadProfilePicture(this.userData.id);
     }

@@ -24,7 +24,7 @@ export class PaymentComponent {
       console.log(this.totalPrice);
       this.makePayment(this.totalPrice); // Call makePayment with the totalPrice
     }
-  
+    
     makePayment(amount: number) {
       this.transactionService.createTransaction(amount).subscribe(
         (transactionDetails) => {

@@ -48,8 +48,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="restaurantImage">Image</label>
+                        <input type="file" class="form-control-file" id="restaurantImage" (change)="onFileSelected($event)">
+                    </div>
                     <button type="submit" class="btn btn-primary btn-block">Add Restaurant</button>
                 </form>
+
+                <!-- Success message -->
+                <div *ngIf="successMessage" class="alert alert-success mt-3">
+                    {{ successMessage }}
+                </div>
+
+                <!-- Error message -->
+                <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                    {{ errorMessage }}
+                </div>
             </div>
         </div>
     </div>

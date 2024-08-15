@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from 'src/app/service/menu.service';
 import { Menu } from 'src/app/models/menu';
-import { ActivatedRoute } from '@angular/router';
 import { WishlistService } from 'src/app/service/wishlist.service';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-menu',
@@ -18,33 +16,20 @@ export class MenuComponent implements OnInit {
   isNonVegSelected: boolean = false;
 
   constructor(
-    private route: ActivatedRoute,
     private menuService: MenuService,
     private wishlistService: WishlistService
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.restaurantName = params['restaurantName'];
-      this.menuService.getMenusByRestaurantName(this.restaurantName).subscribe(
-        (menu: Menu[]) => {
-          this.menuItems = menu;
-          this.filteredMenuItems = menu; // Initialize with all menu items
-        },
-        (error: any) => {
-          console.error('Error fetching menu items', error);
-        }
-      );
-    });
     this.getMenus(); // Fetch all menus when the component initializes
   }
 
   getMenus(): void {
-    this.menuService.getAllMenus().subscribe(
+    this.menuService.getAllMenus(1).subscribe(
       (data: Menu[]) => {
         this.menuItems = data;
         this.filteredMenuItems = data; // Initialize with all menu items
-  
+
         // Fetch images for each menu item
         this.filteredMenuItems.forEach(menu => {
           this.menuService.getMenuPicture(menu.menuId).subscribe(
