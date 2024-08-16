@@ -74,7 +74,7 @@
           <div class="form-group">
             <input type="checkbox" formControlName="termsAndConditions" /> 
             I agree to the 
-            <a routerLink="/terms-conditions" style="color: blue">Terms and Conditions</a>
+            <a href="/terms-conditions" target="_blank" style="color: blue">Terms and Conditions</a>
             <div *ngIf="userForm.get('termsAndConditions')?.touched && userForm.get('termsAndConditions')?.invalid" class="alert alert-danger mt-2">
               You must agree to the Terms and Conditions.
             </div>

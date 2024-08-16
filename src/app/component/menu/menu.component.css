@@ -28,7 +28,7 @@
 
 .filter-btn {
   background-color: #e0e0e0; /* Default background color */
-  color: #000; /* Default text color */
+  color: #0a0909; /* Default text color */
   border: none;
   border-radius: 25px;
   padding: 12px 24px;
@@ -41,19 +41,6 @@
 }
 
 
-.filter-btn:hover {
-  background-color: #0dac2a; /* Lighten on hover */
-}
-
-.active.veg-btn {
-  background-color: #28a745; /* Active color for Veg */
-  color: rgb(233, 238, 232);
-}
-
-.active.non-veg-btn {
-  background-color: #dc3545; /* Active color for Non-Veg */
-  color: rgb(249, 241, 241);
-}
 
 .card-container {
   display: flex;
@@ -117,43 +104,8 @@
   background-color: #0056b3; /* Darker color on hover */
 }
 
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  margin-right: 10px;
-}
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
 
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
-.veg .slider {
-  background-color: green;
-}
-
-.non-veg .slider {
-  background-color: red;
-}
-
-.veg input:checked + .slider {
-  background-color: green;
-}
-
-.non-veg input:checked + .slider {
-  background-color: red;
-}
 
 .card-image {
   width: 150px;
@@ -164,128 +116,24 @@
 
 
 
-.filter-btn {
-  color: #fff; /* Default text color */
-  border: none;
-  border-radius: 25px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  text-align: center;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  margin: 5px;
-}
-
-/* Veg Button */
-.veg-btn {
-  background-color: #28a745; /* Green background for Veg */
-}
-
-.veg-btn:hover {
-  background-color: #218838; /* Darker green on hover */
-}
-
-/* Non-Veg Button */
-.non-veg-btn {
-  background-color: #dc3545; /* Red background for Non-Veg */
-}
-
-.non-veg-btn:hover {
-  background-color: #c82333; /* Darker red on hover */
-}
-
-/* Active States */
-.active.veg-btn {
-  background-color: #218838; /* Darker green when active */
-}
-
-.active.non-veg-btn {
-  background-color: #c82333; /* Darker red when active */
-}
 
 
 
 
-.filter-btn {
-  color: #fff; /* Text color */
-  border: 2px solid transparent;
-  border-radius: 30px;
-  padding: 12px 30px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.4s ease;
-  margin: 5px;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Box shadow */
-}
 
-/* Veg Button */
-.veg-btn {
-  background: linear-gradient(45deg, #4caf50, #2e7d32); /* Gradient background */
-  border: 2px solid #4caf50; /* Border matching the gradient */
-}
 
-.veg-btn:hover {
-  background: linear-gradient(45deg, #45a049, #2e7d32); /* Slightly lighter gradient on hover */
-  border-color: #45a049; /* Border color on hover */
-  transform: scale(1.05); /* Slight scale effect on hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
-}
 
-/* Non-Veg Button */
-.non-veg-btn {
-  background: linear-gradient(45deg, #e53935, #b71c1c); /* Gradient background */
-  border: 2px solid #e53935; /* Border matching the gradient */
-}
-
-.non-veg-btn:hover {
-  background: linear-gradient(45deg, #d32f2f, #b71c1c); /* Slightly lighter gradient on hover */
-  border-color: #d32f2f; /* Border color on hover */
-  transform: scale(1.05); /* Slight scale effect on hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
-}
 
 /* Active State */
 .active {
   filter: brightness(1.2); /* Brighten the button when active */
 }
 
-/* Ripple Effect */
-.filter-btn::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 200%;
-  height: 200%;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  transition: all 0.6s ease;
-  transform: translate(-50%, -50%) scale(0);
-  z-index: 0;
-}
-
-.filter-btn:active::after {
-  transform: translate(-50%, -50%) scale(1);
-}
 
 
 
-.gradient-btn {
-  background: linear-gradient(45deg, #0eba28, #e70909);
-  color: white;
-  border: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
 
-.gradient-btn:hover {
-  background: linear-gradient(45deg, #d4a5a5, #ff6f61);
-}
+
 
 .menu-image {
   width: 100%;

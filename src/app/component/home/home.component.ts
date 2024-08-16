@@ -25,9 +25,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   menus: Menu[] = [];
   boxes = [
     { title: 'Maharashtrian Dish', category: 'Category1', image: '/assets/mahthali.jpeg' },
-    { title: 'North Dish', category: 'Category2', image: '/assets/Gujrati.jpg' },
-    { title: 'South Indian Dish', category: 'Category3', image: '/assets/South.jpeg' },
-    { title: 'Punjabi Dish', category: 'Category4', image: '/assets/Punjabi-thali-WS.jpg' },
+    // { title: 'North Dish', category: 'Category2', image: '/assets/Gujrati.jpg' },
+    // { title: 'South Indian Dish', category: 'Category3', image: '/assets/South.jpeg' },
+    // { title: 'Punjabi Dish', category: 'Category4', image: '/assets/Punjabi-thali-WS.jpg' },
   ];
   private slideInterval$: Subscription = new Subscription();
 

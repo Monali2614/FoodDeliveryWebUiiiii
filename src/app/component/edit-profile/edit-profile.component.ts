@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/service/auth.service';
-import { SharedDataService } from 'src/app/service/shared-data.service';
 import { UserService } from 'src/app/service/user.service';
-
+import { SharedDataService } from 'src/app/service/shared-data.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,11 +12,13 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class EditProfileComponent implements OnInit {
   editProfileForm: FormGroup;
+  selectedFile: File | null = null;
 
   constructor(
     private fb: FormBuilder,
     private sharedDataService: SharedDataService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {
     this.editProfileForm = this.fb.group({
       id: [''], // Add the id field to the form
@@ -47,15 +47,24 @@ export class EditProfileComponent implements OnInit {
         password: userData.password,
         confirmPassword: userData.confirmPassword
       });
+
+      // Disable the username field
+      this.editProfileForm.get('username')?.disable();
+    }
+  }
+
+  onFileChange(event: any): void {
+    if (event.target.files && event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
     }
   }
 
   onSubmit(): void {
     if (this.editProfileForm.valid) {
       const userId = this.editProfileForm.value.id; // Get user ID from the form
-      const user: User = this.editProfileForm.value; // Create user object
+      const user: User = this.editProfileForm.getRawValue(); // Use getRawValue() to get the form values including disabled fields
 
-      this.userService.updateUserDetails(userId, user).subscribe(
+      this.userService.updateUserDetails(userId, user, this.selectedFile).subscribe(
         (response: User) => { // Explicitly type the response
           console.log('User data saved:', response);
           this.sharedDataService.setUserData(response);
@@ -67,5 +76,9 @@ export class EditProfileComponent implements OnInit {
         }
       );
     }
+  }
+
+  navigateHome(): void {
+    this.router.navigate(['/']); // Navigate to home or another route
   }
 }

@@ -48,10 +48,15 @@ export class MenuComponent implements OnInit {
     );
   }
 
-  onToggleChange(event: any): void {
-    this.isVegSelected = event.target.checked;
-    this.isNonVegSelected = !event.target.checked;
-    this.filterByCategory(this.isVegSelected ? 'VEG' : 'NON_VEG');
+  onCategoryChange(category: string): void {
+    if (category === 'VEG') {
+      this.isVegSelected = true;
+      this.isNonVegSelected = false;
+    } else if (category === 'NON_VEG') {
+      this.isVegSelected = false;
+       this.isNonVegSelected = true;
+    }
+    this.filterByCategory(category);
   }
 
   filterByCategory(category: string): void {
@@ -74,3 +79,4 @@ export class MenuComponent implements OnInit {
     alert("Item added Successfully");
   }
 }
+

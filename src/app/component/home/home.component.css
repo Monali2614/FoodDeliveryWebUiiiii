@@ -1,5 +1,6 @@
 /* General Styles */
 * {
+
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -8,6 +9,7 @@
 body, html {
   height: 100%;
   font-family: Arial, sans-serif;
+
 }
 
 /* Center Content */
@@ -139,15 +141,15 @@ body, html {
 .section-title {
   text-align: center;
   margin: 40px 0 20px;
-  font-size: 2em;
+  font-size: 3em;
   color: #333;
 }
 
 .cuisines-section, .popular-menu-section {
   background-size: cover;
   background-repeat: no-repeat;
-  padding: 40px 20px;
-  color: #fff;
+  padding: 60px 20px;
+  color: #e61111;
 }
 
 .cuisines-section {

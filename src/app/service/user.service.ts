@@ -81,9 +81,16 @@ export class UserService {
   }
 
 
-  updateUserDetails(userId: number, user: User): Observable<User> {
-    return this.http.put<User>(`${NAV_URL}/api/users/user/update/${userId}`, user);
+  updateUserDetails(userId: number, userData: any, profilePicture?: File | null): Observable<User> {
+    const formData: FormData = new FormData();
+    formData.append('userData', JSON.stringify(userData));
+    if (profilePicture) {
+      formData.append('profilePicture', profilePicture);
+    }
+
+    return this.http.put<User>(`${NAV_URL}/api/users/user/update/${userId}`, formData);
   }
+
 
   uploadUserProfilePicture(formData: FormData, userId: number): Observable<any> {
     return this.http.post(`${NAV_URL}/api/profile_pictures/uploadUserPicture/${userId}`, formData, {
