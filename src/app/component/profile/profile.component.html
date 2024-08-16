@@ -11,7 +11,9 @@
     <div class="card profile-card">
       <!-- Profile picture and user info -->
       <div class="card-header text-center bg-danger text-white">
-        <img *ngIf="profilePictureUrl" [src]="profilePictureUrl" alt="Profile Picture" class="profile-picture rounded-circle">
+        <!-- <img *ngIf="profilePictureUrl" [src]="profilePictureUrl" alt="Profile Picture" class="profile-picture rounded-circle"> -->
+        <img *ngIf="imageUrl" [src]="imageUrl" alt="User Profile Picture" class="profile-img rounded-circle">
+
         <h2 class="profile-username mt-2">{{ userData.username }}</h2>
       </div>
     

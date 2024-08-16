@@ -24,7 +24,7 @@ export class MenuService {
   }
 
   // Method to get all menus
-  getAllMenus(menuId:number): Observable<Menu[]> {
+  getAllMenus(): Observable<Menu[]> {
     const url = `${NAV_URL}/api/menus/menu/getAllMenus`;
     return this.http.get<Menu[]>(url)
       .pipe(catchError(this.handleError));

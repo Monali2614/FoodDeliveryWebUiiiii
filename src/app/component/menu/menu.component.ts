@@ -12,6 +12,7 @@ export class MenuComponent implements OnInit {
   restaurantName!: string;
   menuItems: Menu[] = [];
   filteredMenuItems: Menu[] = [];
+
   isVegSelected: boolean = false;
   isNonVegSelected: boolean = false;
 
@@ -21,11 +22,32 @@ export class MenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getMenus(); // Fetch all menus when the component initializes
+    this.getMenus(); 
+    this.loadAllMenus(); 
+
+  }
+
+  loadAllMenus(): void {
+    this.menuService.getAllMenus().subscribe(
+      (menu: Menu[]) => {
+        this.menuItems = this.transformMenuItems(menu);
+        this.filteredMenuItems = [...this.menuItems];
+      },
+      (error: any) => console.error('Error fetching all menu items', error)
+    );
+  }
+
+  transformMenuItems(menuItems: Menu[]): Menu[] {
+    return menuItems.map(item => {
+      if (item.images && item.images.length > 0) {
+        // Assuming the images are in base64 format
+        item.image = `data:image/jpeg;base64,${item.images[0]}`;      }
+      return item;
+    });
   }
 
   getMenus(): void {
-    this.menuService.getAllMenus(1).subscribe(
+    this.menuService.getAllMenus().subscribe(
       (data: Menu[]) => {
         this.menuItems = data;
         this.filteredMenuItems = data; // Initialize with all menu items

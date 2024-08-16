@@ -129,12 +129,6 @@
   filter: brightness(1.2); /* Brighten the button when active */
 }
 
-
-
-
-
-
-
 .menu-image {
   width: 100%;
   height: auto;
@@ -142,4 +136,5 @@
   object-fit: cover;
   border-radius: 5px;
   margin-bottom: 10px;
+  
 }

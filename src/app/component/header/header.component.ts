@@ -12,7 +12,7 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class HeaderComponent {
 
-  
+  imageUrl: SafeUrl | undefined;
   userData: any = null;
   profilePictureUrl: SafeUrl | null = null;
 
@@ -29,7 +29,34 @@ export class HeaderComponent {
     if (this.userData) {
       this.loadProfilePicture(this.userData.id);
     }
+
+    this.userService.getUserById(this.userData.id).subscribe(
+      (response) => {
+        this.userData = response;
+        this.convertBlobOrBase64ToImage(this.userData.profilePicture);
+      },
+      (error) => {
+        console.error('Error fetching user data:', error);
+      }
+    );
   }
+
+  convertBlobOrBase64ToImage(data: any): void {
+    if (data instanceof Blob) {
+      const blobUrl = URL.createObjectURL(data);
+      this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(blobUrl);
+    } else if (typeof data === 'string' && data.startsWith('data:image')) {
+      // If it's already a data URL (base64)
+      this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(data);
+    } else if (typeof data === 'string') {
+      // If it's a base64 string without the data URL prefix
+      this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(`data:image/jpeg;base64,${data}`);    } else {
+      console.error('Unexpected profile picture format.');
+    }
+    
+  }
+
+
 
   onlogin(): void {
     this.router.navigate(['/login']);
