@@ -1,0 +1,6 @@
+body {
+
+    height: 110vh;
+    background: url('\src\assets\adminpannel.jpeg') no-repeat center center;
+    background-size: cover;
+  }

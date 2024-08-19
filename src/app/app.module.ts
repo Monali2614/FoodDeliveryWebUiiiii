@@ -20,7 +20,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchrestaurantbyitemComponent } from './component/searchrestaurantbyitem/searchrestaurantbyitem.component';
 import { RestaurantListComponent } from './component/restaurant-list/restaurant-list.component';
 import { LoginComponent } from './component/login/login.component';
-import { UserregisterComponent } from './component/userregister/userregister.component';
 import { WishlistComponent } from './component/wishlist/wishlist.component';
 import { EditProfileComponent } from './component/edit-profile/edit-profile.component';
 import { MenuComponent } from './component/menu/menu.component';
@@ -60,7 +59,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     PaymentComponent,
     SearchrestaurantbyitemComponent,
     RestaurantListComponent,
-    UserregisterComponent,
     LoginComponent,
     WishlistComponent,
     EditProfileComponent,

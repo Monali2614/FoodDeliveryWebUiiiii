@@ -1,21 +1,148 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 150px;
+  min-height: 100vh;
+  background: url('/assets/adminpannel.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-fluid {
+  height: 100%;
+  padding: 0;
+}
+
+/* Sidebar Styles */
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 123, 255, 0.8); /* Semi-transparent blue */
+  color: white;
+  padding-top: 20px;
+}
+
+#sidebar .sidebar-header {
+  padding: 20px;
+  background: rgba(0, 105, 217, 0.9); /* Semi-transparent dark blue */
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+#sidebar ul.components {
+  padding: 0;
+  list-style: none;
+}
+
+#sidebar ul li a {
+  padding: 15px;
+  font-size: 1.1em;
+  display: block;
+  color: white;
+  text-decoration: none;
+}
+
+#sidebar ul li a:hover {
+  color: #007bff;
+  background: rgba(255, 255, 255, 0.7); /* Slightly transparent white */
+  transition: 0.3s;
+}
+
+/* Content Styles */
+#content {
+  width: calc(100% - 250px);
+  padding: 20px;
+  margin-left: 250px;
+  background: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+      margin-left: -250px;
+  }
+  #sidebar.active {
+      margin-left: 0;
+  }
+  #content {
+      margin-left: 0;
+  }
+  #content.active {
+      margin-left: 250px;
+  }
+}
+
+/* Navbar Styles */
+.navbar {
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+}
+
+.navbar .form-inline {
+  width: 100%;
+}
+
+.navbar .form-inline .form-control {
+  height: 40px;
+}
+
+.navbar .form-inline .btn {
+  height: 40px;
+}
+
+/* Form and Button Styles */
+.form-control {
+  margin-bottom: 15px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.d-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input-group .form-control {
+  height: 40px;
+}
+
+.input-group .btn {
+  height: 40px;
+}
+
+/* Card Styles */
+.card {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+}
+
+.card-header {
+  padding: 20px;
+  background: #000000;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+}
+
 .table {
-    margin-top: 20px;
-  }
-  
-  .card {
-    margin-top: 20px;
-  }
-  
-  .card-header {
-    padding: 20px;
-    background: #0069d9;
-    text-align: center;
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-  
-  .btn-sm {
-    font-size: 0.875rem;
-    padding: 0.25rem 0.5rem;
-  }
-  
+  margin-top: 20px;
+}
+
+.dropdown-menu {
+  width: 100%;
+  left: initial;
+  right: initial;
+  top: initial;
+}

@@ -8,12 +8,12 @@
 </head>
 <body>
     <!-- Header with Add Menu on the left -->
-    <nav class="navbar navbar-dark bg-primary">
+    <nav class="navbar navbar-dark bg-danger">
         <span class="navbar-text">Add Menu</span>
     </nav>
 
     <!-- Form -->
-    <div class="container mt-4">
+    <div class="container mt-4 w-75 bg-light">
         <form (ngSubmit)="addMenuItem()" #menuForm="ngForm">
             <div class="form-group">
                 <label for="restaurantId">Restaurant ID</label>
@@ -42,7 +42,7 @@
                 <label for="picture">Picture</label>
                 <input type="file" class="form-control" id="picture" (change)="onFileChange($event)" required>
             </div>
-            <button type="submit" class="btn btn-primary">Add Menu Item</button>
+            <button type="submit" class="btn btn-danger">Add Menu Item</button>
         </form>
         
         <!-- Success message -->

@@ -11,14 +11,14 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  background: #007bff;
+  background: #221302;
   color: white;
   padding-top: 20px;
 }
 
 #sidebar .sidebar-header {
   padding: 20px;
-  background: #0069d9;
+  background: #3d3e3f;
   text-align: center;
   font-size: 1.5em;
   font-weight: bold;
@@ -38,7 +38,7 @@ body {
 }
 
 #sidebar ul li a:hover {
-  color: #007bff;
+  color: #160403;
   background: #fff;
   text-decoration: none;
   transition: 0.3s;

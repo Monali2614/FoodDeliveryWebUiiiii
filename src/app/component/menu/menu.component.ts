@@ -13,8 +13,8 @@ export class MenuComponent implements OnInit {
   menuItems: Menu[] = [];
   filteredMenuItems: Menu[] = [];
 
-  isVegSelected: boolean = false;
-  isNonVegSelected: boolean = false;
+  showVeg: boolean = false;
+  showNonVeg: boolean = false;
 
   constructor(
     private menuService: MenuService,
@@ -70,29 +70,14 @@ export class MenuComponent implements OnInit {
     );
   }
 
-  onCategoryChange(category: string): void {
-    if (category === 'VEG') {
-      this.isVegSelected = true;
-      this.isNonVegSelected = false;
-    } else if (category === 'NON_VEG') {
-      this.isVegSelected = false;
-       this.isNonVegSelected = true;
-    }
-    this.filterByCategory(category);
-  }
-
-  filterByCategory(category: string): void {
-    if (category === 'VEG' && this.isVegSelected) {
+  filterMenu(): void {
+    if (this.showVeg && !this.showNonVeg) {
       this.filteredMenuItems = this.menuItems.filter(item => item.category === 'VEG');
-    } else if (category === 'NON_VEG' && this.isNonVegSelected) {
+    } else if (!this.showVeg && this.showNonVeg) {
       this.filteredMenuItems = this.menuItems.filter(item => item.category === 'NON_VEG');
     } else {
-      this.filteredMenuItems = this.menuItems;
+      this.filteredMenuItems = this.menuItems; // Show all items if no filter is selected
     }
-  }
-
-  showAll(): void {
-    this.filteredMenuItems = this.menuItems;
   }
 
   addToCart(item: Menu): void {
@@ -101,4 +86,5 @@ export class MenuComponent implements OnInit {
     alert("Item added Successfully");
   }
 }
+
 

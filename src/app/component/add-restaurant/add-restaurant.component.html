@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-primary">
+    <nav class="navbar navbar-dark bg-danger">
         <span class="navbar-text">Add Restaurant</span>
     </nav>
 
-    <div class="container mt-4">
+    <div class="container mt-4 w-75">
         <div class="card shadow">
             <div class="card-body">
                 <form (ngSubmit)="addRestaurant()" #form="ngForm">
@@ -52,7 +52,7 @@
                         <label for="restaurantImage">Image</label>
                         <input type="file" class="form-control-file" id="restaurantImage" (change)="onFileSelected($event)">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Add Restaurant</button>
+                    <button type="submit" class="btn btn-danger btn-block">Add Restaurant</button>
                 </form>
 
                 <!-- Success message -->

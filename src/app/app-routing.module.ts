@@ -4,7 +4,6 @@ import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { AdminComponent } from './component/admin/admin.component';
 import { LoginComponent } from './component/login/login.component';
-import { UserregisterComponent } from './component/userregister/userregister.component';
 import { AdminPanelComponent } from './component/admin-panel/admin-panel.component';
 import { AddRestaurantComponent } from './component/add-restaurant/add-restaurant.component';
 import { AddMenuComponent } from './component/add-menu/add-menu.component';
@@ -44,7 +43,7 @@ const routes: Routes = [
   { path: 'payment', component: PaymentComponent },
   { path: 'searchrestaurantbyitem', component: SearchrestaurantbyitemComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'userregister', component: UserregisterComponent },
+ 
   { path: 'restaurant-list', component: RestaurantListComponent },
   { path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard] },
   { path: 'edit-profile', component: EditProfileComponent },
