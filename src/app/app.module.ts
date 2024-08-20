@@ -42,6 +42,8 @@ import { ForgotPasswordComponent } from './component/forgot-password/forgot-pass
 import { VerifiyOtpResetComponent } from './component/verifiy-otp-reset/verifiy-otp-reset.component';
 import { VerifiyOtpRegisterComponent } from './component/verifiy-otp-register/verifiy-otp-register.component';
 import { ReviewComponent } from './component/review/review.component';
+import { AdminregisterComponent } from './component/adminregister/adminregister.component';
+import { MessageComponent } from './component/message/message.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -79,7 +81,11 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
    ForgotPasswordComponent,
    VerifiyOtpResetComponent,
    VerifiyOtpRegisterComponent,
-   ReviewComponent
+   ReviewComponent,
+   AdminregisterComponent,
+   
+   MessageComponent
+   
   ],
   imports: [
     BrowserModule,

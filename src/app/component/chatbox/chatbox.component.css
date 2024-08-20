@@ -1,203 +1,223 @@
 .chatbox-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.2); /* Background overlay */
-    background: url('src/assets/chatbox.jpeg') no-repeat center center; /* Add your background image here */
-    background-size: cover; /* Ensure the background image covers the entire container */
-    backdrop-filter: blur(5px); /* Add a slight blur effect */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2); /* Background overlay */
+  background: url('src/assets/chatbox.jpeg') no-repeat center center; /* Add your background image here */
+  background-size: cover; /* Ensure the background image covers the entire container */
+  backdrop-filter: blur(5px); /* Add a slight blur effect */
+}
+
+.chatbox {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  width: 80%;
+  max-width: 860px;
+  margin: auto;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.8); /* Transparent background */
+  backdrop-filter: blur(10px); /* Blur effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.5s ease-out;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.chatbox:hover {
+  background: rgba(255, 255, 255, 0.9); /* Change transparency on hover */
+  backdrop-filter: blur(12px); /* Increase blur on hover */
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100px);
   }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.chatbox-header {
+  background: linear-gradient(90deg, #FFA726, #FB8C00); /* Oranges-yellow gradient */
+  color: #fff;
+  padding: 16px;
+  text-align: center;
+  border-bottom: 2px solid #FB8C00;
+  font-size: 1.3em;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatbox-header button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.chatbox-header button:hover {
+  transform: scale(1.2);
+  color: #FFEB3B;
+}
+
+.chatbox-body {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  background: rgba(255, 245, 229, 0.8); /* Light oranges-yellow background */
+  border-bottom: 2px solid #ddd;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-left: 3px solid #007bff; /* Customize color and width */
+  padding-left: 10px; /* Add some padding for spacing */
+  margin-bottom: 10px; /* Add spacing between messages */
+}
+
+.chatbox-footer {
+  padding: 12px;
+  border-top: 2px solid #ddd;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8); /* Transparent background */
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chatbox-footer img {
+  margin-right: 12px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 3px solid #FFA726;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.chatbox-footer img:hover {
+  transform: scale(1.1);
+}
+
+.chatbox-footer input {
+  flex: 1;
+  margin-right: 12px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  padding: 10px 16px;
+  font-size: 0.9em;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chatbox-footer input:focus {
+  border-color: #FFA726;
+  box-shadow: 0 0 0 1px #FFA726;
+  outline: none;
+}
+
+.chatbox-footer button {
+  padding: 8px 16px;
+  background: radial-gradient(circle, #FFA726, #FB8C00);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chatbox-footer button:hover {
+  background: radial-gradient(circle, #FB8C00, #FFA726);
+  transform: translateY(-2px);
+}
+
+.message {
+  display: flex;
+  margin-bottom: 12px;
+  transition: transform 0.3s ease;
+}
+
+.message.user {
+  justify-content: flex-end;
+}
+
+.message.other {
+  justify-content: flex-start;
+}
+
+.message-content {
+  max-width: 70%;
+  padding: 8px 16px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease;
+}
+
+.message.user .message-content {
+  background: #FFA726;
+  color: #fff;
+  text-align: right;
+}
+
+.message.other .message-content {
+  background: #FFE0B2; /* Light oranges-yellow for other messages */
+  color: #333;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.message.other .avatar {
+  margin-right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #FFA726;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Style the back arrow button */
+.back-button {
+  background: none;
+  border: none;
+  color: #ffffff; /* Bright yellow color for visibility */
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.back-button:hover {
+  color: #ff0101; /* Slightly darker yellow on hover */
+  transform: scale(1.1); /* Increase size on hover */
+}
+
+.reply {
+  padding: 5px 10px;
+border-radius: 8px;
+background-color: #d0d0d0;
+margin-top: 5px;
+position: relative;
+}
+
+#user-body{
+  text-align: right;
+}
+
+#admin-body{
+  text-align: left;
   
-  .chatbox {
-    display: flex;
-    flex-direction: column;
-    height: 80vh;
-    width: 80%;
-    max-width: 860px;
-    margin: auto;
-    border-radius: 12px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.8); /* Transparent background */
-    backdrop-filter: blur(10px); /* Blur effect */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    animation: slideIn 0.5s ease-out;
-    transition: background 0.3s ease, backdrop-filter 0.3s ease;
-  }
-  
-  .chatbox:hover {
-    background: rgba(255, 255, 255, 0.9); /* Change transparency on hover */
-    backdrop-filter: blur(12px); /* Increase blur on hover */
-  }
-  
-  @keyframes slideIn {
-    from {
-      transform: translateY(100px);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
-  
-  .chatbox-header {
-    background: linear-gradient(90deg, #FFA726, #FB8C00); /* Oranges-yellow gradient */
-    color: #fff;
-    padding: 16px;
-    text-align: center;
-    border-bottom: 2px solid #FB8C00;
-    font-size: 1.3em;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .chatbox-header button {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: transform 0.3s ease, color 0.3s ease;
-  }
-  
-  .chatbox-header button:hover {
-    transform: scale(1.2);
-    color: #FFEB3B;
-  }
-  
-  .chatbox-body {
-    flex: 1;
-    padding: 16px;
-    overflow-y: auto;
-    background: rgba(255, 245, 229, 0.8); /* Light oranges-yellow background */
-    border-bottom: 2px solid #ddd;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .chatbox-footer {
-    padding: 12px;
-    border-top: 2px solid #ddd;
-    display: flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.8); /* Transparent background */
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .chatbox-footer img {
-    margin-right: 12px;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 3px solid #FFA726;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-  }
-  
-  .chatbox-footer img:hover {
-    transform: scale(1.1);
-  }
-  
-  .chatbox-footer input {
-    flex: 1;
-    margin-right: 12px;
-    border-radius: 20px;
-    border: 1px solid #ddd;
-    padding: 10px 16px;
-    font-size: 0.9em;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .chatbox-footer input:focus {
-    border-color: #FFA726;
-    box-shadow: 0 0 0 1px #FFA726;
-    outline: none;
-  }
-  
-  .chatbox-footer button {
-    padding: 8px 16px;
-    background: radial-gradient(circle, #FFA726, #FB8C00);
-    color: #fff;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .chatbox-footer button:hover {
-    background: radial-gradient(circle, #FB8C00, #FFA726);
-    transform: translateY(-2px);
-  }
-  
-  .message {
-    display: flex;
-    margin-bottom: 12px;
-    transition: transform 0.3s ease;
-  }
-  
-  .message.user {
-    justify-content: flex-end;
-  }
-  
-  .message.other {
-    justify-content: flex-start;
-  }
-  
-  .message-content {
-    max-width: 70%;
-    padding: 8px 16px;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.5s ease;
-  }
-  
-  .message.user .message-content {
-    background: #FFA726;
-    color: #fff;
-    text-align: right;
-  }
-  
-  .message.other .message-content {
-    background: #FFE0B2; /* Light oranges-yellow for other messages */
-    color: #333;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-  
-  .message.other .avatar {
-    margin-right: 12px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid #FFA726;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Style the back arrow button */
-  .back-button {
-    background: none;
-    border: none;
-    color: #ffffff; /* Bright yellow color for visibility */
-    font-size: 1.5em;
-    cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .back-button:hover {
-    color: #ff0101; /* Slightly darker yellow on hover */
-    transform: scale(1.1); /* Increase size on hover */
-  }
+}

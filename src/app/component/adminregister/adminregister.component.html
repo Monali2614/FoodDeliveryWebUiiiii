@@ -1,0 +1,28 @@
+<form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <div>
+      <label>Name:</label>
+      <input formControlName="name" type="text">
+    </div>
+    <div>
+      <label>Mobile No:</label>
+      <input formControlName="mobileNo" type="text">
+    </div>
+    <div>
+      <label>Username:</label>
+      <input formControlName="username" type="text">
+    </div>
+    <div>
+      <label>Password:</label>
+      <input formControlName="password" type="password">
+    </div>
+    <div>
+      <label>Email:</label>
+      <input formControlName="email" type="email">
+    </div>
+    <div>
+      <label>Profile Picture:</label>
+      <input type="file" (change)="onFileChange($event)">
+    </div>
+    <button type="submit">Register</button>
+  </form>
+  

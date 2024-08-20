@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestaurantService } from 'src/app/service/restaurant.service';
 import { Restaurant } from '../../models/restaurant';
 import { Router } from '@angular/router';
+import { SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-admin-panel',
@@ -14,6 +15,9 @@ export class AdminPanelComponent implements OnInit {
   restaurants: Restaurant[] = [];
   activeComponent: string = 'view-restaurants'; // Default active component
   selectedRestaurant: Restaurant | null = null;
+  imageUrl: SafeUrl | undefined;
+  adminData: any = null;
+  admin: any; 
 
   constructor(
     private restaurantService: RestaurantService,

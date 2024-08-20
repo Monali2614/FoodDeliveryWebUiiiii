@@ -39,6 +39,14 @@
       >
         Logout
       </button>
+
+      <li class="nav-item profile-dropdown" *ngIf="adminData">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img *ngIf="imageUrl" [src]="imageUrl" alt="User Profile Picture" class="profile-img rounded-circle">
+          <span>{{ admin.username }}</span>
+        </a>
+       
+      </li>
     </div>
   </nav>
 
@@ -72,6 +80,13 @@
           </a>
         </li>
        
+
+        <li>
+          <a href="javascript:void(0)" (click)="setActiveComponent('Message')">
+            <i class="fas fa-envelope" id="message"></i> Show Message
+          </a>
+        </li>
+
       </ul>
     </nav>
 
@@ -90,6 +105,13 @@
       </ng-container>
       <ng-container *ngIf="activeComponent === 'show-restaurants'">
         <app-show-restaurant></app-show-restaurant>
+
+
+      </ng-container>
+
+      <ng-container *ngIf="activeComponent === 'Message'">
+        
+        <app-message></app-message>
       </ng-container>
       <!-- <ng-container *ngIf="activeComponent === 'add-images'">
         <app-add-images></app-add-images>

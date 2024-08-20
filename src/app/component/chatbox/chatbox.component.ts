@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { Message } from 'src/app/models/message';
+import { Reply } from 'src/app/models/reply';
+import { MessageService } from 'src/app/service/message.service';
+import { SharedDataService } from 'src/app/service/shared-data.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-chatbox',
@@ -9,6 +14,18 @@ export class ChatboxComponent {
   chatboxBody!: HTMLDivElement;
   messageInput!: HTMLInputElement;
   sendButton!: HTMLButtonElement;
+  userId: number = 0;
+  messages: Message[] = [];
+  newMessageContent: string = '';
+  messageContent: string = '';
+  userName: string = '';
+  newReplyContent: string = '';
+  users: any[] = [];
+
+
+  constructor(private sharedDataService: SharedDataService , private messageService:MessageService,
+    private userService:UserService
+  ) {}
 
   ngOnInit(): void {
     this.chatboxBody = document.getElementById('chatbox-body') as HTMLDivElement;
@@ -21,17 +38,77 @@ export class ChatboxComponent {
         this.sendMessage();
       }
     });
+
+    this.userId=this.sharedDataService.getUserData().id;
+    this.userName=this.sharedDataService.getUserData().name;
+    console.log(this.userName,'Chatbox UserName@@@@@@@@@');
+    console.log(this.userId,'Chatbox UserID@@@@@@@@@');
+
+    this.loadMessages(this.userId);
+    this.getMessagesByUserId(this.userId);
   }
 
-  sendMessage(): void {
-    const message = this.messageInput.value.trim();
-    if (message) {
-      this.addMessage(message, true); // Add user message
-      this.messageInput.value = '';
-      // Simulate response after 1 second
-      // setTimeout(() => this.addMessage("This is a response", false), 1000);
-    }
+  getMessagesByUserId(userId: number): void {
+    this.messageService.getMessagesByUserId(userId).subscribe(
+      (messages) => {
+        this.messages = messages;
+        if (this.messages.length === 0) {
+          console.log(`No messages found for user with ID ${userId}.`);        }
+      },
+      (error) => {
+        console.error('Error fetching messages:', error);
+      }
+    );
+    
   }
+
+    // Load messages for the user
+    loadMessages(userId: number): void {
+      this.messageService.getMessagesByUserId(this.userId).subscribe((messages) => {
+        this.messages = messages;
+        console.log(this.messages,'LoadMessages By ID');
+      })
+
+      
+      this.messageService.getAllUsersWithMessages().subscribe((users) => {
+        this.users = users;
+        console.log(this.users,'LoadMessages By ID');
+      })
+    }
+
+    sendReply(messageId: number): void {
+      if (this.newReplyContent.trim()) {
+        const newReply: Reply= { replyContent: this.newReplyContent };
+        this.messageService.sendReply(messageId, newReply).subscribe((reply) => {
+          this.newReplyContent = '';
+        });
+      }
+    }
+
+    sendMessage(): void {
+
+      if (this.messageContent.trim() === '') {
+        console.error('Message content cannot be empty');
+        return;
+      }
+  
+      const newMessage: Message = {
+        content: this.messageContent,
+        sentTime: new Date().toISOString(),
+        userId: this.userId,
+        userName: this.userName,
+      };
+  
+      this.messageService.sendMessage(this.userId, newMessage).subscribe(
+        (message) => {
+          console.log('Message saved:', message);
+          this.messageContent = ''; // Clear the input field
+        },
+        (error) => {
+          console.error('Error saving message:', error);
+        }
+      );
+    }
 
   addMessage(message: string, isUser: boolean): void {
     const messageDiv = document.createElement('div');
@@ -55,5 +132,3 @@ export class ChatboxComponent {
     this.chatboxBody.scrollTop = this.chatboxBody.scrollHeight;
   }
 }
-
-

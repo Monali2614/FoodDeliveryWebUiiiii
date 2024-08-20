@@ -31,6 +31,8 @@ import { VerifiyOtpResetComponent } from './component/verifiy-otp-reset/verifiy-
 import { VerifiyOtpRegisterComponent } from './component/verifiy-otp-register/verifiy-otp-register.component';
 import { ReviewComponent } from './component/review/review.component';
 import { AuthGuard } from './auth.guard';
+import { AdminregisterComponent } from './component/adminregister/adminregister.component';
+import { MessageComponent } from './component/message/message.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -65,7 +67,12 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'verifyotpreset', component: VerifiyOtpResetComponent },
   { path: 'verifyotpregister', component: VerifiyOtpRegisterComponent },
+  { path: 'adminregister', component: AdminregisterComponent },
   { path: 'review', component: ReviewComponent },
+  { path: 'message', component: MessageComponent },
+  
+
+
   // Add a wildcard route for any undefined paths
   { path: '**', redirectTo: '/home' }
 ];

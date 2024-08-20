@@ -69,7 +69,7 @@ export class UserService {
 
   // Verify User to Complete Registration
   verifyUser(email: string, otp: any): Observable<string> {
-    const url = `${NAV_URL}/api/users/user/verifyOtpToRegister?email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otp)}`;
+    const url = `${NAV_URL}/api/users/user/verifyOtpToRegisterUser?email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otp)}`;
     return this.http.post<string>(url, {}, this.getHttpOptions());
   }
 

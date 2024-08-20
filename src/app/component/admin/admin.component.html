@@ -87,24 +87,31 @@
                 
                 <button type="button" class="close-btn" aria-label="Close" onclick="window.location.href = '/'">
                   <span aria-hidden="true">&times;</span>
-              </button> 
+                </button> 
 
-                <form (ngSubmit)="login()" style="width: 100%;">
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()" style="width: 100%;">
 
                   <h1 class="h1 text-center">ADMIN LOGIN</h1>
 
                   <div class="form-outline mb-4">
                     <i class="fa fa-user"></i>
-                    <input type="text" id="adminName" class="form-control form-control-lg" [(ngModel)]="username" name="username" placeholder="Admin Name" required />
+                    <input type="text" id="adminName" class="form-control form-control-lg" formControlName="username" placeholder="Admin Name" />
                   </div>
 
                   <div class="form-outline mb-4">
                     <i class="fa fa-lock"></i>
-                    <input type="password" id="adminPassword" class="form-control form-control-lg" [(ngModel)]="password" name="password" placeholder="Password" required />
+                    <input type="password" id="adminPassword" class="form-control form-control-lg" formControlName="password" placeholder="Password" />
                   </div>
 
                   <div class="pt-1 mb-4">
                     <button class="btn btn-custom btn-lg btn-block" type="submit">Login</button>
+                  </div>
+
+                  <div style="display: flex; justify-content: center">
+                    <p>
+                      Create an account?
+                      <a routerLink="/adminregister" style="color: blue">Sign Up</a>
+                    </p>
                   </div>
 
                 </form>

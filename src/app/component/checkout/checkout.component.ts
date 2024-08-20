@@ -12,7 +12,7 @@ export class CheckoutComponent {
   wishlist: any[] = [];
   totalPrice: number = 0;
   address: string = '';
-  
+  userId : number = 0;
    //Payment details fields
   cardNumber: string = '';
   cardExpiry: string = '';
@@ -37,6 +37,9 @@ export class CheckoutComponent {
      this.calculateTotal();
      this. existingAddresses=this.sharedDataService.getUserData().address;
      console.log( this. existingAddresses);
+     this.userId=this.sharedDataService.getUserData().id;
+     console.log("User Id data ",this.userId);
+
   }
 
   calculateTotal(): void {

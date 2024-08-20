@@ -1,25 +1,64 @@
-<!-- src/app/cart/cart.component.html -->
 <div class="cart-container">
-    <h2>Your Cart</h2>
-    <ul>
-      <li *ngFor="let item of items" class="cart-item">
-        <img [src]="item.imageUrl" alt="{{ item.name }}" class="item-image">
-        <div class="item-details">
-          <span class="item-name">{{ item.name }}</span>
-          <span class="item-price">₹{{ item.price }} x {{ item.quantity }}</span>
-          <div class="quantity-controls">
-            <button class="quantity-btn decrement" (click)="decrementQuantity(item.id)">&#8722;</button>
-            <input type="number" [value]="item.quantity" readonly>
-            <button class="quantity-btn increment" (click)="incrementQuantity(item.id)">&#43;</button>
-          </div>
-        </div>
-        <button (click)="removeItem(item.id)" class="remove-btn">Remove</button>
-      </li>
-    </ul>
-    <div class="cart-summary">
-      <p>Total: ₹{{ getTotal() }}</p>
-      <button (click)="proceedToCheckout()">Proceed to Checkout</button>
-      <button (click)="addMoreItems()">Add More Items</button>
+  <h2>Your Cart</h2>
+
+  <div *ngIf="orderItems.length > 0; else emptyCart">
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total Price</th>
+          <th>GST</th>
+          <th>Delivery Charge</th>
+          <th>Platform Charge</th>
+          <th>Grand Total</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let orderItem of orderItems">
+          <td>{{ orderItem.menu?.itemName || 'Unknown Item' }}</td>
+          <td>
+            <input
+              type="number"
+              [(ngModel)]="orderItem.quantity"
+              (change)="updateOrderItem(orderItem)"
+              min="1"
+              class="quantity-input"
+            />
+          </td>
+          <td>{{ orderItem.price | currency:'INR':'symbol' }}</td>
+          <td>{{ orderItem.totalPrice | currency:'INR':'symbol' }}</td>
+          <td>{{ orderItem.gst | currency:'INR':'symbol' }}</td>
+          <td>{{ orderItem.deliveryCharge | currency:'INR':'symbol' }}</td>
+          <td>{{ orderItem.platformCharge | currency:'INR':'symbol' }}</td>
+          <td>{{ orderItem.grandTotalPrice | currency:'INR':'symbol' }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="deleteOrderItem(orderItem.id!)">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="total-section">
+      <p><strong>Total:</strong> {{ calculateGrandTotal() | currency:'INR':'symbol' }}</p>
     </div>
   </div>
-  
+
+  <ng-template #emptyCart>
+    <p>Your cart is empty.</p>
+  </ng-template>
+
+  <div class="add-item-section">
+    <h3>Add New Item</h3>
+    <input
+      type="number"
+      placeholder="Quantity"
+      [(ngModel)]="newOrderItem.quantity"
+      min="1"
+      class="quantity-input"
+    />
+    <button class="btn btn-primary" (click)="addOrderItem()">Add to Cart</button>
+  </div>
+</div>

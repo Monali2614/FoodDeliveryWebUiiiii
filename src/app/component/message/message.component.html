@@ -1,0 +1,33 @@
+<div class="admin-panel-container">
+    <div class="user-list">
+      <h3>Users</h3>
+      <ul>
+        <li *ngFor="let user of users" (click)="selectUser(user)">
+          {{ user.name }}
+        </li>
+      </ul>
+    </div>
+    
+    <div class="chatbox" *ngIf="selectedUser">
+      <h3>Chat with {{ selectedUser.name }}</h3>
+      <div class="messages">
+        <div *ngFor="let message of messages" class="message">
+          <!-- Display the main message content -->
+          <span>{{ message.content }}</span>
+          <br>
+          <small>{{ message.sentTime | date:'short' }}</small>
+          
+          <!-- Display the reply if it exists -->
+          <div *ngIf="message.reply" class="reply" id="admin-body">
+            <p><strong>Reply:</strong></p><p> {{ message.reply.replyContent }}</p>
+            <small>{{ message.reply.replyTime | date:'short' }}</small>
+          </div>
+        </div>
+      </div>
+      
+      <div class="input-box">
+        <input [(ngModel)]="newReplyContent" placeholder="Type a reply...">
+        <button (click)="sendReply()">Send Reply</button>
+      </div>
+    </div>
+  </div>

@@ -1,5 +1,6 @@
+// src/app/models/menu.ts
 export class Menu {
-  menuId: number;
+  menuId: number; // Update to match your existing code
   itemName: string;
   description: string;
   price: number;
@@ -13,7 +14,7 @@ export class Menu {
   images: string[]; // Array of base64 encoded images
 
   constructor(
-    menuId: number = 0,
+    menuId: number = 0, // Update parameter name to match the property
     itemName: string = '',
     description: string = '',
     price: number = 0,
@@ -23,7 +24,7 @@ export class Menu {
     imageUrl?: string,
     images: string[] = [] // Initialize as an empty array by default
   ) {
-    this.menuId = menuId;
+    this.menuId = menuId; // Update assignment to match the property
     this.itemName = itemName;
     this.description = description;
     this.price = price;

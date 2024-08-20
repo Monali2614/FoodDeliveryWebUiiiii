@@ -22,9 +22,8 @@ export class MenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getMenus(); 
-    this.loadAllMenus(); 
-
+    this.getMenus();
+    this.loadAllMenus();
   }
 
   loadAllMenus(): void {
@@ -40,8 +39,8 @@ export class MenuComponent implements OnInit {
   transformMenuItems(menuItems: Menu[]): Menu[] {
     return menuItems.map(item => {
       if (item.images && item.images.length > 0) {
-        // Assuming the images are in base64 format
-        item.image = `data:image/jpeg;base64,${item.images[0]}`;      }
+        item.image = `data:image/jpeg;base64,${item.images[0]}`;
+      }
       return item;
     });
   }
@@ -50,16 +49,15 @@ export class MenuComponent implements OnInit {
     this.menuService.getAllMenus().subscribe(
       (data: Menu[]) => {
         this.menuItems = data;
-        this.filteredMenuItems = data; // Initialize with all menu items
+        this.filteredMenuItems = data;
 
-        // Fetch images for each menu item
         this.filteredMenuItems.forEach(menu => {
           this.menuService.getMenuPicture(menu.menuId).subscribe(
             (imageBlob: Blob) => {
               let reader = new FileReader();
-              reader.readAsDataURL(imageBlob); 
+              reader.readAsDataURL(imageBlob);
               reader.onloadend = () => {
-                menu.image = reader.result as string; // Assign the base64 image string to menu image
+                menu.image = reader.result as string;
               }
             },
             (error: any) => console.error(`Error fetching image for menu ID ${menu.menuId}`, error)
@@ -76,15 +74,19 @@ export class MenuComponent implements OnInit {
     } else if (!this.showVeg && this.showNonVeg) {
       this.filteredMenuItems = this.menuItems.filter(item => item.category === 'NON_VEG');
     } else {
-      this.filteredMenuItems = this.menuItems; // Show all items if no filter is selected
+      this.filteredMenuItems = this.menuItems;
     }
   }
 
   addToCart(item: Menu): void {
-    this.wishlistService.addToWishlist(item);
-    console.log('Added to cart:', item);
+    const cartItem = {
+      ...item,
+      quantity: 1,
+      totalPrice: item.price
+    };
+
+    this.wishlistService.addToWishlist(cartItem);
+    console.log('Added to cart:', cartItem);
     alert("Item added Successfully");
   }
 }
-
-
