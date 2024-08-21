@@ -71,6 +71,7 @@ export class WishlistComponent implements OnInit {
     this.totalPrice = this.wishlist.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   }
   fetchImage(item: any) {
+    
     this.menuService.getMenuPicture(item.menuId).subscribe(
       (imageBlob: Blob) => {
         let reader = new FileReader();

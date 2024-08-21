@@ -31,7 +31,7 @@ export class AdminComponent  {
       this.adminService.loginAdmin(username, password).subscribe(
         response => {
           alert('Admin logged in successfully!');
-          console.log("Admin profile picture",response);
+          // console.log("Admin profile picture",response);
           this.router.navigate(['/admin-panel']); // Redirect to the admin dashboard
         },
         (error: HttpErrorResponse) => {

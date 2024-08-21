@@ -1,32 +1,52 @@
-<div class="checkout-container">
+<!-- checkout.component.html -->
+<app-header></app-header>
+<div class="container mt-4">
   <h2>Checkout</h2>
-  
-  <div class="wishlist-container">
-    <div class="wishlist-item" *ngFor="let item of wishlist">
-      <div class="item-details">
-        <h3 class="item-name">{{ item.itemName }}</h3>
-        <p class="item-price">{{ item.price | currency:'INR' }}</p>
-        <span>Quantity: {{ item.quantity }}</span>
-      </div>
-    </div>
-  </div>
-  
-  <div class="total-price">
-    <button (click)="calculateTotal()"></button>
-    <h3>Total Price: {{ totalPrice | currency:'INR' }}</h3>
+
+  <div *ngIf="orderItems.length === 0">
+    <p>Your cart is empty.</p>
+    <!-- <button class="btn btn-primary" (click)="router.navigate(['/menu'])">Go to Menu</button> -->
   </div>
 
-  <div class="address-section">
-    <div class="address-field">
-      <label for="existing-address">Existing Address (optional):</label>
-      <input type="text" id="existing-address" [(ngModel)]="existingAddresses" [value]="existingAddresses" placeholder="Enter existing address" />
+  <div *ngIf="orderItems.length > 0">
+    <h4>Order Items</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Item Price  </th>
+          <th>Total Price for Selected Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of orderItems">
+          <td>{{ item.menuId }}</td> <!-- Assuming menuId maps to item name -->
+          <td>{{ item.menuName}}</td>
+          <td>{{ item.quantity }}</td>
+          <td>₹{{ item.price  }}</td>
+          <td>₹{{ item.totalPrice }}</td>
+
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="checkout-summary">
+      <h3>Order Summary</h3>
+      <p>Total Price For Cart Item:₹{{ calculateTotalPrice () }}</p>
+      <p>GST ({{ gstRate * 100 }}%): ₹{{ calculateGST()  }}</p>
+      <p>Platform Charge:₹ {{ platformCharge  }}</p>
+      <p>Delivery Charge:₹ {{ deliveryCharge  }}</p>
+      <h4>Grand Total:₹{{ calculateGrandTotal() }}</h4>
     </div>
     
-    <div class="address-field">
-      <label for="new-address">Or enter a new address (optional):</label>
-      <input type="text" id="new-address" [(ngModel)]="address" placeholder="Enter new address" />
+    <div class="delivery-address">
+      <label for="deliveryAddress">Delivery Address</label>
+      <input type="text" id="deliveryAddress" [(ngModel)]="deliveryAddress" placeholder="Enter your delivery address">
     </div>
-  </div>
-
-  <button class="complete-order-btn" (click)="completeOrder()">Complete Order</button>
+    <button (click)="cancelOrder()" class="btn btn-secondary">Cancel</button>
+    <button (click)="placeOrder()" class="btn btn-primary">Place Order</button>
+      </div>
 </div>
+<app-footer></app-footer>

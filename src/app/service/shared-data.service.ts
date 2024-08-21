@@ -1,50 +1,49 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Order } from '../models/order';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedDataService {
+  getGrandTotal(): any {
+    throw new Error('Method not implemented.');
+  }
   private userData: any = null;
   private userId: string = '';
   private restaurantData = new BehaviorSubject<any>([]);
-  private totalPriceSubject = new BehaviorSubject<number>(0); // Add BehaviorSubject for totalPrice
   currentRestaurantData = this.restaurantData.asObservable();
-  
-  currentTotalPrice = this.totalPriceSubject.asObservable(); // Expose totalPrice observable
-  private transactionDetails = new BehaviorSubject<any>(null);
-  currentTransactionDetails = this.transactionDetails.asObservable();
-
+  private totalPrice: number = 0;
+  private order!: Order;
+  private transactionDetails: any;
+  private gstAmount: number = 0;
+  private deliveryCharge: number = 0;
+  private platformCharge: number = 0;
   constructor() { }
 
-  setRestaurantData(data: any) {
-    this.restaurantData.next(data);
+  setGstAmount(gst: number): void {
+    this.gstAmount = gst;
   }
 
-  setUserData(data: any) {
-    this.userData = data;
+  getGstAmount(): number {
+    return this.gstAmount;
   }
 
-  getUserData() {
-    return this.userData;
+  setDeliveryCharge(charge: number): void {
+    this.deliveryCharge = charge;
   }
 
-  setTotalPrice(price: number) {
-    this.totalPriceSubject.next(price); // Set totalPrice
+  getDeliveryCharge(): number {
+    return this.deliveryCharge;
   }
 
-  getTotalPrice() {
-    return this.totalPriceSubject.value; // Get current totalPrice value
-  }
-  setTransactionDetails(data: any) {
-    this.transactionDetails.next(data);
+  setPlatformCharge(charge: number): void {
+    this.platformCharge = charge;
   }
 
-  getTransactionDetails() {
-    return this.transactionDetails.value;
-  }
-  clearUserData(): void {
-    this.userData = null;
+  getPlatformCharge(): number {
+    return this.platformCharge;
   }
 
   setUserId(id: string): void {
@@ -54,6 +53,47 @@ export class SharedDataService {
   getUserId(): string {
     return this.userId;
   }
-
   
+  setRestaurantData(data: any) {
+    this.restaurantData.next(data);
+  }
+
+  getRestaurantData(): Observable<any> {
+    return this.restaurantData.asObservable();
+  }
+  
+  setUserData(data: any) {
+    this.userData = data;
+  }
+
+  getUserData() {
+    return this.userData;
+  }
+
+  setTotalPrice(price: number): void {
+    this.totalPrice = price;
+  }
+
+  getTotalPrice(): number {
+    return this.totalPrice;
+  }
+
+  setOrder(order: Order): void {
+    this.order = order;
+  }
+
+  getOrder(): Order {
+    return this.order;
+  }
+
+  setTransactionDetails(details: any): void {
+    this.transactionDetails = details;
+  }
+
+  getTransactionDetails(): any {
+    return this.transactionDetails;
+  }
+  clearUserData(): void {
+    this.userData = null;
+  }
 }

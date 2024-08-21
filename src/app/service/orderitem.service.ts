@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { OrderItem } from '../models/order-item';
+import { User } from '../models/user';
 
 const NAV_URL = environment.apiURL;
 
@@ -15,33 +16,29 @@ const NAV_URL = environment.apiURL;
 export class OrderItemService {
   // Update with your backend URL
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
+  private apiUrl = 'http://localhost:8080/api/orderItems'; // Replace with your backend URL
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  saveOrder(userId: number, menuId: number, orderItem: OrderItem): Observable<OrderItem> {
-    return this.http.post<OrderItem>(`${ NAV_URL}/api/orderItems/order/save/${userId}/${menuId}`, orderItem);
+  addToCart(orderItem: OrderItem): Observable<OrderItem> {
+    return this.http.post<OrderItem>(`${this.apiUrl}/order/save/${orderItem.userId}/${orderItem.menuId}`, orderItem);  }
+
+   updateOrderItem(id: number, orderItem: OrderItem): Observable<OrderItem> {
+    return this.http.put<OrderItem>(`${this.apiUrl}/order/update/${id}`, orderItem);
   }
+ // Update an existing order item
+//  updateOrderItem(id: number, orderItem: Partial<OrderItem>): Observable<OrderItem> {
+//   return this.http.put<OrderItem>(${this.apiUrl}/order/update/${id}, orderItem);
+// }
+  deleteOrderItem(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/order/delete/${id}`, { responseType: 'text' });  }
 
-  updateOrder(id: number, orderItem: OrderItem): Observable<OrderItem> {
-    return this.http.put<OrderItem>(`${NAV_URL}/api/orderItems/order/update/${id}`, orderItem, this.httpOptions);
-  }
+  getOrderItemById(id: number): Observable<OrderItem> {
+    return this.http.get<OrderItem>(`${this.apiUrl}/order/${id}`);  }
 
-  deleteOrder(id: number): Observable<any> {  // Change to Observable<any>
-    return this.http.delete<any>(`${NAV_URL}/api/orderItems/order/delete/${id}`, { responseType: 'text' as 'json' }); 
-    // If the backend returns a non-JSON response, specify 'text'
-  }
-  
+  getAllOrderItems(): Observable<OrderItem[]> {
+    return this.http.get<OrderItem[]>(`${this.apiUrl}/orders`);  }
 
-  getOrderById(id: number): Observable<OrderItem> {
-    return this.http.get<OrderItem>(`${NAV_URL}/api/orderItems/order/${id}`);
-  }
-
-  getAllOrders(): Observable<OrderItem[]> {
-    return this.http.get<OrderItem[]>(`${NAV_URL}/api/orderItems/orders`);
-  }
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/getAllUsers`);  }
 }

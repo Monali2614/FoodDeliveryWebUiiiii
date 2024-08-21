@@ -1,36 +1,29 @@
-import { OrderItem } from "./order-item";
 import { Restaurant } from "./restaurant";
 import { User } from "./user";
+import { Menu } from "./menu";
+import { OrderItem } from "./order-item";
 
-
-  export class Order {
-    orderId: number;
-    orderStatus: string; // Adjust based on your OrderStatus enum
-    user: User;
-    restaurant: Restaurant;
-    orderItems: OrderItem[];
-    orderDateAndTime: string; // Assuming LocalDateTime is serialized as ISO string
+export interface Order {
+  orderId: number;
+  orderStatus: OrderStatus;
+  user: number;
+  restaurant: number;
+  orderItems: OrderItem[];
+  orderDateAndTime: string;
+  deliveryAddress: string; // New field for the delivery address
+  grandTotalPrice:number
+  platformCharge:number
+  deliveryCharge:number
+  gst:number 
   
-    constructor(
-      orderId: number,
-      orderStatus: string,
-      user: User,
-      restaurant: Restaurant,
-      orderItems: OrderItem[],
-      orderDateAndTime: string
-    ) {
-      this.orderId = orderId;
-      this.orderStatus = orderStatus;
-      this.user = user;
-      this.restaurant = restaurant;
-      this.orderItems = orderItems;
-      this.orderDateAndTime = orderDateAndTime;
-    }
-  
-    // Example method to calculate the total price of the order
-    getTotalPrice(): number {
-      return this.orderItems.reduce((total, item) => total + (item.totalPrice || 0), 0);
-    }
   }
-
   
+
+
+
+export enum OrderStatus {
+  PENDING = 'PENDING',
+  CONFIRMED = 'CONFIRMED',
+  DELIVERED = 'DELIVERED',
+  CANCELLED = 'CANCELLED'
+}

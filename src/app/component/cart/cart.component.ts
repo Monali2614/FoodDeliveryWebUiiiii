@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Menu } from 'src/app/models/menu';
+import { Router } from '@angular/router';
 import { OrderItem } from 'src/app/models/order-item';
+import { MenuService } from 'src/app/service/menu.service';
 import { OrderItemService } from 'src/app/service/orderitem.service';
 
 @Component({
@@ -9,82 +10,94 @@ import { OrderItemService } from 'src/app/service/orderitem.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  orderItems: OrderItem[] = [];
-  
-  newOrderItem: Partial<OrderItem> = { 
-    quantity: 1, 
-    price: 0, 
-    menu: {} as Menu 
-  }; 
-  
-  userId: number = 1; // Example user ID
-  menuId: number = 1; // Example menu ID
 
-  constructor(private orderItemService: OrderItemService) {}
+  orderItems: OrderItem[] = [];
+
+
+  constructor(private orderItemService: OrderItemService,private router: Router,private menuService:MenuService) { }
 
   ngOnInit(): void {
-    this.loadOrderItems();
+    this.loadCartItems();
   }
 
-  loadOrderItems(): void {
-    this.orderItemService.getAllOrders().subscribe(
-      (items) => {
-        this.orderItems = items;
-        console.log('Loaded order items:', this.orderItems);
+  // Load all order items from the service
+  loadCartItems(): void {
+    this.orderItemService.getAllOrderItems().subscribe(
+      (data: OrderItem[]) => {
+        this.orderItems = data;
+        console.log(data);
       },
-      (error) => console.error('Error loading order items', error)
+      (error) => {
+        console.error('Error fetching order items', error);
+      }
     );
   }
 
-  addOrderItem(): void {
-    const orderItem = new OrderItem({
-      quantity: this.newOrderItem.quantity ?? 1,
-      price: this.newOrderItem.price ?? 0,
-      menu: this.newOrderItem.menu ?? {} as Menu,
-      gst: this.newOrderItem.gst ?? 0,
-      deliveryCharge: this.newOrderItem.deliveryCharge ?? 0,
-      platformCharge: this.newOrderItem.platformCharge ?? 0,
-      grandTotalPrice: (this.newOrderItem.price ?? 0) * (this.newOrderItem.quantity ?? 1)
-    });
-  
-    console.log('Order item to be saved:', orderItem);
-  
-    this.orderItemService.saveOrder(this.userId, this.menuId, orderItem).subscribe(
-      (newOrderItem) => {
-        this.orderItems.push(newOrderItem);
-        console.log('Order item added successfully', newOrderItem);
-      },
-      (error) => console.error('Error adding order item', error)
-    );
-  }
 
-  updateOrderItem(orderItem: OrderItem): void {
-    if (orderItem.id) {
-      orderItem.totalPrice = orderItem.price * orderItem.quantity;
-      this.orderItemService.updateOrder(orderItem.id, orderItem).subscribe(
-        (updatedOrderItem) => {
-          const index = this.orderItems.findIndex(item => item.id === updatedOrderItem.id);
-          if (index !== -1) {
-            this.orderItems[index] = updatedOrderItem;
-          }
-          console.log('Order item updated successfully', updatedOrderItem);
+  updateQuantity(id: number, quantity: number): void {
+    const orderItem = this.orderItems.find(item => item.id === id);
+    if (orderItem) {
+      // Ensure only the required fields are sent
+      const price = orderItem.price ?? 0;
+      const finalGst = quantity * price ?? 0;
+      const gstAmount = this.calculateGst(finalGst); // Calculate GST
+      const updatedOrderItem = {
+        id: orderItem.id,
+        menuId: orderItem.menuId,
+        userId: orderItem.userId,
+        menuName:'',
+        quantity: quantity,
+        price: orderItem.price,
+        totalPrice: quantity * price, // Calculate total price
+        
+        //grandTotalPrice: (quantity * price) + (gstAmount) + (orderItem.deliveryCharge ?? 0) + (orderItem.platformCharge ?? 0)
+      };
+
+      this.orderItemService.updateOrderItem(id, updatedOrderItem).subscribe(
+        (updatedItem) => {
+          console.log('Item updated', updatedItem);
+          this.loadCartItems();
         },
-        (error) => console.error('Error updating order item', error)
+        (error) => {
+          console.error('Error updating item', error);
+        }
       );
     }
   }
+  private calculateGst(price: number): number {
+    const gstRate = 0.18; // 18% GST rate
+    return price * gstRate;
+  }
 
-  deleteOrderItem(id: number): void {
-    this.orderItemService.deleteOrder(id).subscribe(
+  deleteItem(id: number): void {
+    this.orderItemService.deleteOrderItem(id).subscribe(
       () => {
-        this.orderItems = this.orderItems.filter(item => item.id !== id);
-        console.log('Order item deleted successfully');
+        console.log('Item deleted');
+        this.loadCartItems();
       },
-      (error) => console.error('Error deleting order item', error)
+      (error) => {
+        console.error('Error deleting item', error);
+      }
     );
   }
 
-  calculateGrandTotal(): number {
-    return this.orderItems.reduce((total, item) => total + (item.grandTotalPrice || 0), 0);
+  fetchImage(item: any) {
+    this.menuService.getMenuPicture(item.menuId).subscribe(
+      (imageBlob: Blob) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(imageBlob); 
+        reader.onloadend = () => {
+          item.image = reader.result as string; // Convert Blob to base64 string and assign it to item.image
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching image:', error);
+        item.image = 'assets/default-image.png'; // Use a default image on error
+      }
+    );
+  }
+
+  checkout(): void {
+    this.router.navigate(['/checkout'], { state: { orderItems: this.orderItems } });
   }
 }

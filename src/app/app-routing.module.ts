@@ -50,7 +50,7 @@ const routes: Routes = [
   { path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard] },
   { path: 'edit-profile', component: EditProfileComponent },
   { path: 'menu/:restaurantName', component: MenuComponent },
-  { path: 'cart', component: CartComponent },
+
   { path: 'chatbox', component: ChatboxComponent },
   { path: 'add-menu', component: AddMenuComponent },
   { path: 'view-restaurants', component: ViewRestaurantsComponent },
@@ -70,7 +70,8 @@ const routes: Routes = [
   { path: 'adminregister', component: AdminregisterComponent },
   { path: 'review', component: ReviewComponent },
   { path: 'message', component: MessageComponent },
-  
+  { path: 'cart', component: CartComponent},
+
 
 
   // Add a wildcard route for any undefined paths

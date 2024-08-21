@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MenuService } from 'src/app/service/menu.service';
 import { Menu } from 'src/app/models/menu';
 import { WishlistService } from 'src/app/service/wishlist.service';
+import { SharedDataService } from 'src/app/service/shared-data.service';
+import { Router } from '@angular/router';
+import { OrderItem } from 'src/app/models/order-item';
+import { OrderItemService } from 'src/app/service/orderitem.service';
 
 @Component({
   selector: 'app-menu',
@@ -18,7 +22,11 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private menuService: MenuService,
-    private wishlistService: WishlistService
+    private wishlistService: WishlistService,
+    private sharedDataService: SharedDataService,
+    private router: Router,
+    private orderItemService: OrderItemService,
+
   ) { }
 
   ngOnInit(): void {
@@ -79,14 +87,45 @@ export class MenuComponent implements OnInit {
   }
 
   addToCart(item: Menu): void {
-    const cartItem = {
-      ...item,
+    const userIdString = this.sharedDataService.getUserId();
+     const userId=Number(userIdString);
+    const gstAmount = this.calculateGst(item.price); // Calculate GST
+    const deliveryCharge = 50; // Example fixed delivery charge
+    const platformCharge = 10; // Example fixed platform charge
+
+    const orderItem: OrderItem = {
+      menuId: item.menuId,
+      userId: userId,
       quantity: 1,
-      totalPrice: item.price
+      price: item.price,
+      totalPrice: item.price,
+      gst: 0,
+      deliveryCharge:0,
+      platformCharge: 0,
+      grandTotalPrice: 0,
+      id: 0,
+      image: item.image,
+      menuName:'',
     };
 
-    this.wishlistService.addToWishlist(cartItem);
-    console.log('Added to cart:', cartItem);
-    alert("Item added Successfully");
+    this.orderItemService.addToCart(orderItem).subscribe(
+      (      response: any) => {
+        console.log('Added to cart:', response);
+        alert("Item added Successfully");
+      },
+      (      error: any) => {
+        console.error('Error adding item to cart', error);
+        alert("Failed to add item to cart ");
+        alert("please login ");
+        this.router.navigate(['/login']);
+       
+
+      }
+    );
+  }
+
+  private calculateGst(price: number): number {
+    const gstRate = 0.18; // 18% GST rate
+    return price * gstRate;
   }
 }
