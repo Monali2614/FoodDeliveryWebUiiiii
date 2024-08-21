@@ -1,21 +1,19 @@
 import { Menu, Restaurant } from "../service/review.service";
 
-
 // src/app/models/review.model.ts
 export interface Review {
 
-  id: number | null;
   restaurantId?: number ;
   menuId?: number ;
   rating: number;
   comment?: string;
-  reviewDate: string;  // ISO date string
-  menus?: Menu;  // Add this line
-  restaurant?: Restaurant;  // Add this line
+  reviewDate: string;
+  menu?: Menu;
+  restaurant?: Restaurant;  
   restaurantName?: Restaurant;
   menuName?: Menu;
-  review_type: 'restaurant' | 'menu';
-  reviewType ?: Review
+  review_type?: string;
+  reviewType?: string;
 
     user: {
       id: number;

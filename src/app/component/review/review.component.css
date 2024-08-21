@@ -1,4 +1,3 @@
-/* General Styling */
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f8f9fa;
@@ -296,4 +295,17 @@ textarea.form-control {
   100% {
     transform: scale(1);
   }
+}
+
+.card {
+  border: 1px solid #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.card-text {
+  margin-bottom: 0.5rem;
 }

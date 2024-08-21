@@ -1,93 +1,102 @@
-/* admin-register.component.css */
+.container-fluid.min-vh-100 {
+  background-image: url("/assets/adminregister.jpeg"); /* Path to your background image */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
+form {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 30px; /* Adjusted padding for the form */
+  border-radius: 15px; /* More rounded corners */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  width: 200%;
+  max-width: 400px; /* Maximum width of the form */
+  margin: auto; 
+}
+
+h2 {
+  font-weight: 700;
+  color: #333;
+  font-size: 28px; /* Font size for heading */
+  margin-bottom: 20px; /* Space below heading */
+}
+
+form label {
+  font-weight: 600;
+  color: #555;
+  font-size: 16px; /* Font size for labels */
+  margin-bottom: px; /* Reduced space below labels */
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form input[type="file"] {
+  border: 1px solid #ccc;
+  border-radius: 8px; /* More rounded corners for inputs */
+  padding: 10px; /* Adjusted padding for inputs */
+  width: 100%;
+  font-size: 15px; /* Font size for inputs */
+  margin-bottom: px; /* Reduced space between input fields */
+}
+
+form .form-group {
+  margin-bottom: 15px; /* Reduced space between form groups */
+}
+
+form button[type="submit"] {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 8px; /* More rounded corners for button */
+  padding: 14px; /* Increased padding */
+  font-size: 18px; /* Font size for button */
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  width: 100%; /* Button takes full width */
+}
+
+form button[type="submit"]:hover {
+  background-color: #218838;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 400px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #e40b0b;
+}
+
+/* Adjusting the file input for better aesthetics */
+input[type="file"] {
+  padding: 5px; /* Padding for file input */
+  border: 1px solid #ccc;
+  border-radius: 8px; /* Rounded corners for file input */
+}
+
+/* Adding a media query for responsiveness */
+@media (max-width: 768px) {
   form {
-    display: flex;
-    flex-direction: column;
+    padding: 20px; /* Adjust padding for smaller screens */
   }
-  
-  form div {
-    margin-bottom: 15px;
+
+  h2 {
+    font-size: 24px; /* Smaller heading size for smaller screens */
   }
-  
-  label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    display: block;
-    color: #333;
+
+  form input[type="text"],
+  form input[type="password"],
+  form input[type="email"],
+  form input[type="file"],
+  form button[type="submit"] {
+    font-size: 14px; /* Smaller font size for smaller screens */
   }
-  
-  input[type="text"],
-  input[type="password"],
-  input[type="email"],
-  input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  input[type="file"] {
-    padding: 3px;
-  }
-  
-  button[type="submit"] {
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #45a049;
-  }
-  
-  input.ng-invalid.ng-touched {
-    border-color: #e74c3c;
-  }
-  
-  input.ng-valid.ng-touched {
-    border-color: #2ecc71;
-  }
-  
-  .error-message {
-    color: #e74c3c;
-    font-size: 14px;
-    margin-top: -10px;
-  }
-  
-  .success-message {
-    color: #2ecc71;
-    font-size: 14px;
-  }
-  
+}

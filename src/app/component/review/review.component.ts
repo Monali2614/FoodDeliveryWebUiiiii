@@ -1,15 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
-
 import { Review } from 'src/app/models/review.model';
-
-
-
-
 import { forkJoin, map, of } from 'rxjs';
 import { Menu, Restaurant, ReviewService } from 'src/app/service/review.service';
 import { SharedDataService } from 'src/app/service/shared-data.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-review',
@@ -20,31 +14,28 @@ export class ReviewComponent implements OnInit {
   restaurants: Restaurant[] = [];
   menus: Menu[] = [];
   reviews: Review[] = [];
-  restaurantReviews: Review[] = [];
   selectedRestaurantId!: number;
-  reviewType: 'restaurant' | 'menu' = 'restaurant';
   selectedMenuId!: number;
+  reviewType: 'restaurant' | 'menu' = 'restaurant'; // Default to 'restaurant'
   stars: number[] = [1, 2, 3, 4, 5];
   review: Review = {
-    rating: 0, comment: '', reviewDate: '', review_type: 'restaurant', user: { id: 0 },
-    id: null
+    rating: 0, comment: '', reviewDate: '', review_type: '', user: { id: 0 },
   };
-  id: number = 0;
-  editMode: boolean = false; // To toggle between create and update mode
-  currentReviewId: number | null = null;
-   error: string | null = null;
-  
-  constructor(private reviewService: ReviewService, private sharedDataService: SharedDataService) {}
+  id: number = 0; // Setting current user id
+
+  constructor(private reviewService: ReviewService, private sharedDataService: SharedDataService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadRestaurants();
     this.loadMenus();
-    this.loadReviews();
 
     const userIdString = this.sharedDataService.getUserId(); // Get userId as string
     this.id = Number(userIdString); // Convert string to number
     console.log('User ID:', this.id);
     this.review.user.id = this.id; // Set the user ID in the nested user object
+
+    // Load initial reviews based on the default review type and selection
+    this.loadReviews();
   }
 
   setRating(rating: number): void {
@@ -65,7 +56,6 @@ export class ReviewComponent implements OnInit {
   loadMenus(): void {
     this.reviewService.getAllMenus().subscribe(
       data => {
-        
         this.menus = data;
       },
       error => {
@@ -75,45 +65,69 @@ export class ReviewComponent implements OnInit {
   }
 
   loadReviews(): void {
-    this.reviewService.getAllReviews().subscribe(
-      reviews => {
-        const requests = reviews.map(review => {
-          if (review.review_type === 'restaurant' && review.restaurantId) {
-            return this.reviewService.getRestaurantById(review.restaurantId).pipe(
-              map(restaurant => ({ ...review, restaurant }))
-            );
-          } else if (review.review_type === 'menu' && review.menuId) {
-            return this.reviewService.getMenuById(review.menuId).pipe(
-              map(menu => ({ ...review, menu }))
-            );
-          } else {
-            return of(review);
-          }
-        });
+    if (this.reviewType === 'restaurant' && this.selectedRestaurantId) {
+      this.loadRestaurantReviews();
+    } else if (this.reviewType === 'menu' && this.selectedMenuId) {
+      this.loadMenuReviews();
+    } else {
+      this.loadAllReviews();
+    }
+  }
 
-        forkJoin(requests).subscribe(
-          (fullReviews: Review[]) => {
-            this.reviews = fullReviews;
-          },
-          error => {
-            console.error('Error loading detailed reviews:', error);
-          }
-        );
+  loadRestaurantReviews(): void {
+    if (this.selectedRestaurantId) {
+      this.reviewService.getReviewsByRestaurantId(this.selectedRestaurantId).subscribe(
+        (reviews: Review[]) => {
+          this.reviews = reviews;
+          console.log('Loaded restaurant reviews:', reviews);
+        },
+        error => {
+          console.error('Error loading restaurant reviews:', error);
+        }
+      );
+    }
+  }
+
+  loadMenuReviews(): void {
+    if (this.selectedMenuId && this.menus.length > 0) {
+      console.log('Loading reviews for selected menu...');
+      this.reviewService.getReviewsByMenuId(this.selectedMenuId).subscribe(
+        (reviews: Review[]) => {
+          this.reviews = reviews;
+          console.log('Loaded menu reviews:', reviews);
+        },
+        error => {
+          console.error('Error loading menu reviews:', error);
+        }
+      );
+    } else {
+      console.warn('No menus available or no menu selected.');
+    }
+  }
+
+  loadAllReviews(): void {
+    this.reviewService.getAllReviews().subscribe(
+      (reviews: Review[]) => {
+        this.reviews = reviews;
+        console.log('Loaded all reviews:', reviews);
       },
       error => {
-        console.error('Error loading reviews:', error);
+        console.error('Error loading all reviews:', error);
       }
     );
   }
 
-  
-  
+  isLoggedIn(): boolean {
+    return this.id !== 0; // Assumes that a valid user ID is not 0
+  }
 
   submitReview(): void {
-    if (this.id === null) {
-      console.error('User ID is not available. Review cannot be submitted.');
+    if (!this.isLoggedIn()) {
+      window.alert('Please log in to submit a review.'); // Simple alert popup
+      this.router.navigate(['/login']); // Redirect to the login page
       return;
     }
+
     this.review.user.id = this.id;
     this.review.review_type = this.reviewType;
     this.review.reviewDate = new Date().toISOString().split('T')[0];
@@ -124,7 +138,8 @@ export class ReviewComponent implements OnInit {
       this.reviewService.addRestaurantReview(this.selectedRestaurantId, this.review).subscribe(
         data => {
           console.log('Restaurant review submitted:', data);
-          this.loadReviews();
+          this.loadReviews(); 
+          window.alert('Restaurant review added successfully!');
         },
         error => {
           console.error('Error submitting restaurant review:', error);
@@ -132,10 +147,12 @@ export class ReviewComponent implements OnInit {
       );
     } else if (this.reviewType === 'menu' && this.selectedMenuId) {
       this.review.menuId = this.selectedMenuId;
-      this.reviewService.addMenuReview(this.selectedMenuId, this.review).subscribe(
+      this.review.restaurantId = this.selectedRestaurantId;
+      this.reviewService.addMenuReview(this.selectedMenuId, this.selectedRestaurantId ,this.review).subscribe(
         data => {
           console.log('Menu review submitted:', data);
-          this.loadReviews();
+          this.loadReviews(); 
+          window.alert('Menu item review added successfully!');
         },
         error => {
           console.error('Error submitting menu review:', error);
@@ -143,44 +160,4 @@ export class ReviewComponent implements OnInit {
       );
     }
   }
-  // editReview(review: Review): void {
-  //   // Ensure review.user is initialized
-  //   if (!review.user) {
-  //     review.user = { id: 0 };
-  //   }
-  
-  //   this.review = { 
-  //     ...review, 
-  //     reviewDate: review.reviewDate ? new Date(review.reviewDate).toISOString().split('T')[0] : '',
-  //     user: { id: review.user?.id || 0 } // Use optional chaining to safely access user.id
-  //   };
-  //   this.currentReviewId = review.id ?? null; // Use nullish coalescing for safety
-  //   this.editMode = true;
-  // }
-  
-
-//  deleteReview(reviewId: number): void {
-//   if (reviewId === null || reviewId === undefined) {
-//     console.error('Invalid review ID');
-//     return;
-//   }
-
-//   this.reviewService.deleteReview(reviewId).subscribe(
-//     () => {
-//       console.log('Review deleted');
-//       this.loadReviews();
-//       this.loadRestaurantReviews();
-//     },
-//     error => console.error('Error deleting review:', error)
-//   );
-// }
-
-  
-  // resetForm(): void {
-  //   this.review = { id: null, rating: 0, comment: '', reviewDate: '', review_type: 'restaurant', user: { id: 0 } };
-  //   this.selectedRestaurantId = 0;
-  //   this.selectedMenuId = 0;
-  //   this.editMode = false;
-  //   this.currentReviewId = null;
-  // }
 }

@@ -1,31 +1,38 @@
 body {
-
   height: 100vh;
-  background: url('src/assets/message.jpeg') no-repeat center center;
-  background-size: cover;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
 }
+
 .admin-panel-container {
   display: flex;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(to right, #ece9e6, #ffffff);
-  font-family: 'Arial', sans-serif;
+  overflow: hidden;
 }
 
 .user-list {
-  width: 30%;
-  background-color: #2c3e50;
-  color: #ecf0f1;
+  width: 25%;
+  background: #20232a;
+  color: #61dafb;
   padding: 20px;
-  border-right: 1px solid #34495e;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-right: 2px solid #61dafb;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3);
+  overflow-y: auto;
+  transition: width 0.3s ease;
+}
+
+.user-list:hover {
+  width: 30%;
 }
 
 .user-list h3 {
-  margin-bottom: 20px;
-  font-size: 24px;
+  margin: 0;
+  font-size: 26px;
   text-align: center;
-  color: #ecf0f1;
+  color: #fafafa;
+  border-bottom: 4px solid #ffffff;
+  padding-bottom: 15px;
 }
 
 .user-list ul {
@@ -37,93 +44,119 @@ body {
   padding: 15px;
   margin-bottom: 10px;
   cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
+  border-radius: 12px;
+  background: #a484b3;
+  transition: background 0.3s ease, transform 0.3s ease;
   text-align: center;
+  color: #ffffff;
 }
 
 .user-list li:hover {
-  background-color: #34495e;
+  background: #fbc2eb;
+  color: #2a2220;
+  transform: translateY(-3px);
 }
 
 .chatbox {
-  width: 70%;
-  padding: 20px;
+  width: 75%;
   display: flex;
   flex-direction: column;
-  background-color: #ecf0f1;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .chatbox h3 {
-  margin-bottom: 20px;
-  font-size: 24px;
+  margin: 0;
+  padding: 15px;
+  font-size: 28px;
   text-align: center;
-  color: #34495e;
+  background: linear-gradient(to right, #fbc2eb, #a6c0fe);
+  color: #ffffff;
+  border-bottom: 1px solid #ffd700;
 }
 
 .messages {
   flex-grow: 1;
   overflow-y: auto;
-  margin-bottom: 20px;
-  padding-right: 10px;
-  border-right: 2px solid #bdc3c7;
+  padding: 20px;
+  background: #f1f1f1;
+  position: relative;
 }
 
 .message {
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  padding: 12px 20px;
+  border-radius: 25px;
+  margin-bottom: 15px;
   font-size: 16px;
   max-width: 70%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  position: relative;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.5s ease-out;
 }
 
 .message.admin {
-  background-color: #d1e7dd;
+  background-color: #d4edda;
   align-self: flex-end;
-  transform: translateX(10px);
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 25px;
 }
 
 .message:not(.admin) {
   background-color: #f8d7da;
   align-self: flex-start;
-  transform: translateX(-10px);
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 25px;
 }
 
 .input-box {
   display: flex;
   align-items: center;
+  padding: 15px;
+  background: #ffffff;
+  border-top: 2px solid #f1f1f1;
 }
 
 .input-box input {
   flex-grow: 1;
-  padding: 15px;
-  border: 2px solid #bdc3c7;
+  padding: 12px;
+  border: 2px solid #61dafb;
   border-radius: 25px;
   font-size: 16px;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input-box input:focus {
-  border-color: #007bff;
+  border-color: #ff7e5f;
+  box-shadow: 0 0 8px rgba(255, 126, 95, 0.5);
   outline: none;
 }
 
 .input-box button {
-  padding: 12px 25px;
+  padding: 12px 20px;
   border: none;
-  background-color: #007bff;
+  background: #a484b3;
   color: white;
   cursor: pointer;
   border-radius: 25px;
   margin-left: 10px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .input-box button:hover {
-  background-color: #0056b3;
+  background: #a484b3;
   transform: translateY(-2px);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

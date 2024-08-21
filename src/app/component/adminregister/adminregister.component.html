@@ -1,28 +1,58 @@
-<form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-    <div>
-      <label>Name:</label>
-      <input formControlName="name" type="text">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Registration</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container-fluid min-vh-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-md-8 col-lg-6">
+        
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="p-5 rounded shadow">
+          <button type="button" class="close-btn" aria-label="Close" onclick="window.location.href = '/'">
+            <span aria-hidden="true">&times;</span>
+        </button>
+          <h2 class="text-center mb-4">Admin Registration</h2>
+          
+          <div class="form-group mb-4">
+            <label for="name">Name:</label>
+            <input formControlName="name" type="text" class="form-control" id="name" required>
+          </div>
+          
+          <div class="form-group mb-4">
+            <label for="mobileNo">Mobile No:</label>
+            <input formControlName="mobileNo" type="text" class="form-control" id="mobileNo" required>
+          </div>
+          
+          <div class="form-group mb-4">
+            <label for="username">Username:</label>
+            <input formControlName="username" type="text" class="form-control" id="username" required>
+          </div>
+          
+          <div class="form-group mb-4">
+            <label for="password">Password:</label>
+            <input formControlName="password" type="password" class="form-control" id="password" required>
+          </div>
+          
+          <div class="form-group mb-4">
+            <label for="email">Email:</label>
+            <input formControlName="email" type="email" class="form-control" id="email" required>
+          </div>
+          
+          <!-- <div class="form-group mb-4">
+            <label for="profilePicture">Profile Picture:</label>
+            <input type="file" (change)="onFileChange($event)" class="form-control-file" id="profilePicture">
+          </div> -->
+          
+          <button type="submit" class="btn btn-success w-100">Register</button>
+        </form>
+      </div>
     </div>
-    <div>
-      <label>Mobile No:</label>
-      <input formControlName="mobileNo" type="text">
-    </div>
-    <div>
-      <label>Username:</label>
-      <input formControlName="username" type="text">
-    </div>
-    <div>
-      <label>Password:</label>
-      <input formControlName="password" type="password">
-    </div>
-    <div>
-      <label>Email:</label>
-      <input formControlName="email" type="email">
-    </div>
-    <div>
-      <label>Profile Picture:</label>
-      <input type="file" (change)="onFileChange($event)">
-    </div>
-    <button type="submit">Register</button>
-  </form>
+  </div>
   
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

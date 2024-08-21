@@ -46,7 +46,7 @@ export class AdminregisterComponent {
         response => {
           console.log(response); // This will print "Successfully registered Admin"
           alert(response); // This will show the message in an alert
-          this.router.navigate(['/adminlogin']);
+          this.router.navigate(['/admin']);
 
         },
         error => {

@@ -24,9 +24,9 @@ export class ReviewService {
         return this.http.get<Restaurant[]> (`http://localhost:8080/api/restaurants/restaurant/findAll`).pipe(catchError(this.handleError));
     }
     // Add a review for a menu
-    addMenuReview(menuId: number, review: Review): Observable<Review> {
-        return this.http.post<Review>(`${this.apiUrl}/menu/save/${menuId}`, review)
-            .pipe(
+    addMenuReview(menuId: number, restaurantId:number, review: Review): Observable<Review> {
+        return this.http.post<Review>(`${this.apiUrl}/menu/save/${menuId}/${restaurantId}`, review)
+        .pipe(
                 catchError(this.handleError)
             );
     }

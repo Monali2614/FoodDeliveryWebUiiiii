@@ -1,5 +1,8 @@
+<!-- Review Form Section -->
+ 
+
 <div class="review-form">
-  <h2>{{ editMode ? 'Edit Review' : 'Post a Review' }}</h2>
+  <h2>Post a Review</h2>
 
   <form (ngSubmit)="submitReview()">
     <div class="form-group">
@@ -20,10 +23,17 @@
     </div>
 
     <div *ngIf="reviewType === 'menu'" class="form-group">
+      
       <label for="menu">Select Menu Item</label>
       <select id="menu" [(ngModel)]="selectedMenuId" name="menu" class="form-control">
         <option *ngFor="let menu of menus" [value]="menu.menuId">
           {{ menu.itemName }}
+        </option>
+      </select>
+      <label for="restaurant">Select Restaurant</label>
+      <select id="restaurant" [(ngModel)]="selectedRestaurantId" name="restaurant" class="form-control">
+        <option *ngFor="let restaurant of restaurants" [value]="restaurant.restaurantId">
+          {{ restaurant.restaurantName }}
         </option>
       </select>
     </div>
@@ -49,45 +59,58 @@
         required></textarea>
     </div>
 
-    <button type="submit" class="btn btn-primary">{{ editMode ? 'Update Review' : 'Submit Review' }}</button>
+    <button type="submit" class="btn btn-primary">Submit Review</button>
   </form>
-
-  <!-- <button *ngIf="editMode" (click)="resetForm()" class="btn btn-secondary">Cancel</button> -->
 </div>
+<div class="container mt-4">
+  <!-- Toggle Button for Review Type -->
+  <div class="d-flex justify-content-center mb-4">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-primary" [class.active]="reviewType === 'restaurant'"
+        (click)="reviewType = 'restaurant'; loadRestaurantReviews()">
+        Restaurant Reviews
+      </button>
+      <button type="button" class="btn btn-primary" [class.active]="reviewType === 'menu'"
+        (click)="reviewType = 'menu'; loadMenuReviews()">
+        Menu Reviews
+      </button>
+    </div>
+  </div>
 
-<!-- Reviews List Section -->
-<div class="reviews-section">
-  <h2>All Reviews</h2>
-  <div *ngIf="reviews && reviews.length; else noReviews">
-    <div class="review-item" *ngFor="let review of reviews">
-      <h3>
-      </h3>
-       <h1><strong>Review For </strong> {{ review.reviewType }}</h1>
-       <p><strong>Review Id:</strong> {{ review.id }}</p>
-       <p><strong>Restaurant Name:</strong> {{ review.restaurantName }}</p>
-       <p><strong>Menu Name:</strong> {{ review.menuName }}</p>
-       <p><strong> Menu Id :</strong> {{ review.menuId }}</p>
-      <p><strong>Rating:</strong> {{ review.rating }}/5</p>
-      <div class="form-group">
-        <label>Rating Stars</label>
+  <!-- Selection of Restaurant or Menu -->
+  <div *ngIf="reviewType === 'restaurant'" class="mb-3">
+    <label for="restaurantSelect" class="form-label">Select Restaurant:</label>
+    <select id="restaurantSelect" class="form-select" [(ngModel)]="selectedRestaurantId"
+      (change)="loadRestaurantReviews()">
+      <option *ngFor="let restaurant of restaurants" [value]="restaurant.restaurantId">{{ restaurant.restaurantName }}
+      </option>
+    </select>
+  </div>
+
+  <div *ngIf="reviewType === 'menu'" class="mb-3">
+    <label for="menuSelect" class="form-label">Select Menu:</label>
+    <select id="menuSelect" class="form-select" [(ngModel)]="selectedMenuId" (change)="loadMenuReviews()">
+      <option *ngFor="let menu of menus" [value]="menu.menuId">{{ menu.itemName }}</option>
+    </select>
+  </div>
+</div>
+<div *ngFor="let review of reviews" class="card mb-3">
+  <div *ngFor="let restaurant of restaurants">
+    <div class="card-body">
+      <h5 class="card-title">
+        <p class="card-text"><strong>Type:</strong> {{ review.reviewType }}</p>
+        <p class="card-text"><strong>Restaurant Name:</strong> {{ restaurant.restaurantName }}</p>
+        <p class="card-text"><strong>Restaurant Address:</strong> {{ restaurant.restaurantAddress }}</p>
+        <p class="card-text"><strong>Menu Name :</strong> {{ review.menuName }}</p>
+        <p class="card-text"><strong>Comment </strong>{{ review.comment }}</p>
+        <p class="card-text"><strong>Rating:</strong> {{ review.rating }}</p>
         <div class="star-rating">
           <i *ngFor="let star of stars; let i = index" class="fa" [class.fa-star]="i < review.rating"
             [class.fa-star-o]="i >= review.rating" (click)="setRating(i + 1)">
           </i>
         </div>
-      </div>
-      <p><strong>Comment:</strong> {{ review.comment }}</p>
-      <p><strong>Date:</strong> {{ review.reviewDate }}</p>
-      <!-- <button *ngIf="review.id !== null" (click)="editReview(review)" class="btn btn-warning">Edit</button> -->
-      <!-- <button *ngIf="review.id !== null" (click)="deleteReview(review.id)" class="btn btn-danger">Delete</button> -->
+        <p class="card-text"><small class="text-muted">Reviewed on {{ review.reviewDate | date }}</small></p>
+      </h5>
     </div>
   </div>
-
-  <ng-template #noReviews>
-    <p>No reviews available.</p>
-  </ng-template>
 </div>
-
-<!-- <pre>{{ reviews | json }}</pre>
- <pre>{{ restaurants| json }}</pre>
-<pre>{{ menus  | json }}</pre>  -->
