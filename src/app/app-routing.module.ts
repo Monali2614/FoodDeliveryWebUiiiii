@@ -33,6 +33,7 @@ import { ReviewComponent } from './component/review/review.component';
 import { AuthGuard } from './auth.guard';
 import { AdminregisterComponent } from './component/adminregister/adminregister.component';
 import { MessageComponent } from './component/message/message.component';
+import { SubscriptionComponent } from './component/subscription/subscription.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -71,6 +72,9 @@ const routes: Routes = [
   { path: 'review', component: ReviewComponent },
   { path: 'message', component: MessageComponent },
   { path: 'cart', component: CartComponent},
+  { path: 'subscription', component: SubscriptionComponent ,canActivate:[AuthGuard]},
+
+
 
 
 

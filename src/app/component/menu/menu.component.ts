@@ -106,6 +106,7 @@ export class MenuComponent implements OnInit {
       id: 0,
       image: item.image,
       menuName:'',
+      menuDescription : '',
     };
 
     this.orderItemService.addToCart(orderItem).subscribe(

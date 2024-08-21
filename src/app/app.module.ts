@@ -44,6 +44,7 @@ import { VerifiyOtpRegisterComponent } from './component/verifiy-otp-register/ve
 import { ReviewComponent } from './component/review/review.component';
 import { AdminregisterComponent } from './component/adminregister/adminregister.component';
 import { MessageComponent } from './component/message/message.component';
+import { SubscriptionComponent } from './component/subscription/subscription.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -84,7 +85,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
    ReviewComponent,
    AdminregisterComponent,
    
-   MessageComponent
+   MessageComponent,
+       SubscriptionComponent
    
   ],
   imports: [

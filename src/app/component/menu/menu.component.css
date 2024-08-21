@@ -138,3 +138,28 @@
   margin-bottom: 10px;
   
 }
+/* Subscription Button Styles */
+.subscription-btn {
+  padding: 15px 30px;
+  background-color: #3c41cd; /* Peach Button Color */
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  margin-top: 30px; /* Add some spacing above the button */
+  align-self: flex-end; /* Align the button to the right */
+  width: 100%; /* Make the button full width */
+  max-width: 300px; /* Restrict the button width on larger screens */
+  margin-left: 910px; /* Push the button to the right side */
+}
+
+.subscription-btn:hover {
+  background-color: #91b3eb; /* Coral Hover Color */
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}

@@ -8,14 +8,13 @@
     <div *ngFor="let item of orderItems" class="card mb-3">
       <div class="card-body d-flex align-items-center justify-content-between">
         <div class="item-details">
-          <h5 class="card-title">Menu ID: {{ item.menuId }}</h5>
+          <!-- <h5 class="card-title">Menu ID: {{ item.menuId }}</h5> -->
+          
           <div class="col-md-4">
-            <img class="menu-image"
-              [src]="item.image" alt="this is img" 
-              
-            />
+            <img class="menu-image" [src]="item.image" alt="Menu Image">
           </div>
           <h5 class="card-title">Menu Name: {{ item.menuName }}</h5>
+          <p>Description: {{ item.menuDescription }}</p>
           <p class="card-text">Price: ₹{{ item.price || 0 }}</p>
           <p class="card-text">Quantity:
             <input 

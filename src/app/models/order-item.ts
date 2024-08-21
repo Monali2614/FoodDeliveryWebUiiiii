@@ -1,6 +1,6 @@
 export interface OrderItem {
   id: number;
-  menuId?: number;
+  menuId: number;
   userId?: number;
   quantity: number;
   price?:number;
@@ -11,4 +11,5 @@ export interface OrderItem {
   grandTotalPrice?: number;
   menuName:string;
   image?: string;
+  menuDescription : string;
 }

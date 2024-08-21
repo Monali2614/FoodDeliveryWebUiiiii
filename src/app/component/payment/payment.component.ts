@@ -27,7 +27,9 @@ export class PaymentComponent implements OnInit {
   user:any
   restaurants: Restaurant[] = [];
   errorMessage: string | undefined;
-
+  price: number = 0;
+  isSubscriptionPayment: boolean = false;
+  
 
   constructor(
     private transactionService: TransactionService,
@@ -38,6 +40,9 @@ export class PaymentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.price = this.sharedDataService.getSubscrptionTotalPrice();
+
     this.deliveryCharge = this.sharedDataService.getDeliveryCharge();
     this.platformCharge = this.sharedDataService.getPlatformCharge();
     this.order = this.sharedDataService.getOrder();
@@ -46,7 +51,38 @@ export class PaymentComponent implements OnInit {
     this.user=this.sharedDataService. getUserData();
     console.log('this is user',this.user)
     console.log('this is restaurant',this.restaurants)
-    this.makePayment(this.totalPrice);
+    // this.makePayment(this.totalPrice);
+    if (this.price > 0) {
+      this.isSubscriptionPayment = true;
+      this.makeSubscriptionPayment(this.price);
+    } else if (this.totalPrice > 0) {
+
+      this.makePayment(this.totalPrice);
+    } else {
+      console.error('No valid payment amount available.');
+    }
+  }
+
+
+
+  makeSubscriptionPayment(price: number) {
+    console.log('Subscription Payment Price:', price);
+    this.transactionService.createTransaction(price).subscribe(
+      (transactionDetails) => {
+        if (transactionDetails && transactionDetails.key) {
+          this.sharedDataService.setTransactionDetails(transactionDetails);
+          console.log(transactionDetails.key,'tracnsaction key@@@@@@@@@@@@@@');
+          this.payWithRazorpay(transactionDetails);
+        } else {
+          console.error('Transaction details are invalid.');
+        }
+      },
+      (error) => {
+        console.error('Error creating transaction', error);
+      }
+    )
+    
+    this.payWithRazorpay(price);
   }
   // fetchRestaurantsByMenuItem(itemName: string): void {
   //   this.restaurantService.findRestaurantsByMenuItem(itemName).subscribe(
@@ -152,7 +188,7 @@ export class PaymentComponent implements OnInit {
             <p><strong>Name:</strong> ${this.user?.name || 'N/A'}</p>
             <p><strong>Email:</strong> ${this.user?.email || 'N/A'}</p>
             <p><strong>Address:</strong> ${this.user?.address || 'N/A'}</p>
-            <p><strong>Restauarnt Name:</strong>Monali Restaurant </p>
+            <p><strong>Restauarnt Name:</strong>Monali Restaurant</p>
             <p><strong> Restauarnt Address:</strong>pune</p>
             <p><strong>Restauarnt Contact:</strong>9970567579</p>
             <p><strong>Date and Time:</strong>${this.transactionDetails.createdAt}</p>
@@ -195,7 +231,6 @@ export class PaymentComponent implements OnInit {
       </html>
     `;
   
-    
     const blob = new Blob([invoiceHtml], { type: 'text/html' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');

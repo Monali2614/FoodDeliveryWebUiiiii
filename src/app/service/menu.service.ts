@@ -77,9 +77,19 @@ export class MenuService {
   // Method to get a menu image as a Blob
   getMenuPicture(menuId: number): Observable<Blob> {
     const url = `${NAV_URL}/api/profile_pictures/getMenuPicture/${menuId}`;
-    return this.http.get(url, { responseType: 'blob' })
-      .pipe(catchError(this.handleError));
+    return this.http.get(url, { responseType: 'blob' }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error fetching image:', error);
+        return throwError(() => new Error('Error fetching image: ' + error.message));
+      })
+    );
   }
+
+  getMenuById(menuId: number): Observable<Menu> {
+    return this.http.get<Menu>(`${NAV_URL}/api/menus/find/${menuId}`);
+  }
+  
+
 
   // Method to search for menu items by name
   searchMenuItem(itemName: string): Observable<Restaurant[]> {

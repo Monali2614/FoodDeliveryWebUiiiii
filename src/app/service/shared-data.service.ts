@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { Order } from '../models/order';
 
 
@@ -10,6 +10,7 @@ export class SharedDataService {
   getGrandTotal(): any {
     throw new Error('Method not implemented.');
   }
+
   private userData: any = null;
   private userId: string = '';
   private restaurantData = new BehaviorSubject<any>([]);
@@ -20,7 +21,26 @@ export class SharedDataService {
   private gstAmount: number = 0;
   private deliveryCharge: number = 0;
   private platformCharge: number = 0;
+  private subscription: Subscription | null = null;
+
   constructor() { }
+
+
+  setSubscription(subscription: Subscription): void {
+    this.subscription = subscription;
+  }
+
+  getSubscription(): Subscription | null {
+    return this.subscription;
+  }
+
+  setSubscrptionTotalPrice(price: number) {
+    this.totalPrice = price;
+  }
+
+  getSubscrptionTotalPrice(): number {
+    return this.totalPrice;
+  }
 
   setGstAmount(gst: number): void {
     this.gstAmount = gst;
