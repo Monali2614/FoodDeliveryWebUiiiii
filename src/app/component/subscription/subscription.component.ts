@@ -12,58 +12,60 @@ import { SubscriptionService } from 'src/app/service/subscription.service';
 })
 export class SubscriptionComponent implements OnInit {
 
-  userId: number = 0; // Replace with actual user ID retrieval logic
-  restaurantId: number = 1; // Replace with actual restaurant ID retrieval logic
-
   selectedStartDate: string | null = null;
+  subscriptionType: string | null = null;
+  weeklyPrice: number = 1000; // Example price for weekly subscription
+  monthlyPrice: number = 3000; // Example price for monthly subscription
 
-  weeklyPrice: number = 1000; // Dummy price for weekly subscription
-  monthlyPrice: number = 3000; // Dummy price for monthly subscription
-
-  constructor(private router: Router, private sharedDataService: SharedDataService,
-    private subscriptionService: SubscriptionService
+  constructor(
+    private router: Router,
+    private subscriptionService: SubscriptionService,
+    private sharedDataService: SharedDataService
   ) {}
 
   ngOnInit(): void {
-    this.userId = this.sharedDataService.getUserData().id;
   }
 
   selectSubscription(subscriptionType: string) {
-    if (this.selectedStartDate) {
+    if (this.selectedStartDate && subscriptionType) {
       const startDate = new Date(this.selectedStartDate);
-      console.log(startDate,'start date');
+      const endDate = this.calculateEndDate(subscriptionType, startDate);
+
+      // Determine the price based on the subscription type
+      let price = 0;
+      if (subscriptionType === 'WEEKLY') {
+        price = this.weeklyPrice;
+      } else if (subscriptionType === 'MONTHLY') {
+        price = this.monthlyPrice;
+      }
+
+      // Set the total price in SharedDataService
+      this.sharedDataService.setSubscriptionTotalPrice(price);
+
       const subscriptionData = {
-        user: { id: this.userId },
-        restaurant: { restaurantId: this.restaurantId },
+        user: { id: 1 }, // Replace with actual user ID retrieval logic
+        restaurant: { restaurantId: 1 }, // Replace with actual restaurant ID retrieval logic
         subscriptionType: subscriptionType,
-        startDate: startDate.toISOString().split('T')[0], // Convert to YYYY-MM-DD format
-        endDate: this.calculateEndDate(subscriptionType, startDate),
+        startDate: startDate.toISOString().split('T')[0],
+        endDate: endDate.toISOString().split('T')[0],
         status: 'ACTIVE'
       };
 
-      // Get the price based on subscription type
-      const price = this.getPrice(subscriptionType);
-      // Set the price in SharedDataService
-      this.sharedDataService.setSubscriptionTotalPrice(price);
-
-      // Create the subscription
       this.subscriptionService.createSubscription(subscriptionData).subscribe(
         (response) => {
           console.log('Subscription created successfully:', response);
-          // Navigate to payment page
-          this.router.navigate(['/payment']);
+          this.router.navigate(['/payment']); // Navigate to payment page
         },
         (error) => {
           console.error('Error creating subscription:', error);
         }
       );
-
     } else {
-      alert('Please select a start date for your subscription.');
+      alert('Please select a start date and subscription type.');
     }
   }
 
-  private calculateEndDate(subscriptionType: string, startDate: Date): string {
+  private calculateEndDate(subscriptionType: string, startDate: Date): Date {
     const endDate = new Date(startDate);
     if (subscriptionType === 'WEEKLY') {
       endDate.setDate(startDate.getDate() + 7);
@@ -71,15 +73,6 @@ export class SubscriptionComponent implements OnInit {
       endDate.setMonth(startDate.getMonth() + 1);
       endDate.setDate(startDate.getDate() - 1);
     }
-    return endDate.toISOString().split('T')[0]; 
-  }
-
-  private getPrice(subscriptionType: string): number {
-    if (subscriptionType === 'WEEKLY') {
-      return this.weeklyPrice;
-    } else if (subscriptionType === 'MONTHLY') {
-      return this.monthlyPrice;
-    }
-    return 0;
+    return endDate;
   }
 }

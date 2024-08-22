@@ -32,6 +32,7 @@
       <h3>Chat with {{ selectedUser.name }}</h3>
       <div class="messages">
         <div *ngFor="let message of messages" class="message">
+          <span><strong>{{selectedUser.name}}:</strong></span>&nbsp;
           <span>{{ message.content }}</span>
           <br>
           <small>{{ message.sentTime | date:'short' }}</small>

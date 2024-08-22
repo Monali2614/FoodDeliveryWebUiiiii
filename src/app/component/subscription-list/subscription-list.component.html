@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Subscriptions</title>
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f3ec78, #af4261);
+      color: #444;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      margin-top: 50px;
+    }
+
+    /* Header Styling */
+    #listtitle {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #af4261;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Table Styling */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    thead.thead-dark {
+      background-color: #af4261;
+      color: white;
+    }
+
+    table th, table td {
+      padding: 15px;
+      text-align: center;
+      font-size: 1.1rem;
+      border: 1px solid #ddd;
+    }
+
+    table th {
+      font-weight: bold;
+      background: linear-gradient(135deg, #f3ec78, #af4261);
+      color: #fff;
+    }
+
+    table tbody tr:nth-child(odd) {
+      background-color: #fbe4e8;
+    }
+
+    table tbody tr:nth-child(even) {
+      background-color: #f9d3d9;
+    }
+
+    table tbody tr:hover {
+      background-color: #f3ec78;
+      transform: scale(1.02);
+      transition: 0.3s ease;
+    }
+
+    /* No Subscriptions Message */
+    .text-muted {
+      font-size: 1.3rem;
+      color: #888;
+      font-style: italic;
+    }
+
+    /* Responsive Styling */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      #listtitle {
+        font-size: 1.8rem;
+      }
+
+      table th, table td {
+        font-size: 0.9rem;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div *ngIf="subscriptions.length > 0" class="container mt-5 subscription-background">
+  <h2 class="text-center mb-4" id="listtitle">User Subscriptions</h2>
+  <table class="table table-striped table-bordered" border="1" id="listtable">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Username</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subscription of subscriptions; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ subscription.userName }}</td>
+        <td>{{ subscription.startDate }}</td>
+        <td>{{ subscription.endDate }}</td>
+        <td>{{ subscription.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="subscriptions.length === 0" class="container mt-5 subscription-background">
+  <p class="text-center text-muted">No subscriptions available.</p>
+</div>
+
+</body>
+</html>

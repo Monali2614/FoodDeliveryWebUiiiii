@@ -52,7 +52,7 @@ const routes: Routes = [
   { path: 'edit-profile', component: EditProfileComponent },
   { path: 'menu/:restaurantName', component: MenuComponent },
 
-  { path: 'chatbox', component: ChatboxComponent },
+  { path: 'chatbox', component: ChatboxComponent, canActivate: [AuthGuard] },
   { path: 'add-menu', component: AddMenuComponent },
   { path: 'view-restaurants', component: ViewRestaurantsComponent },
   { path: 'edit-restaurant/:id', component: EditRestaurantComponent },

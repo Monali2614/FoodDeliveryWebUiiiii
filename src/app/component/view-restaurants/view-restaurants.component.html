@@ -32,7 +32,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Address</th>
-                            <th>Rating</th>
+                            <!-- <th>Rating</th> -->
                             <th>Cuisines</th>
                             <th>Actions</th>
                         </tr>
@@ -42,7 +42,7 @@
                             <td>{{ restaurant.restaurantId }}</td>
                             <td>{{ restaurant.restaurantName }}</td>
                             <td>{{ restaurant.restaurantAddress }}</td>
-                            <td>{{ restaurant.rating }}</td>
+                            <!-- <td>{{ restaurant.rating }}</td> -->
                             <td>{{ restaurant.cuisines.join(', ') }}</td>
                             <td>
                                 <button (click)="onEdit(restaurant)" class="btn btn-danger">Edit</button>

@@ -86,7 +86,7 @@ export class ChatboxComponent {
     }
 
     sendMessage(): void {
-
+    alert("Message has been successfully sent")
       if (this.messageContent.trim() === '') {
         console.error('Message content cannot be empty');
         return;

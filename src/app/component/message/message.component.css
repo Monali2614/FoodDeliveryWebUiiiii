@@ -159,4 +159,9 @@ body {
     opacity: 1;
     transform: translateX(0);
   }
+
+}
+
+.reply{
+  text-align: right;
 }

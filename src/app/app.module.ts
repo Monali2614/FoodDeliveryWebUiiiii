@@ -45,6 +45,7 @@ import { ReviewComponent } from './component/review/review.component';
 import { AdminregisterComponent } from './component/adminregister/adminregister.component';
 import { MessageComponent } from './component/message/message.component';
 import { SubscriptionComponent } from './component/subscription/subscription.component';
+import { SubscriptionListComponent } from './component/subscription-list/subscription-list.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -86,7 +87,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
    AdminregisterComponent,
    
    MessageComponent,
-       SubscriptionComponent
+       SubscriptionComponent,
+       SubscriptionListComponent
    
   ],
   imports: [
