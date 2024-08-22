@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'src/app/models/subscription';
 
 import { SharedDataService } from 'src/app/service/shared-data.service';
+import { SubscriptionService } from 'src/app/service/subscription.service';
 
 @Component({
   selector: 'app-subscription',
@@ -11,49 +12,74 @@ import { SharedDataService } from 'src/app/service/shared-data.service';
 })
 export class SubscriptionComponent implements OnInit {
 
-  weeklySubscription: Subscription = new Subscription(
-    'Weekly Subscription',
-    'A weekly subscription plan for our delicious meals.',
-    1000 
-  );
-
-  monthlySubscription: Subscription = new Subscription(
-    'Monthly Subscription',
-    'A monthly subscription plan for our delicious meals.',
-    3000 
-  );
-
+  userId: number = 0; // Replace with actual user ID retrieval logic
+  restaurantId: number = 1; // Replace with actual restaurant ID retrieval logic
 
   selectedStartDate: string | null = null;
 
-  price: number = 0;
+  weeklyPrice: number = 1000; // Dummy price for weekly subscription
+  monthlyPrice: number = 3000; // Dummy price for monthly subscription
 
-  constructor(private router: Router, private sharedDataService: SharedDataService) {}
+  constructor(private router: Router, private sharedDataService: SharedDataService,
+    private subscriptionService: SubscriptionService
+  ) {}
 
   ngOnInit(): void {
-    const subscription = this.sharedDataService.getSubscription();   
-
+    this.userId = this.sharedDataService.getUserData().id;
   }
 
-  // Method to handle subscription selection
-  selectSubscription(subscription: Subscription) {
+  selectSubscription(subscriptionType: string) {
     if (this.selectedStartDate) {
       const startDate = new Date(this.selectedStartDate);
-      subscription.setDates(startDate);
+      console.log(startDate,'start date');
+      const subscriptionData = {
+        user: { id: this.userId },
+        restaurant: { restaurantId: this.restaurantId },
+        subscriptionType: subscriptionType,
+        startDate: startDate.toISOString().split('T')[0], // Convert to YYYY-MM-DD format
+        endDate: this.calculateEndDate(subscriptionType, startDate),
+        status: 'ACTIVE'
+      };
 
-      console.log(`Selected subscription: ${subscription.type}`);
-      console.log(`Price: ₹${subscription.price}`);
-      console.log(`Start Date: ${subscription.startDate}`);
-      console.log(`End Date: ${subscription.endDate}`);
+      // Get the price based on subscription type
+      const price = this.getPrice(subscriptionType);
+      // Set the price in SharedDataService
+      this.sharedDataService.setSubscriptionTotalPrice(price);
 
-      this.sharedDataService.setSubscrptionTotalPrice(subscription.price);
+      // Create the subscription
+      this.subscriptionService.createSubscription(subscriptionData).subscribe(
+        (response) => {
+          console.log('Subscription created successfully:', response);
+          // Navigate to payment page
+          this.router.navigate(['/payment']);
+        },
+        (error) => {
+          console.error('Error creating subscription:', error);
+        }
+      );
 
-      this.router.navigate(['/payment']);
-
-    
     } else {
       alert('Please select a start date for your subscription.');
     }
   }
-}
 
+  private calculateEndDate(subscriptionType: string, startDate: Date): string {
+    const endDate = new Date(startDate);
+    if (subscriptionType === 'WEEKLY') {
+      endDate.setDate(startDate.getDate() + 7);
+    } else if (subscriptionType === 'MONTHLY') {
+      endDate.setMonth(startDate.getMonth() + 1);
+      endDate.setDate(startDate.getDate() - 1);
+    }
+    return endDate.toISOString().split('T')[0]; 
+  }
+
+  private getPrice(subscriptionType: string): number {
+    if (subscriptionType === 'WEEKLY') {
+      return this.weeklyPrice;
+    } else if (subscriptionType === 'MONTHLY') {
+      return this.monthlyPrice;
+    }
+    return 0;
+  }
+}

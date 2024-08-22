@@ -13,7 +13,8 @@ body {
 
 .container-fluid {
   height: 100%;
-  padding: 0;
+  padding: 0 ;
+  padding-right: 100px;
 }
 
 /* Sidebar Styles */

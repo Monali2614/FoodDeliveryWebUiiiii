@@ -1,20 +1,27 @@
-*/ General Styling */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f8f9fa;
-  color: #333;
-  padding: 20px;
-  animation: fadeIn 1s ease-in-out;
+  background: rgba(0, 0, 0, 0.5) url('src/assets/adminregister.jpeg') no-repeat center center;
+  background-size: cover;
+  color: rgb(16, 15, 15);
+  font-family: Arial, sans-serif;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.review-form,
+.container {
+  background-color: rgba(247, 240, 240, 0.8); 
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  max-width: 600;
+}
+
+
+.star-rating i.fa {
+  color: #ff9800;
 }
 
 /* Review Form Section */
 .review-form {
-  background: #ffffff;
+  
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -23,17 +30,16 @@ body {
 }
 
 .review-form h2 {
-  font-size: 2em;
+  font-size: 1.75rem;
   margin-bottom: 20px;
-  color: #495057;
+  color: #343a40;
   position: relative;
   display: inline-block;
   padding-bottom: 10px;
-  border-bottom: 3px solid #28a745;
-  font-family: 'Georgia', serif;
+  border-bottom: 2px solid #007bff;
+  font-family: 'Arial', sans-serif;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  animation: bounceIn 1.2s ease-in-out;
+  letter-spacing: 1px;
 }
 
 .review-form h2::after {
@@ -41,272 +47,17 @@ body {
   position: absolute;
   left: 0;
   bottom: -3px;
-  width: 50px;
-  height: 3px;
-  background-color: #28a745;
+  width: 40px;
+  height: 2px;
+  background-color: #007bff;
 }
 
 .form-group {
   margin-bottom: 1.5rem;
-  animation: fadeInLeft 0.8s ease-in-out;
 }
 
 .form-control {
   border-radius: 0.375rem;
   border: 1px solid #ced4da;
-  padding: 0.75rem;
-  transition: all 0.3s ease;
-  animation: fadeInLeft 0.8s ease-in-out;
-}
-
-.form-control:focus {
-  border-color: #80bdff;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
-}
-
-.star-rating {
-  font-size: 1.5rem;
-  color: #ffc107;
-  display: flex;
-  align-items: center;
-  animation: zoomIn 0.7s ease-in-out;
-}
-
-.star-rating .fa {
-  cursor: pointer;
-  margin-right: 0.25rem;
-  transition: transform 0.3s ease;
-}
-
-.star-rating .fa:hover {
-  transform: scale(1.25);
-}
-
-textarea.form-control {
-  resize: vertical;
-}
-
-.btn-primary {
-  background-color: #28a745;
-  border-color: #28a745;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  animation: pulse 1.2s infinite;
-}
-
-.btn-primary:hover,
-.btn-primary:focus {
-  background-color: #218838;
-  box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
-}
-
-/* Reviews Section */
-.reviews-section {
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  animation: fadeInUp 1s ease-in-out;
-}
-
-.reviews-section h2 {
-  font-size: 2em;
-  color: #343a40;
-  margin-bottom: 25px;
-  position: relative;
-  display: inline-block;
-  padding-bottom: 10px;
-  border-bottom: 3px solid #ffc107;
-  font-family: 'Georgia', serif;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  animation: bounceIn 1.2s ease-in-out;
-}
-
-.reviews-section h2::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  width: 50px;
-  height: 3px;
-  background-color: #ffc107;
-}
-
-.review-item {
-  background-color: #f8f9fa;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: fadeInUp 0.8s ease-in-out;
-}
-
-.review-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
-
-.review-item h3 {
-  font-size: 1.5em;
-  color: #495057;
-  margin-bottom: 10px;
-  font-family: 'Georgia', serif;
-  border-left: 4px solid #ffc107;
-  padding-left: 10px;
-  animation: fadeInLeft 0.8s ease-in-out;
-}
-
-.review-item p {
-  margin: 10px 0;
-  color: #6c757d;
-  animation: fadeInRight 0.8s ease-in-out;
-}
-
-.review-item .star-rating {
-  font-size: 1.25rem;
-  color: #ffc107;
-  animation: zoomIn 0.7s ease-in-out;
-}
-
-.review-item .star-rating .fa {
-  cursor: default;
-}
-
-.review-item .form-group {
-  margin-bottom: 1rem;
-}
-
-.review-item .star-rating .fa:hover {
-  transform: none;
-}
-
-/* No Reviews */
-.reviews-section #noReviews {
-  text-align: center;
-  color: #6c757d;
-  font-style: italic;
-  animation: fadeIn 1s ease-in-out;
-}
-
-.btn-warning {
-  background-color: #ffc107;
-  border-color: #ffc107;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  animation: pulse 1.2s infinite;
-}
-
-.btn-warning:hover,
-.btn-warning:focus {
-  background-color: #e0a800;
-  box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  animation: pulse 1.2s infinite;
-}
-
-.btn-danger:hover,
-.btn-danger:focus {
-  background-color: #c82333;
-  box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes bounceIn {
-  0%, 20%, 40%, 60%, 80%, 100% {
-    transition-timing-function: cubic-bezier(0.8, 0, 1, 1);
-  }
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  20% {
-    transform: scale(1.1);
-  }
-  40% {
-    transform: scale(0.9);
-  }
-  60% {
-    transform: scale(1.03);
-  }
-  80% {
-    transform: scale(0.97);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.card {
-  border: 1px solid #f8f9fa;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card-title {
-  font-weight: bold;
-}
-
-.card-text {
-  margin-bottom: 0.5rem;
+  padding: 0.75
 }

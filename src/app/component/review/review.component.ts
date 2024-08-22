@@ -20,6 +20,7 @@ export class ReviewComponent implements OnInit {
   stars: number[] = [1, 2, 3, 4, 5];
   review: Review = {
     rating: 0, comment: '', reviewDate: '', review_type: '', user: { id: 0 },
+    restaurantAddress: undefined
   };
   id: number = 0; // Setting current user id
 

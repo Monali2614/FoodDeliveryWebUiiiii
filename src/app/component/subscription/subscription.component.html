@@ -1,26 +1,29 @@
 <div class="subscription-container">
-    <h2>Select Your Subscription Plan</h2>
-    <p><strong>Menu contains:</strong> 3 Chapati, 2 Bhaji, Rice, Dal, Salad</p>
-  
-    <!-- Date Selection -->
-    <div class="date-selection">
-      <label for="startDate">Select Start Date:</label>
-      <input type="date" id="startDate" [(ngModel)]="selectedStartDate">
-    </div>
-  
-    <div class="subscription-options">
-      <div class="subscription-card">
-        <h3>{{ weeklySubscription.type }}</h3>
-        <p class="meal-description">{{ weeklySubscription.description }}</p>
-        <p><strong>Price:</strong> ₹{{ weeklySubscription.price }}</p>
-        <button (click)="selectSubscription(weeklySubscription)">Get Weekly Subscription</button>
-      </div>
-  
-      <div class="subscription-card">
-        <h3>{{ monthlySubscription.type }}</h3>
-        <p class="meal-description">{{ monthlySubscription.description }}</p>
-        <p><strong>Price:</strong> ₹{{ monthlySubscription.price }}</p>
-        <button (click)="selectSubscription(monthlySubscription)">Get Monthly Subscription</button>
-      </div>
-    </div>
+  <h2>Choose Your Subscription</h2>
+
+  <!-- Form for selecting start date -->
+  <form>
+    <label for="startDate">Select Start Date:</label>
+    <input
+      type="date"
+      id="startDate"
+      [(ngModel)]="selectedStartDate"
+      name="startDate"
+      required
+    />
+  </form>
+
+  <!-- Weekly Subscription Option -->
+  <div class="subscription-option">
+    <h3>Weekly Subscription</h3>
+    <p class="meal-description">Price: ₹{{ weeklyPrice }}</p>
+    <button (click)="selectSubscription('WEEKLY')">Get Weekly Subscription</button>
   </div>
+
+  <!-- Monthly Subscription Option -->
+  <div class="subscription-option">
+    <h3>Monthly Subscription</h3>
+    <p class="meal-description">Price: ₹{{ monthlyPrice }}</p>
+    <button (click)="selectSubscription('MONTHLY')">Get Monthly Subscription</button>
+  </div>
+</div>

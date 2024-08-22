@@ -2,6 +2,7 @@ import { Menu, Restaurant } from "../service/review.service";
 
 // src/app/models/review.model.ts
 export interface Review {
+restaurantAddress: any;
 
   restaurantId?: number ;
   menuId?: number ;

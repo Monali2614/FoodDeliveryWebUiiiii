@@ -34,11 +34,12 @@ export class SharedDataService {
     return this.subscription;
   }
 
-  setSubscrptionTotalPrice(price: number) {
+  setSubscriptionTotalPrice(price: number): void {
     this.totalPrice = price;
   }
 
-  getSubscrptionTotalPrice(): number {
+  // Get the subscription total price
+  getSubscriptionTotalPrice(): number {
     return this.totalPrice;
   }
 
