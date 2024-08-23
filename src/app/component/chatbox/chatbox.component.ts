@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Message } from 'src/app/models/message';
 import { Reply } from 'src/app/models/reply';
 import { MessageService } from 'src/app/service/message.service';
@@ -22,14 +23,14 @@ export class ChatboxComponent {
   newReplyContent: string = '';
   users: any[] = [];
 
-
-  constructor(private sharedDataService: SharedDataService , private messageService:MessageService,
-    private userService:UserService
+  constructor(
+    private sharedDataService: SharedDataService, 
+    private messageService: MessageService,
+    private userService: UserService,
+    private router: Router  // Inject Router
   ) {}
 
   ngOnInit(): void {
-
-   
     this.chatboxBody = document.getElementById('chatbox-body') as HTMLDivElement;
     this.messageInput = document.getElementById('message-input') as HTMLInputElement;
     this.sendButton = document.getElementById('send-button') as HTMLButtonElement;
@@ -41,10 +42,10 @@ export class ChatboxComponent {
       }
     });
 
-    this.userId=this.sharedDataService.getUserData().id;
-    this.userName=this.sharedDataService.getUserData().name;
-    console.log(this.userName,'Chatbox UserName@@@@@@@@@');
-    console.log(this.userId,'Chatbox UserID@@@@@@@@@');
+    this.userId = this.sharedDataService.getUserData().id;
+    this.userName = this.sharedDataService.getUserData().name;
+    console.log(this.userName, 'Chatbox UserName@@@@@@@@@');
+    console.log(this.userId, 'Chatbox UserID@@@@@@@@@');
 
     this.loadMessages(this.userId);
     this.getMessagesByUserId(this.userId);
@@ -52,7 +53,6 @@ export class ChatboxComponent {
     setInterval(() => {
       this.loadMessages(this.userId);
     }, 5000); // 5000 ms = 5 seconds
-
   }
 
   getMessagesByUserId(userId: number): void {
@@ -60,62 +60,60 @@ export class ChatboxComponent {
       (messages) => {
         this.messages = messages;
         if (this.messages.length === 0) {
-          console.log(`No messages found for user with ID ${userId}.`);        }
+          console.log(`No messages found for user with ID ${userId}.`);
+        }
       },
       (error) => {
         console.error('Error fetching messages:', error);
       }
     );
-    
   }
 
-    // Load messages for the user
-    loadMessages(userId: number): void {
-      this.messageService.getMessagesByUserId(this.userId).subscribe((messages) => {
-        this.messages = messages;
-        console.log(this.messages,'LoadMessages By ID');
-      })
+  loadMessages(userId: number): void {
+    this.messageService.getMessagesByUserId(this.userId).subscribe((messages) => {
+      this.messages = messages;
+      console.log(this.messages, 'LoadMessages By ID');
+    });
 
-      
-      this.messageService.getAllUsersWithMessages().subscribe((users) => {
-        this.users = users;
-        console.log(this.users,'LoadMessages By ID');
-      })
+    this.messageService.getAllUsersWithMessages().subscribe((users) => {
+      this.users = users;
+      console.log(this.users, 'LoadMessages By ID');
+    });
+  }
+
+  sendReply(messageId: number): void {
+    if (this.newReplyContent.trim()) {
+      const newReply: Reply = { replyContent: this.newReplyContent };
+      this.messageService.sendReply(messageId, newReply).subscribe((reply) => {
+        this.newReplyContent = '';
+      });
+    }
+  }
+
+  sendMessage(): void {
+    alert("Message has been successfully sent");
+    if (this.messageContent.trim() === '') {
+      console.error('Message content cannot be empty');
+      return;
     }
 
-    sendReply(messageId: number): void {
-      if (this.newReplyContent.trim()) {
-        const newReply: Reply= { replyContent: this.newReplyContent };
-        this.messageService.sendReply(messageId, newReply).subscribe((reply) => {
-          this.newReplyContent = '';
-        });
+    const newMessage: Message = {
+      content: this.messageContent,
+      sentTime: new Date().toISOString(),
+      userId: this.userId,
+      userName: this.userName,
+    };
+
+    this.messageService.sendMessage(this.userId, newMessage).subscribe(
+      (message) => {
+        console.log('Message saved:', message);
+        this.messageContent = ''; // Clear the input field
+      },
+      (error) => {
+        console.error('Error saving message:', error);
       }
-    }
-
-    sendMessage(): void {
-    alert("Message has been successfully sent")
-      if (this.messageContent.trim() === '') {
-        console.error('Message content cannot be empty');
-        return;
-      }
-  
-      const newMessage: Message = {
-        content: this.messageContent,
-        sentTime: new Date().toISOString(),
-        userId: this.userId,
-        userName: this.userName,
-      };
-  
-      this.messageService.sendMessage(this.userId, newMessage).subscribe(
-        (message) => {
-          console.log('Message saved:', message);
-          this.messageContent = ''; // Clear the input field
-        },
-        (error) => {
-          console.error('Error saving message:', error);
-        }
-      );
-    }
+    );
+  }
 
   addMessage(message: string, isUser: boolean): void {
     const messageDiv = document.createElement('div');
@@ -124,7 +122,7 @@ export class ChatboxComponent {
     if (!isUser) {
       const avatar = document.createElement('img');
       avatar.src = '';
-       avatar.alt = 'hello';
+      avatar.alt = 'hello';
       avatar.classList.add('avatar');
       messageDiv.appendChild(avatar);
     }
@@ -137,5 +135,10 @@ export class ChatboxComponent {
 
     this.chatboxBody.appendChild(messageDiv);
     this.chatboxBody.scrollTop = this.chatboxBody.scrollHeight;
+  }
+
+  // New method to handle cross button click and navigate to home page
+  navigateToHome(): void {
+    this.router.navigate(['/home']);
   }
 }

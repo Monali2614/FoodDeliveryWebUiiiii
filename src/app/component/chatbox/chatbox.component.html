@@ -7,6 +7,7 @@
         data-mdb-ripple-init
         class="btn btn-primary btn-sm"
         data-mdb-ripple-color="dark"
+        (click)="navigateToHome()"  
       >
         <span aria-hidden="true">&times;</span>
       </button>
@@ -15,10 +16,8 @@
     <div class="chatbox-body" id="chatbox-body">
       <!-- Iterate over the messages array and display each message -->
       <div *ngFor="let message of messages" id="user-body">
-        <!-- <p [ngModel]="userName"><strong> {{  userName }}</strong>
-          </p> -->
-          <p>{{ message.content }}</p>
-          <small class="text-muted">{{ message.sentTime | date:'short' }}</small>
+        <p>{{ message.content }}</p>
+        <small class="text-muted">{{ message.sentTime | date:'short' }}</small>
         <!-- Display the reply if it exists -->
         <div *ngIf="message.reply" class="reply" id="admin-body">
           <p><strong>Admin</strong></p>
