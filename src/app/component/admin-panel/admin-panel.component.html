@@ -86,7 +86,11 @@
             <i class="fas fa-envelope" id="message"></i> Show Message
           </a>
         </li>
-
+        <li>
+          <a href="javascript:void(0)" (click)="setActiveComponent('SubscriptionList')">
+            <i class="fa fa-address-card"></i> Subscription List
+          </a>
+        </li>
       </ul>
     </nav>
 
@@ -113,6 +117,9 @@
         
         <app-message></app-message>
       </ng-container>
+      <ng-container *ngIf="activeComponent === 'SubscriptionList'">
+        <app-subscription-list></app-subscription-list>
+       </ng-container>
       <!-- <ng-container *ngIf="activeComponent === 'add-images'">
         <app-add-images></app-add-images>
       </ng-container> -->

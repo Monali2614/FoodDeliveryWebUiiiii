@@ -15,8 +15,8 @@
     <div class="chatbox-body" id="chatbox-body">
       <!-- Iterate over the messages array and display each message -->
       <div *ngFor="let message of messages" id="user-body">
-        <p [ngModel]="userName"><strong> {{  userName }}</strong>
-          </p>
+        <!-- <p [ngModel]="userName"><strong> {{  userName }}</strong>
+          </p> -->
           <p>{{ message.content }}</p>
           <small class="text-muted">{{ message.sentTime | date:'short' }}</small>
         <!-- Display the reply if it exists -->

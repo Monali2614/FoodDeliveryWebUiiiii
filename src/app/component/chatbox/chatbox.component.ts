@@ -28,6 +28,8 @@ export class ChatboxComponent {
   ) {}
 
   ngOnInit(): void {
+
+   
     this.chatboxBody = document.getElementById('chatbox-body') as HTMLDivElement;
     this.messageInput = document.getElementById('message-input') as HTMLInputElement;
     this.sendButton = document.getElementById('send-button') as HTMLButtonElement;
@@ -46,6 +48,11 @@ export class ChatboxComponent {
 
     this.loadMessages(this.userId);
     this.getMessagesByUserId(this.userId);
+
+    setInterval(() => {
+      this.loadMessages(this.userId);
+    }, 5000); // 5000 ms = 5 seconds
+
   }
 
   getMessagesByUserId(userId: number): void {

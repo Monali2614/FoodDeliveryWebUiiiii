@@ -19,8 +19,15 @@ export class MessageComponent {
   constructor(private messageService: MessageService, private sharedDataService: SharedDataService) {}
 
   ngOnInit(): void {
+
+   
     this.loadUsers(); // Load users when the component initializes
     this.userId = this.sharedDataService.getUserData().id;
+
+    setInterval(() => {
+      this.loadMessages(this.userId);
+    }, 5000); // 5000 ms = 5 seconds
+    
   }
 
   loadUsers(): void {
