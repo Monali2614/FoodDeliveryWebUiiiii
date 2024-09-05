@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from 'src/app/service/menu.service';
 import { Menu } from 'src/app/models/menu';
-import { WishlistService } from 'src/app/service/wishlist.service';
 import { SharedDataService } from 'src/app/service/shared-data.service';
 import { Router } from '@angular/router';
-import { OrderItem } from 'src/app/models/order-item';
-import { OrderItemService } from 'src/app/service/orderitem.service';
 
 @Component({
   selector: 'app-menu',
@@ -16,22 +13,20 @@ export class MenuComponent implements OnInit {
   restaurantName!: string;
   menuItems: Menu[] = [];
   filteredMenuItems: Menu[] = [];
+  cartItems: any[] = [];
 
   showVeg: boolean = false;
   showNonVeg: boolean = false;
 
   constructor(
     private menuService: MenuService,
-    private wishlistService: WishlistService,
     private sharedDataService: SharedDataService,
-    private router: Router,
-    private orderItemService: OrderItemService,
-
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.getMenus();
     this.loadAllMenus();
+    this.loadCart();
   }
 
   loadAllMenus(): void {
@@ -53,28 +48,6 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  getMenus(): void {
-    this.menuService.getAllMenus().subscribe(
-      (data: Menu[]) => {
-        this.menuItems = data;
-        this.filteredMenuItems = data;
-
-        this.filteredMenuItems.forEach(menu => {
-          this.menuService.getMenuPicture(menu.menuId).subscribe(
-            (imageBlob: Blob) => {
-              let reader = new FileReader();
-              reader.readAsDataURL(imageBlob);
-              reader.onloadend = () => {
-                menu.image = reader.result as string;
-              }
-            },
-            (error: any) => console.error(`Error fetching image for menu ID ${menu.menuId}`, error)
-          );
-        });
-      },
-      (error: any) => console.error('Error fetching menu data', error)
-    );
-  }
 
   filterMenu(): void {
     if (this.showVeg && !this.showNonVeg) {
@@ -87,46 +60,38 @@ export class MenuComponent implements OnInit {
   }
 
   addToCart(item: Menu): void {
-    const userIdString = this.sharedDataService.getUserId();
-     const userId=Number(userIdString);
-    const gstAmount = this.calculateGst(item.price); // Calculate GST
-    const deliveryCharge = 50; // Example fixed delivery charge
-    const platformCharge = 10; // Example fixed platform charge
 
-    const orderItem: OrderItem = {
+    const userIdString = this.sharedDataService.getUserId();
+    const userId = Number(userIdString);
+ if (!userId) {
+      // User is not logged in
+      alert('You must be logged in to add items to the cart.');
+      this.router.navigate(['/login']);
+      return;
+    }
+    const cartItem = {
       menuId: item.menuId,
       userId: userId,
       quantity: 1,
       price: item.price,
-      totalPrice: item.price,
-      gst: 0,
-      deliveryCharge:0,
-      platformCharge: 0,
-      grandTotalPrice: 0,
-      id: 0,
       image: item.image,
-      menuName:'',
-      menuDescription : '',
+      menuName: item.itemName,
+      menuDescription: item.description,
     };
 
-    this.orderItemService.addToCart(orderItem).subscribe(
-      (      response: any) => {
-        console.log('Added to cart:', response);
-        alert("Item added Successfully");
-      },
-      (      error: any) => {
-        console.error('Error adding item to cart', error);
-        alert("Failed to add item to cart ");
-        alert("please login ");
-        this.router.navigate(['/login']);
-       
-
-      }
-    );
+    this.cartItems.push(cartItem);
+    this.saveCart();
+    alert("Item added to cart successfully!");
   }
 
-  private calculateGst(price: number): number {
-    const gstRate = 0.18; // 18% GST rate
-    return price * gstRate;
+  saveCart(): void {
+    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+  }
+
+  loadCart(): void {
+    const cartData = localStorage.getItem('cartItems');
+    if (cartData) {
+      this.cartItems = JSON.parse(cartData);
+    }
   }
 }

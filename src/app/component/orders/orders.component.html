@@ -1,0 +1,111 @@
+<app-header></app-header>
+
+<title>Orders</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5 orders-container">
+  <!-- Success Message Display -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <!-- Error Message Display -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Orders List Section -->
+  <div *ngIf="orders.length > 0" class="orders-list">
+    <h3 class="mb-4">Your Orders</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Total Amount</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.dateAndTime | date: 'short' }}</td>
+          <td>{{ order.orderStatus }}</td>
+          <td>{{ order.totalAmount | currency:'INR' }}</td>
+          <td>
+            <button (click)="viewOrderDetails(order.id)" class="btn btn-primary btn-sm">View Details</button>
+            <button *ngIf="order.orderStatus === 'PENDING' || order.orderStatus === 'CONFIRMED'"
+              (click)="cancelOrder(order.id)" class="btn btn-danger btn-sm">
+              Cancel Order
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- No Orders Message -->
+  <div *ngIf="orders.length === 0 && !errorMessage">
+    <p>No orders found.</p>
+  </div>
+
+  <!-- Order Details Section -->
+  <div *ngIf="isOrderDetailsVisible && selectedOrder" class="order-details mt-5">
+    <h4>Order Details</h4>
+    <div class="card">
+      <div class="card-body">
+        <p><strong>Order ID:</strong> {{ selectedOrder.id }}</p>
+        <p><strong>Order Date:</strong> {{ selectedOrder.dateAndTime | date: 'fullDate' }}</p>
+        <p><strong>Total Amount:</strong> {{ selectedOrder.totalAmount |currency:'INR' }}</p>
+        <p><strong>Status:</strong> {{ selectedOrder.orderStatus }}</p>
+        <p><strong>Delivery Address:</strong> {{ selectedOrder.deliveryAddress }}</p>
+        <p><strong>Grand Total Price:</strong> {{ selectedOrder.grandTotalPrice | currency:'INR'}}</p>
+        <p><strong>Platform Charge:</strong> {{ selectedOrder.platformCharge |currency:'INR' }}</p>
+        <p><strong>Delivery Charge:</strong> {{ selectedOrder.deliveryCharge | currency:'INR' }}</p>
+        <p><strong>GST:</strong> {{ selectedOrder.gst | currency:'INR' }}</p>
+
+        <!-- Display Restaurant Details -->
+        <div *ngIf="selectedOrder.restaurant" class="mt-4">
+          <h5>Restaurant Information</h5>
+          <p><strong> Restaurant Name:</strong> {{ selectedOrder.restaurant.restaurantName }}</p>
+          <p><strong> Restaurant Address:</strong> {{ selectedOrder.restaurant.restaurantAddress }}</p>
+        </div>
+        <div *ngIf="!selectedOrder.restaurant">
+          <p class="text-warning">Restaurant data is missing in the order details.</p>
+        </div>
+
+        <!-- Display Order Items -->
+        <div *ngIf="selectedOrder.orderItems.length > 0" class="mt-4">
+          <h5>Order Items</h5>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of selectedOrder.orderItems">
+                <td>{{ item.menu.itemName }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.menu.category }}</td>
+                <td>{{ item.menu.description }}</td>
+                <td>{{ item.menu.price | currency:'INR' }}</td>
+
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Close Details Button -->
+        <button (click)="closeOrderDetails()" class="btn btn-secondary mt-3">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer> </app-footer>

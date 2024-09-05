@@ -83,8 +83,9 @@ export class SharedDataService {
     return this.restaurantData.asObservable();
   }
   
-  setUserData(data: any) {
-    this.userData = data;
+  setUserData(userData: any) {
+    this.userData = userData;
+    localStorage.setItem('currentUser', JSON.stringify(userData)); // Optionally sync with localStorage
   }
 
   getUserData() {

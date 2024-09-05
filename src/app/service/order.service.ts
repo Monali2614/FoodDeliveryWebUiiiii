@@ -9,30 +9,18 @@ const NAV_URL = environment.apiURL;
   providedIn: 'root'
 })
 export class OrdersService {
-  
-  constructor(private http: HttpClient) {}
 
-  getAllOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(`${NAV_URL}/api/orders/order/getAllOrders`);
-  }
+  constructor(private http: HttpClient) { }
+
 
   getOrdersByUserId(userId: number): Observable<Order[]> {
     return this.http.get<Order[]>(`${NAV_URL}/api/orders/order/byUserId/${userId}`);
   }
-
-  getOrderByOrderId(orderId: number): Observable<Order> {
-    return this.http.get<Order>(`${NAV_URL}/api/orders/order/byOrderId/${orderId}`);
+  cancelOrder(orderId: string): Observable<any> {
+    const url = `${NAV_URL}api/orders/order/cancel/${orderId}`;
+    return this.http.put<any>(url, {});
   }
-
-  updateOrder(orderId: number, orders: Order): Observable<Order> {
-    return this.http.put<Order>(`${NAV_URL}/api/orders/order/update/${orderId}`, orders);
-  }
-
-  cancelOrder(orderId: number, userId: number): Observable<Order> {
-    return this.http.post<Order>(`${NAV_URL}/api/orders/order/cancel/${orderId}/${userId}`, {});
-  }
-
-  saveOrder(orders: Order): Observable<Order> {
-    return this.http.post<Order>(`${NAV_URL}/api/orders/order/save`, orders);
+  getOrderById(orderId: number): Observable<Order> {
+    return this.http.get<Order>(`${NAV_URL}/api/orders/byOrderId/${orderId}`);
   }
 }

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Menu } from 'src/app/models/menu';
-import { OrderItem } from 'src/app/models/order-item';
-import { MenuService } from 'src/app/service/menu.service';
-import { OrderItemService } from 'src/app/service/orderitem.service';
+import { SharedDataService } from 'src/app/service/shared-data.service';
+import { Order } from 'src/app/models/order';
+import { CartService } from 'src/app/service/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -11,96 +10,84 @@ import { OrderItemService } from 'src/app/service/orderitem.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-
-  orderItems: OrderItem[] = [];
+  cartItems: any[] = [];
+  totalAmount: number = 0;
+  restaurantName: string = ''; // Optionally use this if needed
 
   constructor(
-    private orderItemService: OrderItemService, 
-    private router: Router, 
-    private menuService: MenuService
+    private cartService: CartService,
+    private sharedDataService: SharedDataService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.loadCartItems();
+    this.loadCart();
+    this.calculateTotal();
   }
 
-  // Load all order items from the service
-  loadCartItems(): void {
-    this.orderItemService.getAllOrderItems().subscribe(
-      (data: OrderItem[]) => {
-        this.orderItems = data;
-        this.orderItems.forEach(item => {
-          this.fetchImage(item);  // Fetch image for each order item
-        });
-      },
-      (error) => {
-        console.error('Error fetching order items', error);
-      }
-    );
-  }
-
-  updateQuantity(id: number, quantity: number): void {
-    const orderItem = this.orderItems.find(item => item.id === id);
-    if (orderItem) {
-      const price = orderItem.price ?? 0;
-      const finalGst = quantity * price;
-      const gstAmount = this.calculateGst(finalGst); 
-      const updatedOrderItem = {
-        ...orderItem,
-        quantity: quantity,
-        totalPrice: quantity * price,
-      };
-
-      this.orderItemService.updateOrderItem(id, updatedOrderItem).subscribe(
-        (updatedItem) => {
-          console.log('Item updated', updatedItem);
-          this.loadCartItems();
-        },
-        (error) => {
-          console.error('Error updating item', error);
-        }
-      );
+  loadCart(): void {
+    const cartData = localStorage.getItem('cartItems');
+    if (cartData) {
+      this.cartItems = JSON.parse(cartData);
+      this.cartItems.forEach(item => this.cartService.addItem(item.menuId, item.quantity)); // Populate CartService
     }
   }
 
-  private calculateGst(price: number): number {
-    const gstRate = 0.18; 
-    return price * gstRate;
+  calculateTotal(): void {
+    this.totalAmount = this.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   }
 
-  deleteItem(id: number): void {
-    this.orderItemService.deleteOrderItem(id).subscribe(
-      () => {
-        console.log('Item deleted');
-        this.loadCartItems();
-      },
-      (error) => {
-        console.error('Error deleting item', error);
-      }
-    );
+  removeFromCart(menuId: number): void {
+    this.cartItems = this.cartItems.filter(item => item.menuId !== menuId);
+    this.saveCart();
+    this.cartService.removeItem(menuId); // Update CartService
+    this.calculateTotal();
   }
 
-  fetchImage(item: OrderItem) {
-    this.menuService.getMenuById(item.menuId).subscribe(
-      (menu: Menu) => {
-        if (menu && menu.images && menu.images.length > 0) {
-          item.image = `data:image/jpeg;base64,${menu.images[0]}`; // Construct the base64 data URL
-          item.menuDescription = menu.description || 'No description available'; 
-        } else {
-          item.image = 'assets/default-image.png'; // Default image if none found
-        }
+  updateQuantity(menuId: number, quantity: number): void {
+    const item = this.cartItems.find(item => item.menuId === menuId);
+    if (item) {
+      item.quantity = quantity;
+      this.saveCart();
+      this.cartService.updateQuantity(menuId, quantity); // Update CartService
+      this.calculateTotal();
+    }
+  }
+
+  clearCart(): void {
+    this.cartItems = [];
+    localStorage.removeItem('cartItems');
+    this.totalAmount = 0;
+  }
+  checkout(): void {
+    const userIdString = this.sharedDataService.getUserId();
+    const userId = Number(userIdString); // Ensure userId is a number
+  
+    if (isNaN(userId)) {
+      alert('You must be logged in to proceed to checkout.');
+      this.router.navigate(['/login']);
+      return;
+    }
+  
+    const restaurantId = 1; // Replace with actual restaurant ID logic
+  
+    this.cartService.createOrder(userId, restaurantId).subscribe(
+      (order: Order) => {
+        console.log('Order created successfully:', order); // Debug: Print the whole order object
+        console.log('Order ID:', order.id); // Debug: Print the order ID
+        
+        this.clearCart(); // Clear the cart upon successful order creation
+        this.router.navigate(['/checkout', order.id]); // Redirect to checkout with order ID
       },
       (error: any) => {
-        console.error('Error fetching menu:', error);
-        item.image = 'assets/default-image.png'; // Default image on error
+        console.error('Error creating order', error);
+        alert('Failed to create order');
       }
     );
   }
   
-  
-  
 
-  checkout(): void {
-    this.router.navigate(['/checkout'], { state: { orderItems: this.orderItems } });
+  private saveCart(): void {
+    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
   }
 }

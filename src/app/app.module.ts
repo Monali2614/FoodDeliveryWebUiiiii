@@ -46,6 +46,8 @@ import { AdminregisterComponent } from './component/adminregister/adminregister.
 import { MessageComponent } from './component/message/message.component';
 import { SubscriptionComponent } from './component/subscription/subscription.component';
 import { SubscriptionListComponent } from './component/subscription-list/subscription-list.component';
+import { InvoiceComponent } from './component/invoice/invoice.component';
+import { OrdersComponent } from './component/orders/orders.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -88,7 +90,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
    
    MessageComponent,
        SubscriptionComponent,
-       SubscriptionListComponent
+       SubscriptionListComponent,
+       InvoiceComponent,
+       OrdersComponent
    
   ],
   imports: [

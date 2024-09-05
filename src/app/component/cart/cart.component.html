@@ -1,45 +1,53 @@
-
 <app-header></app-header>
 <div class="container mt-4">
   <h2>Your Cart</h2>
 
   <!-- Cart Items -->
-  <div *ngIf="orderItems.length > 0; else emptyCart">
-    <div *ngFor="let item of orderItems" class="card mb-3">
+  <div *ngIf="cartItems.length > 0; else emptyCart">
+    <div *ngFor="let item of cartItems" class="card mb-3">
       <div class="card-body d-flex align-items-center justify-content-between">
-        <div class="item-details">
-          <!-- <h5 class="card-title">Menu ID: {{ item.menuId }}</h5> -->
-          
+        <div class="item-details d-flex align-items-center">
           <div class="col-md-4">
             <img class="menu-image" [src]="item.image" alt="Menu Image">
           </div>
-          <h5 class="card-title">Menu Name: {{ item.menuName }}</h5>
-          <p>Description: {{ item.menuDescription }}</p>
-          <p class="card-text">Price: ₹{{ item.price || 0 }}</p>
-          <p class="card-text">Quantity:
-            <input 
-              type="number" 
-              [(ngModel)]="item.quantity" 
-              (change)="updateQuantity(item.id, item.quantity)" 
-              min="1" 
-              class="form-control d-inline-block w-auto"
-            >
-          </p>
-          <p class="card-text">Total Price: ₹{{ item.totalPrice || 0 }}</p>
-          <!-- <p class="card-text">GST: ₹{{ item.gst || 0 }}</p>
-          <p class="card-text">Delivery Charge: ₹{{ item.deliveryCharge || 0 }}</p>
-          <p class="card-text">Platform Charge: ₹{{ item.platformCharge || 0 }}</p>
-          <p class="card-text">Grand Total: ₹{{ item.grandTotalPrice || 0 }}</p> -->
-        </div>
-
-        <div class="item-actions">
-          <button (click)="deleteItem(item.id)" class="btn btn-danger">Remove</button>
+          <div class="ml-3">
+            <h5 class="card-title">Menu Name: {{ item.menuName }}</h5>
+            <p>Description: {{ item.menuDescription }}</p>
+            <p class="card-text">Price: ₹{{ item.price || 0 }}</p>
+            <p class="card-text">
+              Quantity:
+              <input 
+                type="number" 
+                [(ngModel)]="item.quantity" 
+                (ngModelChange)="updateQuantity(item.menuId, $event)" 
+                min="1"
+              >
+            </p>
+            <p class="card-text">Total Price: ₹{{ (item.price * item.quantity) || 0 }}</p>
+          </div>
+          <button 
+            (click)="removeFromCart(item.menuId)" 
+            class="btn btn-danger ml-3"
+          >
+            Remove
+          </button>
         </div>
       </div>
     </div>
 
     <div class="checkout-section text-right mt-4">
-      <button (click)="checkout()" class="btn btn-primary">Proceed to Checkout</button>
+      <button 
+        (click)="checkout()" 
+        class="btn btn-primary"
+      >
+        Proceed to Checkout
+      </button>
+      <button 
+        (click)="clearCart()" 
+        class="btn btn-secondary ml-2"
+      >
+        Clear Cart
+      </button>
     </div>
   </div>
 

@@ -3,7 +3,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { SharedDataService } from 'src/app/service/shared-data.service';
 import { UserService } from 'src/app/service/user.service';
-
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-header',
@@ -24,6 +24,10 @@ export class HeaderComponent {
   ) { }
 
   ngOnInit(): void {
+    const dropdownElement = document.getElementById('navbarDropdown');
+    if (dropdownElement) {
+      new bootstrap.Dropdown(dropdownElement);
+    }
     this.userData = this.sharedDataService.getUserData();
     console.log("This is user data",this.userData)
     if (this.userData) {

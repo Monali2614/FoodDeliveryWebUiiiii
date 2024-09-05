@@ -34,30 +34,32 @@ import { AuthGuard } from './auth.guard';
 import { AdminregisterComponent } from './component/adminregister/adminregister.component';
 import { MessageComponent } from './component/message/message.component';
 import { SubscriptionComponent } from './component/subscription/subscription.component';
-
+import { InvoiceComponent } from './component/invoice/invoice.component';
+import { OrdersComponent } from './component/orders/orders.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'header', component: HeaderComponent },
+  { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
   { path: 'footer', component: FooterComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'admin-panel', component: AdminPanelComponent },
-  { path: 'addrestaurant', component: AddRestaurantComponent },
+  { path: 'addrestaurant', component: AddRestaurantComponent},
   { path: 'home', component: HomeComponent },
-  { path: 'payment', component: PaymentComponent },
+  { path: 'payment/:grandTotalPrice', component: PaymentComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: '/checkout', pathMatch: 'full' },
+  { path: 'invoice/:id', component: InvoiceComponent, canActivate: [AuthGuard] },
   { path: 'searchrestaurantbyitem', component: SearchrestaurantbyitemComponent },
   { path: 'login', component: LoginComponent },
- 
   { path: 'restaurant-list', component: RestaurantListComponent },
   { path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard] },
-  { path: 'edit-profile', component: EditProfileComponent },
+  { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard] },
   { path: 'menu/:restaurantName', component: MenuComponent },
-
   { path: 'chatbox', component: ChatboxComponent, canActivate: [AuthGuard] },
   { path: 'add-menu', component: AddMenuComponent },
   { path: 'view-restaurants', component: ViewRestaurantsComponent },
   { path: 'edit-restaurant/:id', component: EditRestaurantComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'checkout', component: CheckoutComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'checkout/:orderId', component: CheckoutComponent, canActivate: [AuthGuard] },
   { path: 'leaflet-map', component: LeafletMapComponent },
   { path: 'terms-conditions', component: TermsConditionsComponent },
   { path: 'menu', component: MenuComponent },
@@ -68,19 +70,16 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'verifyotpreset', component: VerifiyOtpResetComponent },
   { path: 'verifyotpregister', component: VerifiyOtpRegisterComponent },
-  { path: 'adminregister', component: AdminregisterComponent },
-  { path: 'review', component: ReviewComponent },
-  { path: 'message', component: MessageComponent },
-  { path: 'cart', component: CartComponent},
-  { path: 'subscription', component: SubscriptionComponent ,canActivate:[AuthGuard]},
-
-
-
-
-
-  // Add a wildcard route for any undefined paths
+  { path: 'adminregister', component: AdminregisterComponent  },
+  { path: 'review', component: ReviewComponent, canActivate: [AuthGuard] },
+  { path: 'message', component: MessageComponent, canActivate: [AuthGuard] },
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+  { path: 'subscription', component: SubscriptionComponent, canActivate: [AuthGuard] },
+  
+  // Wildcard route for undefined paths
   { path: '**', redirectTo: '/home' }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

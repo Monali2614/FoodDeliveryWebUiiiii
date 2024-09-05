@@ -1,39 +1,48 @@
-<div class="navbar navbar-expand-lg">
-  <a class="navbar-brand" href="#">
-    <img src="assets/logo3.jpg" alt="Logo" class="logo">
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item" *ngIf="!userData">
-        <a class="nav-link" routerLink="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/cart"><i class="fas fa-shopping-cart"></i> Cart</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/chatbox"><i class="fas fa-comments"></i> ChatBox</a>
-      </li>
-      <li class="nav-item profile-dropdown" *ngIf="userData">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img *ngIf="imageUrl" [src]="imageUrl" alt="User Profile Picture" class="profile-img rounded-circle">
-          <span>{{ userData.username }}</span>
-        </a>
-        <ul class="dropdown-menu dropdown-content" aria-labelledby="navbarDropdownMenuLink">
-          <li><a class="dropdown-item" routerLink="/profile"><i class="fas fa-user-circle"></i> Profile</a></li>
-          <li><a class="dropdown-item" routerLink="/edit-profile"><i class="fas fa-edit"></i> Edit Profile</a></li>
-          <!-- <li><a class="dropdown-item" routerLink="/orders"><i class="fas fa-box"></i> Orders</a></li> -->
-          <li><a (click)="logout()"><i class="fas fa-sign-out-alt"></i> LogOut</a></li>
-        </ul>
-      </li>
-      <li class="nav-item" *ngIf="!userData">
-        <a class="nav-link" routerLink="/register"><i class="fas fa-user-plus"></i> Register</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/home"><i class="fas fa-home"></i> Home</a>
-      </li>  
-    </ul>
+<nav class="navbar navbar-expand-lg custom-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="assets/logo3.jpg" alt="Logo" class="logo">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon">&#9776;</span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <!-- Show Login/Register if not logged in -->
+        <li class="nav-item" *ngIf="!userData">
+          <a class="nav-link" routerLink="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!userData">
+          <a class="nav-link" routerLink="/register"><i class="fas fa-user-plus"></i> Register</a>
+        </li>
+        
+        <!-- Cart, Chat, and Home Links -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cart"><i class="fas fa-shopping-cart"></i> Cart</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/chatbox"><i class="fas fa-comments"></i> ChatBox</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home"><i class="fas fa-home"></i> Home</a>
+        </li>
+
+        <!-- Profile Dropdown if logged in -->
+        <li class="nav-item profile-dropdown" *ngIf="userData">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img *ngIf="imageUrl" [src]="imageUrl" alt="Profile" class="profile-img rounded-circle">
+            <span>{{ userData.username }}</span>
+          </a>
+          <div class="dropdown-menu dropdown-content" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" routerLink="/profile"><i class="fas fa-user-circle"></i> Profile</a>
+            <a class="dropdown-item" routerLink="/edit-profile"><i class="fas fa-edit"></i> Edit Profile</a>
+            <a class="dropdown-item" routerLink="/orders"><i class="fas fa-box"></i> Orders</a>
+            <a class="dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt"></i> LogOut</a>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
+</nav>

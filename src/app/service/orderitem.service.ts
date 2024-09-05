@@ -20,25 +20,25 @@ export class OrderItemService {
 
   constructor(private http: HttpClient) {}
 
-  addToCart(orderItem: OrderItem): Observable<OrderItem> {
-    return this.http.post<OrderItem>(`${this.apiUrl}/order/save/${orderItem.userId}/${orderItem.menuId}`, orderItem);  }
+//   addToCart(orderItem: OrderItem): Observable<OrderItem> {
+//     return this.http.post<OrderItem>(`${this.apiUrl}/order/save/${orderItem.userId}/${orderItem.menuId}`, orderItem);  }
 
-   updateOrderItem(id: number, orderItem: OrderItem): Observable<OrderItem> {
-    return this.http.put<OrderItem>(`${this.apiUrl}/order/update/${id}`, orderItem);
-  }
- // Update an existing order item
-//  updateOrderItem(id: number, orderItem: Partial<OrderItem>): Observable<OrderItem> {
-//   return this.http.put<OrderItem>(${this.apiUrl}/order/update/${id}, orderItem);
-// }
-  deleteOrderItem(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/order/delete/${id}`, { responseType: 'text' });  }
+//    updateOrderItem(id: number, orderItem: OrderItem): Observable<OrderItem> {
+//     return this.http.put<OrderItem>(`${this.apiUrl}/order/update/${id}`, orderItem);
+//   }
+//  // Update an existing order item
+// //  updateOrderItem(id: number, orderItem: Partial<OrderItem>): Observable<OrderItem> {
+// //   return this.http.put<OrderItem>(${this.apiUrl}/order/update/${id}, orderItem);
+// // }
+//   deleteOrderItem(id: number): Observable<any> {
+//     return this.http.delete(`${this.apiUrl}/order/delete/${id}`, { responseType: 'text' });  }
 
-  getOrderItemById(id: number): Observable<OrderItem> {
-    return this.http.get<OrderItem>(`${this.apiUrl}/order/${id}`);  }
+//   getOrderItemById(id: number): Observable<OrderItem> {
+//     return this.http.get<OrderItem>(`${this.apiUrl}/order/${id}`);  }
 
-  getAllOrderItems(): Observable<OrderItem[]> {
-    return this.http.get<OrderItem[]>(`${this.apiUrl}/orders`);  }
+//   getAllOrderItems(): Observable<OrderItem[]> {
+//     return this.http.get<OrderItem[]>(`${this.apiUrl}/orders`);  }
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/getAllUsers`);  }
+//   getAllUsers(): Observable<User[]> {
+//     return this.http.get<User[]>(`${this.apiUrl}/getAllUsers`);  }
 }

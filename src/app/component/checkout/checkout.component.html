@@ -1,52 +1,80 @@
-<!-- checkout.component.html -->
 <app-header></app-header>
+
 <div class="container mt-4">
   <h2>Checkout</h2>
 
-  <div *ngIf="orderItems.length === 0">
-    <p>Your cart is empty.</p>
-    <!-- <button class="btn btn-primary" (click)="router.navigate(['/menu'])">Go to Menu</button> -->
+  <div *ngIf="order; else emptyCart">
+    <!-- Order Details -->
+    <div class="order-details mb-4">
+      <h4>Order Details</h4>
+      <p><strong>Order ID:</strong> {{ order.id }}</p>
+      <p><strong>Order Date:</strong> {{ order.dateAndTime | date: 'short' }}</p>
+      <p><strong>Order Status:</strong> {{ order.orderStatus }}</p>
+    </div>
+
+    <!-- User and Restaurant Information -->
+    <div class="user-restaurant-details mb-4">
+      <h4>User & Restaurant Information</h4>
+      <p><strong>User Name:</strong> {{ order.user.name }}</p>
+      <p><strong>User Email:</strong> {{ order.user.email }}</p>
+      <p><strong>Restaurant Name:</strong> {{ order.restaurant.restaurantName }}</p>
+      <p><strong>Restaurant Address:</strong> {{ order.restaurant.restaurantAddress }}</p>
+    </div>
+
+    <!-- Order Items -->
+    <div class="order-items mb-4">
+      <h4>Order Items</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Menu ID</th>
+            <th>Menu Name</th>
+            <th>Catagory</th>
+            <th>Quantity</th>
+            <th>Item Price</th>
+            <th>Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of order.orderItems">
+            <td>{{ item.menu.menuId }}</td>
+            <td>{{ item.menu.itemName }}</td>
+            <td>{{ item.menu.category }}</td>
+            <td>{{ item.quantity}}</td>
+            <td>₹{{ item.menu.price }}</td>
+            <td>₹{{ item.itemTotalPrice }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="checkout-summary mb-4">
+      <h4>Order Summary</h4>
+      <p><strong>Total Amount :</strong> ₹{{ order.totalAmount }}</p>
+      <p><strong>Platform Charge:</strong> ₹{{ order.platformCharge }}</p>
+      <p><strong>Delivery Charge:</strong> ₹{{ order.deliveryCharge }}</p>
+      <p><strong>GST:</strong> ₹{{ order.gst }}</p>
+      <h4><strong>Grand Total:</strong> ₹{{ order.grandTotalPrice }}</h4>
+    </div>
+
+    <!-- Delivery Address -->
+    <div class="delivery-address mb-4">
+      <label for="deliveryAddress"><strong>Delivery Address</strong></label>
+      <input type="text" id="deliveryAddress" class="form-control" [(ngModel)]="order.deliveryAddress" placeholder="Enter your delivery address">
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="mt-4">
+      <button (click)="router.navigate(['/cart'])" class="btn btn-secondary">Cancel</button>
+      <button (click)="proceedToPayment()" class="btn btn-primary ml-2">Proceed to Payment</button>
+    </div>
   </div>
 
-  <div *ngIf="orderItems.length > 0">
-    <h4>Order Items</h4>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Item Name</th>
-          <th>Quantity</th>
-          <th>Item Price  </th>
-          <th>Total Price for Selected Quantity</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of orderItems">
-          <td>{{ item.menuId }}</td> <!-- Assuming menuId maps to item name -->
-          <td>{{ item.menuName}}</td>
-          <td>{{ item.quantity }}</td>
-          <td>₹{{ item.price  }}</td>
-          <td>₹{{ item.totalPrice }}</td>
-
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="checkout-summary">
-      <h3>Order Summary</h3>
-      <p>Total Price For Cart Item:₹{{ calculateTotalPrice () }}</p>
-      <p>GST ({{ gstRate * 100 }}%): ₹{{ calculateGST()  }}</p>
-      <p>Platform Charge:₹ {{ platformCharge  }}</p>
-      <p>Delivery Charge:₹ {{ deliveryCharge  }}</p>
-      <h4>Grand Total:₹{{ calculateGrandTotal() }}</h4>
-    </div>
-    
-    <div class="delivery-address">
-      <label for="deliveryAddress">Delivery Address</label>
-      <input type="text" id="deliveryAddress" [(ngModel)]="deliveryAddress" placeholder="Enter your delivery address">
-    </div>
-    <button (click)="cancelOrder()" class="btn btn-secondary">Cancel</button>
-    <button (click)="placeOrder()" class="btn btn-primary">Place Order</button>
-      </div>
+  <ng-template #emptyCart>
+    <p>Your cart is empty.</p>
+    <button class="btn btn-primary" (click)="router.navigate(['/menu'])">Go to Menu</button>
+  </ng-template>
 </div>
+
 <app-footer></app-footer>

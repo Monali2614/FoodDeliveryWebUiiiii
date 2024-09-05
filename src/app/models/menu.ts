@@ -12,6 +12,8 @@ export class Menu {
   category: string;
   imageUrl?: string; // An additional image URL (optional)
   images: string[]; // Array of base64 encoded images
+quantity: any;
+itemTotalPrice: any;
 
   constructor(
     menuId: number = 0, // Update parameter name to match the property

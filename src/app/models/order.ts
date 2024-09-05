@@ -4,17 +4,21 @@ import { Menu } from "./menu";
 import { OrderItem } from "./order-item";
 
 export interface Order {
+totalAmount: any;
+  id:number;
   orderId: number;
   orderStatus: OrderStatus;
-  user: number;
-  restaurant: number;
+  user: User;
+  restaurant: Restaurant;
+  menu:Menu;
   orderItems: OrderItem[];
-  orderDateAndTime: string;
+  dateAndTime: Date;
   deliveryAddress: string; // New field for the delivery address
   grandTotalPrice:number
   platformCharge:number
   deliveryCharge:number
-  gst:number 
+  gst:number;
+ 
   
   }
   

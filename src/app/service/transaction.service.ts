@@ -22,5 +22,20 @@ export class TransactionService {
       })
     );
   }
-}
+  updateOrderStatus(orderId: string, paymentSuccess: boolean): Observable<any> {
+    const url = `http://localhost:8080/api/orders/order/updateStatus/${orderId}/${paymentSuccess}`;
+    return this.http.put<any>(url, {});
+  }
 
+  generateInvoice(orderId: string): Observable<any> {
+    const url = `http://localhost:8080/api/invoices/invoice/generate/${orderId}`;
+    return this.http.post<any>(url, {});
+  }
+  getInvoice(invoiceId: string) {
+    return this.http.get(`http://localhost:8080/api/invoices/invoice/getInvoiceById/${invoiceId}`);
+  }
+  cancelOrder(orderId: string): Observable<any> {
+    const url = `${NAV_URL}api/orders/order/cancel/${orderId}`;
+    return this.http.put<any>(url, {});
+}
+}

@@ -1,45 +1,13 @@
-<app-header></app-header>
+<!-- src/index.html -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 <div class="payment-container">
-  <div *ngIf="user">
-    <h3>User Information</h3>
-    <p><strong>Name:</strong> {{ user.name }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    <p><strong>Address:</strong> {{ user.address }}</p>
-    <p><strong>contact no:</strong> {{ user.mobileNo }}</p>
-    <hr>
+    <h2>Payment</h2>
+    <div *ngIf="grandTotalPrice !== null">
+      <p>Total Amount: ₹{{ grandTotalPrice }}</p>
+      <button (click)="initiatePayment()">Proceed to Pay ₹{{ grandTotalPrice }}</button>
+    </div>
+    <div *ngIf="grandTotalPrice === null">
+      <p>Unable to fetch the total amount. Please try again.</p>
+    </div>
   </div>
-
-  <button (click)="generateInvoice()" class="btn btn-primary">Download Invoice</button>
-  
-  <h2>Payment Summary</h2>
-  <div *ngFor="let item of order.orderItems">
-    <p><strong>Menu Name:</strong> {{ item.menuName }}</p>
-    <p><strong>Quantity:</strong> {{ item.quantity }}</p>
-    <p><strong>Price Of Menu:</strong> ₹{{ item.price }}</p>
-    <p><strong>Total Price for Quantity:</strong> ₹{{ item.totalPrice }}</p>
-    <p><strong>GST (18%):₹{{ calculateGST(item.totalPrice) }}</strong> </p>
-   
-  
-    <hr>
-  </div>
-  <p><strong>Delivery Charge:</strong> ₹{{ deliveryCharge }}</p>
-  <p><strong>Platform Charge:</strong> ₹{{ platformCharge }}</p>
-
-  <p><strong>Final price After all Charges and gst</strong> </p>
-
-  <p><strong>Grand Total:</strong> ₹{{ totalPrice }}</p>
-  <p><strong>Order Status:</strong> {{ order.orderStatus }}</p>
-
-  <div *ngIf="transactionDetails">
-    <h3>Transaction Details</h3>
-    <p><strong>Transaction ID</strong> {{ transactionDetails.orderId }}</p>
-    <p><strong>Amount:</strong> ₹{{ transactionDetails.amount / 100 }}</p> <!-- Divide by 100 if amount is in paise -->
-    <p><strong>Currency:</strong> {{ transactionDetails.currency }}</p>
-    <p><strong>Date and Time:</strong> {{ transactionDetails.createdAt }}</p>
-    <p><strong>Payment Status:</strong> success</p>
-  </div>
-
-  <!-- Razorpay payment button will appear here -->
-  <div id="razorpay-button-container"></div>
-</div>
-
