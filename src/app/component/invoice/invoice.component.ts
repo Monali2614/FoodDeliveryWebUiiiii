@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TransactionService } from 'src/app/service/transaction.service';
 
 @Component({
@@ -17,7 +17,8 @@ export class InvoiceComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +44,9 @@ export class InvoiceComponent implements OnInit {
         console.error('Error fetching invoice details:', error);
       }
     );
+  }
+  closeInvoice(): void {
+    this.router.navigate(['/orders']); // Navigate to the orders page or another page as needed
   }
   
   printInvoice(): void {

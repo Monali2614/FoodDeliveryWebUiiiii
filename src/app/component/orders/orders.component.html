@@ -32,10 +32,10 @@
           <td>{{ order.id }}</td>
           <td>{{ order.dateAndTime | date: 'short' }}</td>
           <td>{{ order.orderStatus }}</td>
-          <td>{{ order.totalAmount | currency:'INR' }}</td>
+          <td>{{ order.grandTotalPrice | currency:'INR' }}</td>
           <td>
             <button (click)="viewOrderDetails(order.id)" class="btn btn-primary btn-sm">View Details</button>
-            <button *ngIf="order.orderStatus === 'PENDING' || order.orderStatus === 'CONFIRMED'"
+            <button *ngIf="order.orderStatus === 'PAID' || order.orderStatus === 'PENDING'"
               (click)="cancelOrder(order.id)" class="btn btn-danger btn-sm">
               Cancel Order
             </button>

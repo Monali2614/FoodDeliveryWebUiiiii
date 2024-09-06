@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrdersService } from 'src/app/service/order.service';
 import { UserService } from 'src/app/service/user.service';
 import { Order } from 'src/app/models/order';
+import { TransactionService } from 'src/app/service/transaction.service';
  
 @Component({
   selector: 'app-orders',
@@ -18,7 +19,8 @@ export class OrdersComponent implements OnInit {
  
   constructor(
     private orderService: OrdersService,  // Inject OrdersService
-    private userService: UserService      // Inject UserService
+    private userService: UserService   ,   // Inject UserService
+    private transactionService: TransactionService 
   ) {}
  
   ngOnInit(): void {
@@ -78,7 +80,7 @@ export class OrdersComponent implements OnInit {
   cancelOrder(orderId: any): void {
     const orderToCancel = this.orders.find(order => order.id === orderId);
     if (orderToCancel) {
-      if (orderToCancel.orderStatus === 'PENDING' || orderToCancel.orderStatus === 'CONFIRMED') {
+      if (orderToCancel.orderStatus === 'PAID' || orderToCancel.orderStatus === 'PENDING') {
         if (this.userId > 0) {
           this.orderService.cancelOrder(orderId).subscribe(
             () => {
@@ -105,5 +107,6 @@ export class OrdersComponent implements OnInit {
       this.errorMessage = 'Order not found.';
     }
   }
+
 }
  

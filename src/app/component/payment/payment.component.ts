@@ -47,7 +47,11 @@ export class PaymentComponent implements OnInit {
       alert('Order ID or amount is invalid.');
     }
   }
-
+  cancelPayment(): void {
+    this.verifyPaymentAndUpdateStatus(false); // Mark the payment as failed
+    alert('Payment was canceled.');
+    this.router.navigate(['/orders']); // Redirect to the orders page or any other page
+  }
   payWithRazorpay(): void {
     const options = {
       key: environment.razorpayKey,
@@ -63,6 +67,11 @@ export class PaymentComponent implements OnInit {
         console.log('Razorpay Order ID:', response.razorpay_order_id);
         console.log('Razorpay Signature:', response.razorpay_signature);
         this.verifyPaymentAndUpdateStatus(true);
+      },
+      modal: {
+        ondismiss: () => {
+          this.cancelPayment(); // Handle modal close
+        }
       },
       prefill: {
         name: '',

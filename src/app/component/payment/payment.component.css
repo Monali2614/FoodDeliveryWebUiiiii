@@ -1,0 +1,29 @@
+.payment-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .payment-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .payment-container p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .payment-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .payment-container .cancel-btn {
+    background-color: #f44336; /* Red color for cancel button */
+    color: white;
+  }
+  

@@ -1,13 +1,11 @@
-<!-- src/index.html -->
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
 <div class="payment-container">
-    <h2>Payment</h2>
-    <div *ngIf="grandTotalPrice !== null">
-      <p>Total Amount: ₹{{ grandTotalPrice }}</p>
-      <button (click)="initiatePayment()">Proceed to Pay ₹{{ grandTotalPrice }}</button>
-    </div>
-    <div *ngIf="grandTotalPrice === null">
-      <p>Unable to fetch the total amount. Please try again.</p>
-    </div>
+  <h2>Payment</h2>
+  <div *ngIf="grandTotalPrice !== null">
+    <p>Total Amount: ₹{{ grandTotalPrice }}</p>
+    <button (click)="initiatePayment()">Proceed to Pay ₹{{ grandTotalPrice }}</button>
+    <button (click)="cancelPayment()" class="cancel-btn">Cancel Payment</button>
   </div>
+  <div *ngIf="grandTotalPrice === null">
+    <p>Unable to fetch the total amount. Please try again.</p>
+  </div>
+</div>

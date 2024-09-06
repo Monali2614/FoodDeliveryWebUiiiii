@@ -32,7 +32,7 @@ export class TransactionService {
     return this.http.post<any>(url, {});
   }
   getInvoice(invoiceId: string) {
-    return this.http.get(`http://localhost:8080/api/invoices/invoice/getInvoiceById/${invoiceId}`);
+    return this.http.get(`http://localhost:8080/api/invoices/invoice/getInvoiceById/${invoiceId}`,{ responseType: 'text' });
   }
   cancelOrder(orderId: string): Observable<any> {
     const url = `${NAV_URL}api/orders/order/cancel/${orderId}`;
